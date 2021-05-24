@@ -64,7 +64,7 @@
 						<li><a href="#">쪽지</a></li>
 					</ul>
 					<ul>
-						<li><a href="/project/users/logout">로그아웃</a></li>
+						<li><a href="/team4/users/logout">로그아웃</a></li>
 					</ul>
 				</div>
 			</div>

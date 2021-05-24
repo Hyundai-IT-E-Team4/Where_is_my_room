@@ -48,4 +48,15 @@ public class UserController {
 			return "result";
 		}
 	}
+
+	@GetMapping("/logout")
+	public String logout(@ModelAttribute LoginDTO loginDTO, Model model, HttpSession session) {
+
+		log.info(loginDTO.toString());
+		
+		UserDTO userInfo = (UserDTO) session.getAttribute("userInfo");
+		session.invalidate();
+		
+		return "redirect:../";
+	}
 }
