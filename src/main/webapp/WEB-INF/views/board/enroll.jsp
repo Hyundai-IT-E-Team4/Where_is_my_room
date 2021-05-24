@@ -13,6 +13,7 @@
 
 <title>짧게 머물자, 구해줘 룸즈!</title>
 
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9dad515bc29f7c64e401203f2300d728&libraries=services"></script>
 <!-- fonts -->
 <link
 	href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap"
@@ -70,20 +71,105 @@
 		</div>
 		</div>
 	</header>
-
-
-
-
-
 	<section>
 		<div class="container">
 			<!-- 여기에 작성하세요 :) -->
+			<form method="post">
+			<div>
+			<strong>매물 종류</strong>
+			<input type="radio" value="원룸" name="room_type"/>원룸
+			<input type="radio" value="투룸" name="room_type"/>투룸
+			</div>
+			<br><br>
+			<div>
+			<strong>계약 종류</strong>
+			<input type="radio" value="양도" name="contract_type"/>양도
+			<input type="radio" value="대여" name="contract_type"/>대여
+			</div>
+			
+
+
+<div>
+<strong>희망 가격</strong>
+<input type="text" name="rental_fee">
+</div>
+
+<div>
+<strong>게시글 제목을 입력해주세요</strong>
+<input type="text" name="title">
+</div>
+
+
+<div>
+<strong>방에 대한 설명을 입력해주세요</strong>
+<textarea rows="5" cols="10" name="content"></textarea>
+</div>
+<div>
+
+<strong>작성자 아이디</strong>
+<input type="text" name="writer_id">(세션에서 가져올 예정) + writer_id라서 user와 조인 필요 
+</div>
+<div>
+<strong>위도 경도 출력되는 곳</strong>
+<input type="text" name="latitude" id="latitude" value="">
+<input type="text" name="longitude" id="longitude" value="">
+</div>
+<div>
+<strong>주소입력하는 곳</strong>
+<input type="text" id="address" name="address">
+<button onclick='getAddress()' type="button">확인</button>
+</div>
+<input type="submit" value="등록하기"/>
+</form>
+
+
+		
+		
+			<!-- 지도 표시 영역 시작-->
+<div id="map" style="width:100%;height:350px;"></div>
+<script>
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = {
+        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        level: 1 // 지도의 확대 레벨
+    };  
+// 지도를 생성합니다    
+var map = new kakao.maps.Map(mapContainer, mapOption); 
+// 주소-좌표 변환 객체를 생성합니다
+var geocoder = new kakao.maps.services.Geocoder();
+function getAddress(){
+	var keyword = document.getElementById('address').value;
+	geocoder.addressSearch(keyword , function(result, status) {
+
+	    // 정상적으로 검색이 완료됐으면 
+	     if (status === kakao.maps.services.Status.OK) {
+
+	        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+			console.log(result[0].y);//lat
+			console.log(result[0].x);//lng
+			var lat = document.getElementById("latitude");
+			var lon = document.getElementById("longitude");
+			lat.value = result[0].y;
+			lon.value = result[0].x;
+			console.log(lat.value);
+			console.log(lon.value);
+			// 결과값으로 받은 위치를 마커로 표시합니다
+	        var marker = new kakao.maps.Marker({
+	            map: map,
+	            position: coords
+	        });
+	        // 인포윈도우로 장소에 대한 설명을 표시합니다
+	        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+	        map.setCenter(coords);
+	    } 
+	});    
+}
+</script>
+<!-- 지도 표시 영역 끝-->
+
+			
 		</div>
 	</section>
-
-
-
-
 
 
 
@@ -107,5 +193,7 @@
 
 	<!-- app -->
 	<script src="resources/js/dropdown-menu.js"></script>
+	
+	
 </body>
 </html>

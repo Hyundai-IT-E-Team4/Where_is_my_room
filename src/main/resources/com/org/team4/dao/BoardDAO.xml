@@ -1,1 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.org.team4.dao.BoardDAO">
+<insert id="insertBoard" parameterType="BoardinsertDTO">
+	insert into 
+board(title,content, writer_id, latitude, longitude, room_type, contract_type, rental_fee, address, write_date, deleted)
+values 
+    (#{title},
+    #{content},
+    #{writer_id},
+    #{latitude},
+    #{longitude},
+	#{room_type},
+	#{contract_type},
+	#{rental_fee},
+	#{address},
+	sysdate,
+	0) 
+	</insert>
+	
+	<select id="getMapList" resultType="MapDTO">
+	select title, latitude, longitude, address
+	from board
+	</select>
+
+</mapper> 
