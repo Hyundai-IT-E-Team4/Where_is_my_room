@@ -9,7 +9,7 @@ import lombok.ToString;
 @ToString
 public class MapDTO {
 
-	private String Title;
+	private String title;
 	private double latitude;
 	private double longitude;
 	private String address;
