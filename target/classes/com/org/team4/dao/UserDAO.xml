@@ -16,7 +16,7 @@
                 #{name},
                 #{nickname},
                 #{email},
-                #{gender},
+                #{gender}
             )
         }
     </select>
