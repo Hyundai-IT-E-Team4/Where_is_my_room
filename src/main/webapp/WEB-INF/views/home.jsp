@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"
-    isELIgnored="false"
-    %>
+	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page session="false"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -57,19 +54,32 @@
 						alt="Profile Image" draggable="false" />
 				</button>
 				<div class="dropdown-menu">
-					<h3>
-						<!-- 세션 없을 시  : <a href="/project/users/login">Sign in</a> -->
-						반갑습니다 :) <strong>한승훈</strong> 님
-					</h3>
-					<ul>
-						<li><a href="#">내 정보</a></li>
-						<li><a href="#">내가 등록한 방</a></li>
-						<li><a href="#">최근 본 방</a></li>
-						<li><a href="#">쪽지</a></li>
-					</ul>
-					<ul>
-						<li><a href="/team4/users/logout">로그아웃</a></li>
-					</ul>
+					<c:choose>
+						<c:when test="${sessionScope.userInfo.nickname ne null}">
+							<h3>
+								반갑습니다 :) <strong>${sessionScope.userInfo.nickname}</strong> 님
+							</h3>
+							<ul>
+								<li><a href="/team4/users/info">내 정보</a></li>
+								<li><a href="#">내가 등록한 방</a></li>
+								<li><a href="#">최근 본 방</a></li>
+								<li><a href="/team4/users/chat">쪽지</a></li>
+							</ul>
+							<ul>
+								<li><a href="/team4/users/logout">로그아웃</a></li>
+							</ul>
+						</c:when>
+						<c:otherwise>
+							<h3>
+								로그인 후 이용해보세요!
+							</h3>
+							<ul>
+								<li>
+									<a href="/team4/users/login">로그인 및 회원가입</a>
+								</li>
+							</ul>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</div>
 		</div>
@@ -86,8 +96,7 @@
 							<div class="landing-search">
 								<img width="24" height="24"
 									src="https://image.flaticon.com/icons/png/128/14/14877.png"
-									alt="Search" /> <input
-									placeholder="지역 &amp; 단지명을 입력해서 찾아보세요!" />
+									alt="Search" /> <input placeholder="지역 &amp; 단지명을 입력해서 찾아보세요!" />
 							</div>
 						</form>
 					</div>

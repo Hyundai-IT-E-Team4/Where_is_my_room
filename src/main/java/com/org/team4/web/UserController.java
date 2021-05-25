@@ -36,10 +36,11 @@ public class UserController {
 
 		try {
 			UserDTO userInfo = userService.getUser(loginDTO);
-			log.info(userInfo.toString());
+			log.info("세션 등록할 것" + userInfo.toString());
 
 			session.setAttribute("userInfo", userInfo);
-			return "redirect:../board";
+		
+			return "redirect:../";
 
 		} catch (Exception e) {
 			log.info(e.getMessage());

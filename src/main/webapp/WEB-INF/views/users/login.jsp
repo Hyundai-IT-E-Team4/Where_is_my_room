@@ -96,7 +96,7 @@
 
 				<div class="login-register">
 					<p>구해줘 룸즈가 처음이신가요?</p>
-					<a href="./index.html"> 회원가입 </a>
+					<a href="/team4/users/register"> 회원가입 </a>
 				</div>
 			</form>
 		</div>
