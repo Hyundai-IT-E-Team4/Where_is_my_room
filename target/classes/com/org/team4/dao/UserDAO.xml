@@ -3,22 +3,30 @@
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.org.team4.dao.UserDAO">
 
-	<select id="getUser" parameterType="loginDTO" resultType="userDTO">
-	select *
-	from   users
-	where  email=#{email} and password=#{password}
+	<select id="getUser" parameterType="loginDTO"
+		resultType="userDTO">
+		select *
+		from users
+		where email=#{email} and
+		password=#{password}
 	</select>
-     
-    <select id="registerUser" statementType="CALLABLE" parameterType="userDTO">
-        {
-            CALL users_register(
-                #{password},
-                #{name},
-                #{nickname},
-                #{email},
-                #{gender}
-            )
-        }
-    </select>
-	
+
+	<select id="registerUser" statementType="CALLABLE"
+		parameterType="userDTO">
+		{
+		CALL users_register(
+		#{password},
+		#{name},
+		#{nickname},
+		#{email},
+		#{gender}
+		)
+		}
+	</select>
+
+	<select id="withdrawUser" parameterType="loginDTO" resultType="long">
+		update users set nickname = null, email = null
+    	where email = #{email} and password = #{password}
+	</select>
+
 </mapper>

@@ -36,16 +36,15 @@ public class UserController {
 
 		try {
 			UserDTO userInfo = userService.getUser(loginDTO);
-			log.info("세션 등록할 것" + userInfo.toString());
 
 			session.setAttribute("userInfo", userInfo);
-		
+
 			return "redirect:../";
 
 		} catch (Exception e) {
 			log.info(e.getMessage());
 			model.addAttribute("msg", e.getMessage());
-			model.addAttribute("url", "./");
+			model.addAttribute("url", "./login");
 			return "result";
 		}
 	}
@@ -54,16 +53,22 @@ public class UserController {
 	public String logout(@ModelAttribute LoginDTO loginDTO, Model model, HttpSession session) {
 
 		log.info(loginDTO.toString());
-		
+
 		UserDTO userInfo = (UserDTO) session.getAttribute("userInfo");
 		session.invalidate();
-		
+
 		return "redirect:../";
 	}
-	
+
 	@GetMapping("/register")
-	public String register() {
-		return "users/register";
+	public String register(HttpSession session) {
+
+		UserDTO userInfo = (UserDTO) session.getAttribute("userInfo");
+
+		if (userInfo == null)
+			return "redirect:../users/login";
+		else
+			return "users/register";
 	}
 
 	@PostMapping("/register")
@@ -71,6 +76,34 @@ public class UserController {
 
 		try {
 			userService.registerUser(userDTO);
+			return "redirect:../";
+
+		} catch (Exception e) {
+			log.info(e.getMessage());
+			model.addAttribute("msg", e.getMessage());
+			model.addAttribute("url", "./");
+			return "result";
+		}
+
+	}
+
+	@GetMapping("/withdraw")
+	public String withdraw(HttpSession session) {
+
+		UserDTO userInfo = (UserDTO) session.getAttribute("userInfo");
+
+		if (userInfo == null)
+			return "redirect:../users/login";
+		else
+			return "users/withdraw";
+	}
+
+	@PostMapping("/withdraw")
+	public String withdraw(@ModelAttribute LoginDTO loginDTO, Model model, HttpSession session) {
+
+		try {
+			userService.withdrawUser(loginDTO);
+			session.invalidate();
 			return "redirect:../";
 
 		} catch (Exception e) {

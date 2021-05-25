@@ -21,7 +21,7 @@ public class UserServiceImpl implements UserService {
 			UserDTO userInfo = userDAO.getUser(loginDTO);
 
 			if (userInfo == null)
-				throw new RuntimeException("아이디 혹은 비밀번호가 틀립니다.");
+				throw new RuntimeException("이메일 주소 혹은 비밀번호가 틀립니다.");
 
 			return userInfo;
 		} catch (Exception e) {
@@ -32,5 +32,19 @@ public class UserServiceImpl implements UserService {
 
 	public void registerUser(UserDTO userDTO) throws Exception {
 		userDAO.registerUser(userDTO);
+	}
+
+
+	public void withdrawUser(LoginDTO loginDTO) throws Exception {
+		try {
+			long res = userDAO.withdrawUser(loginDTO);
+			
+			if (res == 0)
+				throw new RuntimeException("이메일 주소 혹은 비밀번호가 틀립니다.");
+
+		} catch (Exception e) {
+			log.info(e.getMessage());
+			throw e;
+		}
 	}
 }

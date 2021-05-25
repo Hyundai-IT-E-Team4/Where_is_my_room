@@ -8,5 +8,7 @@ public interface UserDAO {
 	UserDTO getUser(LoginDTO loginDTO) throws Exception;
 	
 	void registerUser(UserDTO userDTO) throws Exception;
+	
+	Long withdrawUser(LoginDTO loginDTO) throws Exception;
 
 }

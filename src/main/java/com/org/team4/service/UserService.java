@@ -9,4 +9,6 @@ public interface UserService {
 	
 	void registerUser(UserDTO userDTO) throws Exception;
 
+	void withdrawUser(LoginDTO loginDTO) throws Exception;
+
 }
