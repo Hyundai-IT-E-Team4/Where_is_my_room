@@ -65,7 +65,7 @@ public class UserController {
 
 		UserDTO userInfo = (UserDTO) session.getAttribute("userInfo");
 
-		if (userInfo == null)
+		if (userInfo != null)
 			return "redirect:../users/login";
 		else
 			return "users/register";
