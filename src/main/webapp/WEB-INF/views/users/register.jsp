@@ -19,16 +19,16 @@
 	rel="stylesheet" />
 
 <!-- styles -->
-<link rel="stylesheet" href="resources/css/reset.css" />
-<link rel="stylesheet" href="resources/css/grid.min.css" />
-<link rel="stylesheet" href="resources/css/header.css" />
-<link rel="stylesheet" href="resources/css/footer.css" />
-<link rel="stylesheet" href="resources/css/dropdown.css" />
+<link rel="stylesheet" href="../resources/css/reset.css" />
+<link rel="stylesheet" href="../resources/css/grid.min.css" />
+<link rel="stylesheet" href="../resources/css/header.css" />
+<link rel="stylesheet" href="../resources/css/footer.css" />
+<link rel="stylesheet" href="../resources/css/dropdown.css" />
 
 <!-- favicon -->
-<link rel="shortcut icon" href="resources/img/favicon.ico"
+<link rel="shortcut icon" href="../resources/img/favicon.ico"
 	type="image/x-icon" />
-<link rel="icon" href="resources/img/favicon.ico" type="image/x-icon" />
+<link rel="icon" href="../resources/img/favicon.ico" type="image/x-icon" />
 
 <!-- app -->
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -36,7 +36,7 @@
 <body>
 	<header class="page-header">
 		<div class="header-logo">
-			<a href="./index.html"> <img src="resources/img/icon.png"
+			<a href="./index.html"> <img src="../resources/img/icon.png"
 				alt="Logo" />
 			</a>
 		</div>
@@ -106,6 +106,6 @@
 	</footer>
 
 	<!-- app -->
-	<script src="resources/js/dropdown-menu.js"></script>
+	<script src="../resources/js/dropdown-menu.js"></script>
 </body>
 </html>

@@ -29,4 +29,8 @@ public class UserServiceImpl implements UserService {
 			throw e;
 		}
 	}
+
+	public void registerUser(UserDTO userDTO) throws Exception {
+		userDAO.registerUser(userDTO);
+	}
 }

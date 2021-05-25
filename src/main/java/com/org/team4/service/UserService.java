@@ -6,5 +6,7 @@ import com.org.team4.dto.UserDTO;
 public interface UserService {
 	
 	UserDTO getUser(LoginDTO loginDTO) throws Exception;
+	
+	void registerUser(UserDTO userDTO) throws Exception;
 
 }

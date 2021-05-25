@@ -59,4 +59,24 @@ public class UserController {
 		
 		return "redirect:../";
 	}
+	
+	@GetMapping("/register")
+	public String register() {
+		return "users/register";
+	}
+
+	@PostMapping("/register")
+	public String register(@ModelAttribute UserDTO userDTO, Model model, HttpSession session) {
+
+		try {
+			userService.registerUser(userDTO);
+			return "redirect:../";
+
+		} catch (Exception e) {
+			log.info(e.getMessage());
+			model.addAttribute("msg", e.getMessage());
+			model.addAttribute("url", "./");
+			return "result";
+		}
+	}
 }

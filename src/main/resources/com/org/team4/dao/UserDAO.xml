@@ -8,5 +8,17 @@
 	from   users
 	where  email=#{email} and password=#{password}
 	</select>
+     
+    <select id="registerUser" statementType="CALLABLE" parameterType="userDTO">
+        {
+            CALL users_register(
+                #{password},
+                #{name},
+                #{nickname},
+                #{email},
+                #{gender},
+            )
+        }
+    </select>
 	
 </mapper>
