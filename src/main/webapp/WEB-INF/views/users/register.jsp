@@ -24,6 +24,7 @@
 <link rel="stylesheet" href="../resources/css/header.css" />
 <link rel="stylesheet" href="../resources/css/footer.css" />
 <link rel="stylesheet" href="../resources/css/dropdown.css" />
+<link rel="stylesheet" href="../resources/css/register.css" />
 
 <!-- favicon -->
 <link rel="shortcut icon" href="../resources/img/favicon.ico"
@@ -32,6 +33,42 @@
 
 <!-- app -->
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="//unpkg.com/bootstrap@4/dist/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+	function registerCheckFunction() {
+		var userID = $('#userID').val();
+		$.ajax({
+			type : 'POST',
+			url : './UserRegisterCheckServlet',
+			data : {
+				userID : userID
+			},
+			success : function(result) {
+				if (result == 1) {
+					$('#checkMessage').html('사용할 수 있는 아이디입니다.');
+					$('#checkType').attr('class',
+							' modal-content panel-success');
+				} else {
+					$('#checkMessage').html('사용할 수 없는 아이디입니다.');
+					$('#checkType').attr('class',
+							' modal-content panel-warning');
+				}
+				$('#checkModal').modal("show");
+			}
+		});
+	}
+
+	function passwordCheckFunction() {
+		var userPassword1 = $('#userPassword1').val();
+		var userPassword2 = $('#userPassword2').val();
+		
+		if (userPassword2 != '' && userPassword1 != userPassword2) {
+			$('#passwordCheckMessage').html('비밀번호가 서로 일치하지 않습니다.');
+		} else {
+			$('#passwordCheckMessage').html('');
+		}
+	}
+</script>
 </head>
 <body>
 	<header class="page-header">
@@ -42,9 +79,8 @@
 		</div>
 		<div class="header-menu">
 			<nav class="header-navigation">
-				<a href="/project/map">지도</a> 
-				<a href="/project/boards/insert">방 내놓기</a> 
-				<a href="/project/qna">Q&amp;A</a>
+				<a href="/project/map">지도</a> <a href="/project/boards/insert">방
+					내놓기</a> <a href="/project/qna">Q&amp;A</a>
 			</nav>
 			<div class="header-profile dropdown">
 				<button type="button" class="dropdown-button">
@@ -71,21 +107,68 @@
 		</div>
 	</header>
 
-
-
-
-
 	<section>
 		<div class="container">
-			<!-- 여기에 작성하세요 :) -->
+			<form class="register-form" method="post" action="register">
+				<table>
+					<thead>
+						<tr>
+							<th><h3>회원 가입</h3></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>
+								<h5>이메일</h5>
+							<td><input type="text" id="email" name="email"
+								maxlength="20" placeholder="이메일을 입력하시오."></td>
+							<td>
+						</tr>
+						<tr>
+							<td><h5>비밀번호</h5>
+							<td colspan="2"><input onkeyup="passwordCheckFunction();"
+								id="userPassword1" type="password" name="password"
+								maxlength="20" placeholder="비밀번호를 입력하시오."></td>
+						</tr>
+						<tr>
+							<td><h5>비밀번호 확인</h5>
+							<td colspan="2"><input onkeyup="passwordCheckFunction();"
+								id="userPassword2" type="password" maxlength="20"
+								placeholder="비밀번호 확인을 입력하시오."></td>
+						</tr>
+						<tr>
+							<td><h5>이름</h5>
+							<td colspan="2"><input id="name" type="text" name="name"
+								maxlength="20" placeholder="이름을 입력하시오."></td>
+						</tr>
+						<tr>
+							<td><h5>닉네임</h5>
+							<td colspan="2"><input id="nickname" type="text"
+								name="nickname" maxlength="20" placeholder="닉네임을 입력하시오."></td>
+						</tr>
+						<tr>
+							<td><h5>성별</h5>
+							<td colspan="2">
+								<div class="btn-group">
+									<label> <input type="radio" name="gender"
+										value="M" checked>남자
+									</label> <label> <input type="radio" name="gender"
+										value="F">여자
+									</label>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="text-align: left;" colspan="3">
+								<h5 style="color: red;" id="passwordCheckMessage"></h5> 
+								<input class="btn btn-primary pull-right" type="submit" value="등록">
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</form>
 		</div>
 	</section>
-
-
-
-
-
-
 
 	<!-- Footer Section -->
 	<footer class="page-footer">

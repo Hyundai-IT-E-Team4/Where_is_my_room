@@ -1,0 +1,9 @@
+@charset "UTF-8";
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 380%;
+  margin: 150px 375px;
+}
