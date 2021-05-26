@@ -179,7 +179,7 @@ var getNearLocation = function(swLatLng,neLatLng){
         <div class="option">
             <div>
                 <form onsubmit="searchPlaces(); return false;">
-                    키워드 : <input type="text" value="" id="keyword" size="15"> 
+                    위치 : <input type="text" value="" id="keyword" size="15"> 
                     <button type="submit">검색하기</button> 
                 </form>
             </div>
@@ -247,7 +247,6 @@ ps.keywordSearch(keyword, placesSearchCB);
 
 }
 
-
 // 키워드 검색 완료 시 호출되는 콜백함수 입니다
 function placesSearchCB (data, status, pagination) {
     if (status === kakao.maps.services.Status.OK) {
@@ -261,12 +260,9 @@ function placesSearchCB (data, status, pagination) {
         // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
         map.setBounds(bounds);
         var mylocation = map.getCenter();
-        
-    
-       
+     
     } 
 }
-
 //지도가 이동, 확대, 축소로 인해 중심좌표가 변경되면 마지막 파라미터로 넘어온 함수를 호출하도록 이벤트를 등록합니다
 kakao.maps.event.addListener(map, 'center_changed', function() {
 	removeMarker();
