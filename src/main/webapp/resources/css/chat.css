@@ -7,7 +7,6 @@
   visibility: hidden;
 }
 
-/* 채팅 기능 */
 .chatting {
   display: flex;
   justify-content: center;
@@ -27,7 +26,6 @@
   margin: 6px 0;
 }
 
-/* 채팅방 */
 .chat-list {
   width: 342px;
   border: 1px solid #ddd;
@@ -41,7 +39,6 @@
   padding: 12px;
 }
 
-/* 채팅 내역 */
 .chat-message {
   width: 778px;
   border: 1px solid #ddd;
@@ -54,7 +51,6 @@
   padding: 12px;
 }
 
-/* 채팅방 및 채팅 뷰 */
 .message {
   cursor: pointer;
   display: flex;
@@ -89,7 +85,7 @@
 .message-info {
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   margin-bottom: 2px;
 }
 
@@ -118,6 +114,7 @@
   line-height: 1.4285714286;
   color: #b2b1b2;
   cursor: default;
+  margin-left:10pt;
 }
 
 .message-text {
@@ -126,7 +123,6 @@
   color: #212021;
 }
 
-/* 채팅방 및 채팅 뷰 (본인)*/
 .message-reverse {
   cursor: pointer;
   display: flex;
@@ -163,7 +159,7 @@
   width: 100%;
   display: flex;
   flex-direction: row-reverse;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   margin-bottom: 2px;
 }
 
@@ -192,6 +188,7 @@
   line-height: 1.4285714286;
   color: #b2b1b2;
   cursor: default;
+  margin-right: 10pt;
 }
 
 .message-text-reverse {
@@ -202,7 +199,6 @@
   color: #212021;
 }
 
-/* 채팅 입력 form */
 .chat-form {
   position: fixed;
   bottom: 5%;
@@ -241,4 +237,14 @@
   background-color: rgba(154, 226, 232, 1);
   border: 0;
   border-radius: 8px;
+}
+
+.message-list {
+  height: 85%;
+  overflow: scroll;
+}
+
+.message-log {
+  height: 70%;
+  overflow: scroll;
 }
