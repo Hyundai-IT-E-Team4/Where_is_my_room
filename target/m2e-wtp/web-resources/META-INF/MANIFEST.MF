@@ -1,9 +1,5 @@
 Manifest-Version: 1.0
-<<<<<<< HEAD
-Built-By: 32469
-=======
-Built-By: hms96
->>>>>>> 7a5a54682726f07d8cee10e7d9ee1e94318f7a75
+Built-By: djwls
 Build-Jdk: 15.0.2
 Created-By: Maven Integration for Eclipse
 
