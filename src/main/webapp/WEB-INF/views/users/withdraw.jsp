@@ -19,16 +19,17 @@
 	rel="stylesheet" />
 
 <!-- styles -->
-<link rel="stylesheet" href="resources/css/reset.css" />
-<link rel="stylesheet" href="resources/css/grid.min.css" />
-<link rel="stylesheet" href="resources/css/header.css" />
-<link rel="stylesheet" href="resources/css/footer.css" />
-<link rel="stylesheet" href="resources/css/dropdown.css" />
+<link rel="stylesheet" href="../resources/css/reset.css" />
+<link rel="stylesheet" href="../resources/css/grid.min.css" />
+<link rel="stylesheet" href="../resources/css/header.css" />
+<link rel="stylesheet" href="../resources/css/footer.css" />
+<link rel="stylesheet" href="../resources/css/dropdown.css" />
+<link rel="stylesheet" href="../resources/css/login.css" />
 
 <!-- favicon -->
-<link rel="shortcut icon" href="resources/img/favicon.ico"
+<link rel="shortcut icon" href="../resources/img/favicon.ico"
 	type="image/x-icon" />
-<link rel="icon" href="resources/img/favicon.ico" type="image/x-icon" />
+<link rel="icon" href="../resources/img/favicon.ico" type="image/x-icon" />
 
 <!-- app -->
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -36,15 +37,14 @@
 <body>
 	<header class="page-header">
 		<div class="header-logo">
-			<a href="./index.html"> <img src="resources/img/icon.png"
+			<a href="./index.html"> <img src="../resources/img/icon.png"
 				alt="Logo" />
 			</a>
 		</div>
 		<div class="header-menu">
 			<nav class="header-navigation">
-				<a href="/project/map">지도</a> 
-				<a href="/project/boards/insert">방 내놓기</a> 
-				<a href="/project/qna">Q&amp;A</a>
+				<a href="/project/map">지도</a> <a href="/project/boards/insert">방
+					내놓기</a> <a href="/project/qna">Q&amp;A</a>
 			</nav>
 			<div class="header-profile dropdown">
 				<button type="button" class="dropdown-button">
@@ -71,21 +71,22 @@
 		</div>
 	</header>
 
-
-
-
-
-	<section>
+	<section class="login">
 		<div class="container">
-			<!-- 여기에 작성하세요 :) -->
+			<form class="login-form" action="withdraw" method="POST">
+				<a href="./index.html"> <img src="../resources/img/icon.png"
+					alt="Logo" width=360 />
+				</a>
+				<p>
+					기다리겠습니다.
+				</p>
+				<input type="hidden" name="email" value="${sessionScope.userInfo.email}" />
+				<input type="password" name="password" placeholder="****" />
+
+				<button type="submit">탈퇴</button>
+			</form>
 		</div>
 	</section>
-
-
-
-
-
-
 
 	<!-- Footer Section -->
 	<footer class="page-footer">
@@ -106,6 +107,6 @@
 	</footer>
 
 	<!-- app -->
-	<script src="resources/js/dropdown-menu.js"></script>
+	<script src="../resources/js/dropdown-menu.js"></script>
 </body>
 </html>

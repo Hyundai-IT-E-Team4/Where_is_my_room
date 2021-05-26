@@ -1,1 +1,175 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.org.team4.dao.MessageDAO">
+	<select id="getMessageRoomListInitial" parameterType="long" resultType="MessageListDTO">
+		SELECT * 
+		FROM (
+		        SELECT 
+		                ROWNUM AS RNUM, 
+		                O.* 
+		        FROM (
+		                SELECT
+		                        I.ID MESSAGEID             ,
+		                        I.PARTNERID                ,
+		                        I.STARTDATE                ,
+		                        U.NICKNAME AS PARTNERNAME  ,
+		                        M.MESSAGE                  ,
+		                        SEND_DATE  AS SENDDATE
+		                  FROM (
+		                        SELECT 
+		                               ID                         ,  
+		                               USER_ID1 AS PARTNERID      ,
+		                               USER_ID2_START_DATE AS STARTDATE
+		                          FROM MESSAGE
+		                         WHERE USER_ID2 = #{id}
+		                         
+		                     UNION ALL
+		                    
+		                        SELECT 
+		                               ID                          , 
+		                               USER_ID2 AS PARTNERID       , 
+		                               USER_ID1_START_DATE AS STARTDATE
+		                          FROM MESSAGE
+		                         WHERE USER_ID1 = #{id}
+		                       ) I 
+		                       JOIN (
+		                             SELECT * 
+		                               FROM (
+		                                     SELECT 
+		                                            MESSAGE_ID  , 
+		                                            MESSAGE     , 
+		                                            SEND_DATE   ,
+		                                            RANK() OVER (PARTITION BY MESSAGE_ID 
+		                                                             ORDER BY SEND_DATE DESC) AS RANK
+		                                     FROM MESSAGE_DETAIL
+		                                    )
+		                              WHERE RANK = 1
+		                            ) M
+		                         ON I.ID = M.MESSAGE_ID
+		                       JOIN USERS U
+		                         ON I.PARTNERID = U.ID
+		                ORDER BY SEND_DATE DESC
+		             ) O
+		     )
+		WHERE RNUM BETWEEN 1 AND 15
+	</select>
+	
+	<select id="getMessageRoomList" parameterType="MessageListParamDTO" resultType="MessageListDTO">
+		SELECT * 
+		FROM (
+		        SELECT 
+		                ROWNUM AS RNUM, 
+		                O.* 
+		        FROM (
+		                SELECT
+		                        I.ID MESSAGEID             ,
+		                        I.PARTNERID                ,
+		                        I.STARTDATE                ,
+		                        U.NICKNAME AS PARTNERNAME  ,
+		                        M.MESSAGE                  ,
+		                        SEND_DATE  AS SENDDATE
+		                  FROM (
+		                        SELECT 
+		                               ID                         ,  
+		                               USER_ID1 AS PARTNERID      ,
+		                               USER_ID2_START_DATE AS STARTDATE
+		                          FROM MESSAGE
+		                         WHERE USER_ID2 = #{id}
+		                         
+		                     UNION ALL
+		                    
+		                        SELECT 
+		                               ID                          , 
+		                               USER_ID2 AS PARTNERID       , 
+		                               USER_ID1_START_DATE AS STARTDATE
+		                          FROM MESSAGE
+		                         WHERE USER_ID1 = #{id}
+		                       ) I 
+		                       JOIN (
+		                             SELECT * 
+		                               FROM (
+		                                     SELECT 
+		                                            MESSAGE_ID  , 
+		                                            MESSAGE     , 
+		                                            SEND_DATE   ,
+		                                            RANK() OVER (PARTITION BY MESSAGE_ID 
+		                                                             ORDER BY SEND_DATE DESC) AS RANK
+		                                     FROM MESSAGE_DETAIL
+		                                    )
+		                              WHERE RANK = 1
+		                            ) M
+		                         ON I.ID = M.MESSAGE_ID
+		                       JOIN USERS U
+		                         ON I.PARTNERID = U.ID
+		                ORDER BY SEND_DATE DESC
+		             ) O
+		     )
+		WHERE RNUM BETWEEN #{lastChatId} AND #{lastChatId} + 14	
+	</select>
+	
+	<select id="getMessageLogInit" parameterType="MessageLogParamDTO" resultType="MessageLogDTO" >
+		SELECT 
+		    I.RNUM                      ,
+		    I.ID                        ,
+		    I.MESSAGE_ID AS MESSAGEID    ,
+		    I.SENDER_ID  AS SENDERID    ,
+		    I.NICKNAME                  ,
+		    I.MESSAGE                   ,
+		    I.SEND_DATE  AS SENDDATE    ,
+		    I.READ
+		FROM(
+		    SELECT
+		            ROWNUM AS RNUM  ,
+		            B.*
+		    FROM (
+		            SELECT
+		                    M.*,
+		                    U.NICKNAME
+		            FROM MESSAGE_DETAIL M
+		            JOIN USERS U
+		              ON M.SENDER_ID = U.ID
+		            WHERE M.MESSAGE_ID = #{messageId}
+		            ORDER BY M.ID DESC
+		         ) B 
+		    ) I
+		WHERE RNUM BETWEEN 1 AND 20
+		ORDER BY ID
+	</select>
+	
+	<select id="getMessageLogAppend" parameterType="MessageLogParamDTO" resultType="MessageLogDTO" >
+		SELECT 
+		    I.RNUM                      ,
+		    I.ID                        ,
+		    I.MESSAGE_ID AS MESSAGEID    ,
+		    I.SENDER_ID  AS SENDERID    ,
+		    I.NICKNAME                  ,
+		    I.MESSAGE                   ,
+		    I.SEND_DATE  AS SENDDATE    ,
+		    I.READ
+		FROM(
+		    SELECT
+		            ROWNUM AS RNUM  ,
+		            B.*
+		    FROM (
+		            SELECT
+		                    M.*,
+		                    U.NICKNAME
+		            FROM MESSAGE_DETAIL M
+		            JOIN USERS U
+		              ON M.SENDER_ID = U.ID
+		            WHERE M.MESSAGE_ID = #{messageId}
+		            ORDER BY M.ID DESC
+		         ) B 
+		    ) I
+		WHERE RNUM BETWEEN #{lastChatId} AND #{lastChatId} + 19
+		ORDER BY ID
+	</select>
+	
+</mapper>
+>>>>>>> b3fa3e6efb5a5a261683c14e16911282e4252a99

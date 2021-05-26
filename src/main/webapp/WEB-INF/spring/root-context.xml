@@ -22,7 +22,6 @@
 			<constructor-arg ref="hikariConfig" />
 		</bean>
 
-
 	<bean id="userSqlSession"
 		class="org.mybatis.spring.SqlSessionFactoryBean"
 		p:dataSource-ref="dataSource" p:typeAliasesPackage="com.org.team4.dto" />
@@ -70,7 +69,7 @@
 
 	<websocket:handlers>
 		<websocket:mapping handler="chatHandler"
-			path="/chat" />
+			path="/messages/socket/*" />
 	</websocket:handlers>
 
 	<bean id="chatHandler"
