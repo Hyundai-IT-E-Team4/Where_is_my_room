@@ -2,15 +2,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<<<<<<< HEAD
-=======
-<%
-
+<%-- <%
 	UserDTO userInfo = new UserDTO(1, "1111", "홍길동", "낙타", "test@test.com", "남");
 	session.setAttribute("userInfo", userInfo);
 	response.sendRedirect("./");
-%>
->>>>>>> 7a5a54682726f07d8cee10e7d9ee1e94318f7a75
+%> --%>
 <!DOCTYPE html>
 <html lang="en">
 <head>

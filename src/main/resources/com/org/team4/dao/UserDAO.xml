@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-<?xml version="1.0" encoding="UTF-8"?>
-=======
-=======
->>>>>>> b3fa3e6efb5a5a261683c14e16911282e4252a99
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
@@ -34,10 +28,4 @@
 		update users set nickname = null, email = null
     	where email = #{email} and password = #{password}
 	</select>
-
-<<<<<<< HEAD
 </mapper>
->>>>>>> b3fa3e6efb5a5a261683c14e16911282e4252a99
-=======
-</mapper>
->>>>>>> b3fa3e6efb5a5a261683c14e16911282e4252a99
