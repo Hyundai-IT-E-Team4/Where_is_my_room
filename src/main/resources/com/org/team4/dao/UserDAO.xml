@@ -14,7 +14,7 @@
 	<select id="registerUser" statementType="CALLABLE"
 		parameterType="userDTO">
 		{
-		CALL users_register(
+		CALL USER_PACK.users_register(
 		#{password},
 		#{name},
 		#{nickname},

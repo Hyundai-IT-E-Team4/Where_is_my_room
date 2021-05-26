@@ -2,6 +2,8 @@ package com.org.team4.dto;
 
 import java.io.Serializable;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 import lombok.Data;
 import lombok.ToString;
 
@@ -14,8 +16,7 @@ public class LoginDTO implements Serializable {
 	private String email;
 	private String password;
 
-//	public void setUsr_pw(String usr_pw) {
-//		this.usr_pw = DigestUtils.sha512Hex(usr_pw);
-//	}
-	
+	public void setPassword(String password) {
+		this.password = DigestUtils.sha512Hex(password);
+	}
 }
