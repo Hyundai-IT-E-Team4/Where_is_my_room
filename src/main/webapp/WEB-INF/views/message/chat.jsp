@@ -42,6 +42,7 @@
 </head>
 <body>
 	<input type="hidden" value="${sessionScope.userInfo.id}" id="user-id"/>
+	<input type="hidden" value="${sessionScope.userInfo.nickname}" id="user-nick"/>
 	<header class="page-header">
 		<div class="header-logo">
 			<a href="./index.html"> <img src="../resources/img/icon.png"
@@ -87,6 +88,11 @@
 					<div class="items scroll message-list" id="autoScroll">
 
 						<c:forEach var="msgr" items="${messageRoomList}">
+							<script>
+								window.messageId = ${msgr.messageId}; 
+								window.userId = ${sessionScope.userInfo.id};
+								connect();
+							</script>
 							<div class="message" onclick="getMessage(${msgr.messageId})">
 								<div class="message-user">
 									<a href="#"> <img
@@ -118,10 +124,9 @@
 					</div>
 
 					<div class="chat-form">
-						<form action="#" method="post">
 							<input class="message_input" type="text" placeholder="메시지를 입력하세요">
-							<input class="submit_btn" type="submit" value="전송">
-						</form>
+							<input class="submit_btn" type="button" value="전송">
+
 					</div>
 
 				</div>

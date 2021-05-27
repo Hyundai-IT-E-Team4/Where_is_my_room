@@ -4,7 +4,7 @@
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.org.team4.dao.MessageDAO">
-	<select id="getMessageRoomListInitial" parameterType="long" resultType="MessageListDTO">
+	<select id="getMessageRoomListInit" parameterType="long" resultType="MessageListDTO">
 		SELECT * 
 		FROM (
 		        SELECT 
@@ -54,7 +54,6 @@
 		                ORDER BY SEND_DATE DESC
 		             ) O
 		     )
-		WHERE RNUM BETWEEN 1 AND 15
 	</select>
 	
 	<select id="getMessageRoomList" parameterType="MessageListParamDTO" resultType="MessageListDTO">
@@ -107,14 +106,13 @@
 		                ORDER BY SEND_DATE DESC
 		             ) O
 		     )
-		WHERE RNUM BETWEEN #{lastChatId} AND #{lastChatId} + 14	
 	</select>
 	
 	<select id="getMessageLogInit" parameterType="MessageLogParamDTO" resultType="MessageLogDTO" >
 		SELECT 
 		    I.RNUM                      ,
 		    I.ID                        ,
-		    I.MESSAGE_ID AS MESSAGEID    ,
+		    I.MESSAGE_ID AS MESSAGEID   ,
 		    I.SENDER_ID  AS SENDERID    ,
 		    I.NICKNAME                  ,
 		    I.MESSAGE                   ,
@@ -143,7 +141,7 @@
 		SELECT 
 		    I.RNUM                      ,
 		    I.ID                        ,
-		    I.MESSAGE_ID AS MESSAGEID    ,
+		    I.MESSAGE_ID AS MESSAGEID   ,
 		    I.SENDER_ID  AS SENDERID    ,
 		    I.NICKNAME                  ,
 		    I.MESSAGE                   ,
@@ -167,5 +165,14 @@
 		WHERE RNUM BETWEEN #{lastChatId} AND #{lastChatId} + 19
 		ORDER BY ID
 	</select>
-
+	
+	<insert id="insertMessage" parameterType="MessageDTO" statementType="CALLABLE">
+		{CALL MESSAGE_PACK.MESSAGE_INSERT(
+			#{senderId,  mode = IN, jdbcType=NUMERIC},
+			#{messageId, mode = IN, jdbcType=NUMERIC},
+			#{message,   mode = IN, jdbcType=VARCHAR}
+			)
+		}
+	</insert>
+	
 </mapper>

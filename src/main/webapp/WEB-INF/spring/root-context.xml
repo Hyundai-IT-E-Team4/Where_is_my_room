@@ -67,12 +67,4 @@
 		p:sqlSessionFactory-ref="filesSqlSession"
 		p:mapperInterface="com.org.team4.dao.FilesDAO" />
 
-	<websocket:handlers>
-		<websocket:mapping handler="chatHandler"
-			path="/messages/socket/*" />
-	</websocket:handlers>
-
-	<bean id="chatHandler"
-		class="com.org.team4.handler.ChatWebSocketHandler" />
-
 </beans>

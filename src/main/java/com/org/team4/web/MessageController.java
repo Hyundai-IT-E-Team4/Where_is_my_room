@@ -29,6 +29,16 @@ public class MessageController {
 	@Autowired
 	MessageService messageService;
 
+	@GetMapping("home1")
+	public String home() {
+		return "message/home";
+	}
+	
+	@GetMapping("home2")
+	public String home2() {
+		return "message/home2";
+	}
+
 	@GetMapping()
 	public String messagemain() {
 		return "redirect:messages/";
@@ -39,7 +49,7 @@ public class MessageController {
 
 		try {
 			UserDTO userInfo = (UserDTO) session.getAttribute("userInfo");
-			model.addAttribute("messageRoomList", messageService.getMessageRoomListInitial(userInfo.getId()));
+			model.addAttribute("messageRoomList", messageService.getMessageRoomListInit(userInfo.getId()));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -47,14 +57,14 @@ public class MessageController {
 		return "message/chat";
 	}
 
-	@GetMapping("list/{lastChatId}")
+	@GetMapping("list")
 	@ResponseBody
-	public List<MessageListDTO> messageListAppend(@PathVariable Long lastChatId, HttpSession session) {
-
+	public List<MessageListDTO> messageListAppend(HttpSession session) {
+		
 		try {
 			UserDTO userInfo = (UserDTO) session.getAttribute("userInfo");
-			MessageListParamDTO amlDTO = new MessageListParamDTO(userInfo.getId(), lastChatId);
-			return messageService.getMessageRoomList(amlDTO);
+			MessageListParamDTO mlpDTO = new MessageListParamDTO(userInfo.getId());
+			return messageService.getMessageRoomList(mlpDTO);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
