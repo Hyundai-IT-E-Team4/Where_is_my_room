@@ -1,12 +1,3 @@
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-<?xml version="1.0" encoding="UTF-8"?>
-=======
-=======
->>>>>>> b3fa3e6efb5a5a261683c14e16911282e4252a99
->>>>>>> b012bfcf28fa8743dce867b31a84c67f736e98bc
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
@@ -17,38 +8,29 @@
 		select *
 		from users
 		where email=#{email} and
-		password=#{password}
+			password=#{password}
 	</select>
 
 	<select id="registerUser" statementType="CALLABLE"
 		parameterType="userDTO">
 		{
-<<<<<<< HEAD
-		CALL USER_PACK.users_register(
-=======
-		CALL users_register(
->>>>>>> b012bfcf28fa8743dce867b31a84c67f736e98bc
-		#{password},
-		#{name},
-		#{nickname},
-		#{email},
-		#{gender}
+		CALL user_pack.users_register(
+			#{password},
+			#{name},
+			#{nickname},
+			#{email},
+			#{gender}
 		)
 		}
 	</select>
 
 	<select id="withdrawUser" parameterType="loginDTO" resultType="long">
-		update users set nickname = null, email = null
-    	where email = #{email} and password = #{password}
+		update users set 
+			nickname = null, 
+			email = null
+    	where email = #{email} and 
+    		password = #{password}
 	</select>
 
-<<<<<<< HEAD
 </mapper>
-=======
-<<<<<<< HEAD
-</mapper>
->>>>>>> b3fa3e6efb5a5a261683c14e16911282e4252a99
-=======
-</mapper>
->>>>>>> b3fa3e6efb5a5a261683c14e16911282e4252a99
->>>>>>> b012bfcf28fa8743dce867b31a84c67f736e98bc
+

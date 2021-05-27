@@ -1,18 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-<%
-
-	UserDTO userInfo = new UserDTO(1, "1111", "홍길동", "낙타", "test@test.com", "남");
-	session.setAttribute("userInfo", userInfo);
-	response.sendRedirect("./");
-%>
->>>>>>> 7a5a54682726f07d8cee10e7d9ee1e94318f7a75
->>>>>>> b012bfcf28fa8743dce867b31a84c67f736e98bc
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -82,19 +70,11 @@
 							</ul>
 						</c:when>
 						<c:otherwise>
-<<<<<<< HEAD
 							<h3>로그인 후 이용해보세요!</h3>
-							<ul>
-								<li><a href="/team4/users/login">로그인 및 회원가입</a></li>
-=======
-							<h3>
-								로그인 후 이용해보세요!
-							</h3>
 							<ul>
 								<li>
 									<a href="/team4/users/login">로그인 및 회원가입</a>
 								</li>
->>>>>>> b012bfcf28fa8743dce867b31a84c67f736e98bc
 							</ul>
 						</c:otherwise>
 					</c:choose>
