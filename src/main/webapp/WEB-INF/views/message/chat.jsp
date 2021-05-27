@@ -93,7 +93,7 @@
 								window.userId = ${sessionScope.userInfo.id};
 								connect();
 							</script>
-							<div class="message" onclick="getMessage(${msgr.messageId})">
+							<div class="message" id="message${msgr.messageId}" onclick="getMessage(${msgr.messageId},'${msgr.partnerName}')">
 								<div class="message-user">
 									<a href="#"> <img
 										src="https://avatars.githubusercontent.com/u/50897259?v=4"

@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.org.team4.dto.MessageListDTO;
@@ -71,10 +72,9 @@ public class MessageController {
 		}
 	}
 	
-	@GetMapping("detail/{messageId}")
+	@GetMapping("detail")
 	@ResponseBody
-	public List<MessageLogDTO> messageLog(@PathVariable long messageId, HttpSession session) {
-
+	public List<MessageLogDTO> messageLog(@RequestParam("messageId") long messageId, HttpSession session) {
 		try {
 			UserDTO userInfo = (UserDTO) session.getAttribute("userInfo");
 			MessageLogParamDTO mlpDTO = new MessageLogParamDTO(messageId, 0);
@@ -85,9 +85,10 @@ public class MessageController {
 		}
 	}
 	
-	@GetMapping("detail/{messageId}/{lastChatId}")
+	
+	@GetMapping("detailappend")
 	@ResponseBody
-	public List<MessageLogDTO> messageLogAppend(@PathVariable long messageId, @PathVariable long lastChatId, HttpSession session) {
+	public List<MessageLogDTO> messageLogAppend(@RequestParam("messageId") long messageId, @RequestParam("lastChatId") long lastChatId, HttpSession session) {
 		try {
 			UserDTO userInfo = (UserDTO) session.getAttribute("userInfo");
 			MessageLogParamDTO mlpDTO = new MessageLogParamDTO(messageId, lastChatId);
