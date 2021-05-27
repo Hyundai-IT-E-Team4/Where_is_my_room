@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.org.team4.dto.MessageListParamDTO;
 import com.org.team4.dto.MessageListDTO;
+import com.org.team4.dto.MessageListParamDTO;
 import com.org.team4.dto.MessageLogDTO;
 import com.org.team4.dto.MessageLogParamDTO;
 import com.org.team4.dto.UserDTO;
@@ -28,11 +28,6 @@ public class MessageController {
 
 	@Autowired
 	MessageService messageService;
-
-	@GetMapping("home")
-	public String home() {
-		return "home";
-	}
 
 	@GetMapping()
 	public String messagemain() {
