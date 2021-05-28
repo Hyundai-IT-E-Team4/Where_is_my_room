@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.org.team4.dao.UserDAO;
 import com.org.team4.dto.LoginDTO;
+import com.org.team4.dto.RegisterDTO;
 import com.org.team4.dto.UserDTO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -30,8 +31,8 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
-	public void registerUser(UserDTO userDTO) throws Exception {
-		userDAO.registerUser(userDTO);
+	public void registerUser(RegisterDTO registerDTO) throws Exception {
+		userDAO.registerUser(registerDTO);
 	}
 
 

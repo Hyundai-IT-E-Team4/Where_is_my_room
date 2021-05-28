@@ -18,53 +18,38 @@
 			<property name="username" value="team4"/>
 			<property name="password" value="team4"/>
 		</bean>
+		
 		<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
 			<constructor-arg ref="hikariConfig" />
 		</bean>
 
-	<bean id="userSqlSession"
+	<bean id="SqlSession"
 		class="org.mybatis.spring.SqlSessionFactoryBean"
 		p:dataSource-ref="dataSource" p:typeAliasesPackage="com.org.team4.dto" />
 
 	<bean id="userDAO"
 		class="org.mybatis.spring.mapper.MapperFactoryBean"
-		p:sqlSessionFactory-ref="userSqlSession"
+		p:sqlSessionFactory-ref="SqlSession"
 		p:mapperInterface="com.org.team4.dao.UserDAO" />
-
-	<bean id="boardSqlSession"
-		class="org.mybatis.spring.SqlSessionFactoryBean"
-		p:dataSource-ref="dataSource" p:typeAliasesPackage="com.org.team4.dto" />
 
 	<bean id="boardDAO"
 		class="org.mybatis.spring.mapper.MapperFactoryBean"
-		p:sqlSessionFactory-ref="boardSqlSession"
+		p:sqlSessionFactory-ref="SqlSession"
 		p:mapperInterface="com.org.team4.dao.BoardDAO" />
-
-	<bean id="commentsSqlSession"
-		class="org.mybatis.spring.SqlSessionFactoryBean"
-		p:dataSource-ref="dataSource" p:typeAliasesPackage="com.org.team4.dto" />
 
 	<bean id="commentsDAO"
 		class="org.mybatis.spring.mapper.MapperFactoryBean"
-		p:sqlSessionFactory-ref="commentsSqlSession"
+		p:sqlSessionFactory-ref="SqlSession"
 		p:mapperInterface="com.org.team4.dao.CommentsDAO" />
-
-	<bean id="messageSqlSession"
-		class="org.mybatis.spring.SqlSessionFactoryBean"
-		p:dataSource-ref="dataSource" p:typeAliasesPackage="com.org.team4.dto" />
 
 	<bean id="messageDAO"
 		class="org.mybatis.spring.mapper.MapperFactoryBean"
-		p:sqlSessionFactory-ref="messageSqlSession"
+		p:sqlSessionFactory-ref="SqlSession"
 		p:mapperInterface="com.org.team4.dao.MessageDAO" />
-
-	<bean id="filesSqlSession"
-		class="org.mybatis.spring.SqlSessionFactoryBean"
-		p:dataSource-ref="dataSource" p:typeAliasesPackage="com.org.team4.dto" />
 
 	<bean id="filesDAO"
 		class="org.mybatis.spring.mapper.MapperFactoryBean"
-		p:sqlSessionFactory-ref="filesSqlSession"
+		p:sqlSessionFactory-ref="SqlSession"
 		p:mapperInterface="com.org.team4.dao.FilesDAO" />
 
 	<websocket:handlers>

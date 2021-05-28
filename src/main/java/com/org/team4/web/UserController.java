@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.org.team4.dto.LoginDTO;
+import com.org.team4.dto.RegisterDTO;
 import com.org.team4.dto.UserDTO;
 import com.org.team4.service.UserService;
 
@@ -74,10 +75,10 @@ public class UserController {
 	}
 
 	@PostMapping("/register")
-	public String register(@ModelAttribute UserDTO userDTO, Model model, HttpSession session) {
-
+	public String register(@ModelAttribute RegisterDTO registerDTO, Model model, HttpSession session) {
+		
 		try {
-			userService.registerUser(userDTO);
+			userService.registerUser(registerDTO);
 			return "redirect:../";
 
 		} catch (Exception e) {
