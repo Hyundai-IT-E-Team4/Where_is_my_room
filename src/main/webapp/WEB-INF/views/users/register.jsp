@@ -44,26 +44,15 @@
 		
 		$.ajax({
 			type : 'POST',
-			url : './UserRegisterCheckNickname',
+			url : './CheckNickname',
 			data : {
 				nickname : nickname
 			},
 			success : function(result) {
 				if (result == 1) {
-					
-					$('a[href="#ex7"]').modal({
-				        fadeDuration: 250
-				     });
-					//$('#checkMessage').html('사용할 수 있는 닉네임입니다.');
-					//$('#checkType').attr('class',
-							//' modal-content panel-success');
+					alert("이미 있는 닉네임입니다.");
 				} else {
-					$('a[href="#ex7"]').modal({
-				        fadeDuration: 250
-				     });
-					//$('#checkMessage').html('사용할 수 없는 닉네임입니다.');
-					//$('#checkType').attr('class',
-						//	' modal-content panel-warning');
+					alert("사용할 수 있는 닉네임입니다.");
 				}
 			}
 		});
@@ -179,8 +168,8 @@
             </table>
 
             <h5 style="color: red;" id="passwordCheckMessage"></h5>
-            <button class="submit-btn" type="submit">가입하기
-
+            <button class="submit-btn" type="submit">가입하기</button>
+            
           </form>
         </div>
       </section>

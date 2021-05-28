@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.org.team4.dto.LoginDTO;
 import com.org.team4.dto.UserDTO;
@@ -112,5 +114,21 @@ public class UserController {
 			model.addAttribute("url", "./");
 			return "result";
 		}
+	}
+
+	@PostMapping("/CheckNickname")
+	@ResponseBody
+	public int checkNickname(@RequestParam String nickname, Model model) {
+
+		int res = 0;
+		
+		try {
+			res = userService.checkNickname(nickname);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return res;
+
 	}
 }

@@ -47,4 +47,9 @@ public class UserServiceImpl implements UserService {
 			throw e;
 		}
 	}
+
+	@Override
+	public int checkNickname(String nickname) throws Exception {
+		return userDAO.checkNickname(nickname);
+	}
 }

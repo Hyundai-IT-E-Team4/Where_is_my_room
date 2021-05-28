@@ -31,6 +31,12 @@
     	where email = #{email} and 
     		password = #{password}
 	</select>
+	
+	<select id="checkNickname" parameterType="String" resultType="int">
+		select count(*)
+		from users
+		where nickname=#{nickname} 
+	</select>
 
 </mapper>
 

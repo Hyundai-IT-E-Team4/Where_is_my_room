@@ -10,5 +10,7 @@ public interface UserDAO {
 	void registerUser(UserDTO userDTO) throws Exception;
 	
 	Long withdrawUser(LoginDTO loginDTO) throws Exception;
+	
+	int checkNickname(String nickname) throws Exception;
 
 }
