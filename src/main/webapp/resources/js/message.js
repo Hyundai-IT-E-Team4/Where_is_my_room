@@ -6,6 +6,10 @@ window.onload = ()=>{
 	window.findAll = false; // 채팅방 다 찾았는지 여부
 	window.messageId = 0;
 	
+	getMessageList();
+	
+	$('.list-btn').hide();
+	
 	$(".submit_btn").click(function() {
 		send();
 	})
@@ -50,34 +54,6 @@ function onMessage(evt) {
 	let msg = data.split(':')[3];
 	
 	let plusMsg = '';
-	let plusList = '';
-	
-	
-	plusList += ''
-             +  '<div class="message" id="message' + messageId + '" onclick="getMessage(' + messageId + ',\'' + window.partnerNick + '\')">'
-             +  '	<div class="message-user">'
-             +  '		<a href="#"> <img'
-             +  '			src="https://avatars.githubusercontent.com/u/50897259?v=4"'
-             +  '			alt="Profile Image" />'
-             +  '		</a>'
-             +  '	</div>'
-             +  '	<div class="message-content">'
-             +  '		<div class="message-info">'
-             +  '			<strong class="message-sender"> <a href="#">'+ window.partnerNick +'</a>'
-             +  '			</strong>'
-             +  '			<div class="message-timestamp">'
-             +  '				'+ date
-             +  '			</div>'
-             +  '		</div>'
-             +  '		<p class="message-text">' + msg + '</p>'
-             +  '	</div>'
-             +  '</div>';
-	
-	
-	$('#message' + messageId).remove();
-	$('.message-list').prepend(plusList);
-	$('#message' + messageId).hide();
-	$('#message' + messageId).fadeIn("slow");
 	
 	if (messageId == window.messageId) {
 		
@@ -130,28 +106,39 @@ function send() {
 
 
 // 채팅방의 메세지 내역 보여주는 함수
-function getMessage(messageId, partnerNick) { 
-	console.log(partnerNick);
+function getMessage(messageId, startDate) { 
+
 	window.messageId = messageId;
-	window.partnerNick = partnerNick;
 	window.lastChatMessageId = 21; // 마지막으로 읽은 메시지 아이디
 	window.chatMessageFindAll = false; // 채팅방의 메시지를 다 읽었는지
-	window.lastChatHeight = 0;
 	
+	if (window.wsocket != null) {
+		disconnect();
+	}
+	
+	connect();
+	
+	$('.chat-list').hide('slow');
+	$('.chat-message').width('100%');
+	$('.chat-form').width('100%');
+	$('.list-btn').fadeIn('slow');
 	$('.message-log').empty();
 	
 	$.ajax({
 		url:'./detail',
 		type:'get',
-		data:{"messageId" : window.messageId},
+		data:{"messageId" : window.messageId, "startDate" : startDate},
 		success:function(res) {
-			
+			console.log(startDate);
+			window.startDate = startDate;
 			let readList = res;
 			if(readList.length < 20) {
 				findLll = true;
 			}
 			let plusMsg = '';
 			for(let i=0; i<readList.length; i++) {
+				console.log(readList[i].sendDate);
+				console.log(new Date(readList[i].sendDate));
 				if(readList[i].senderId == userId) {
 					plusMsg += '<div class="message-reverse">'
 					        +  '	<div class="message-user-reverse">'    
@@ -199,7 +186,7 @@ function getMessageAppend() {
 	$.ajax({
 		url:'./detailappend',
 		type:'get',
-		data:{'messageId':window.messageId, 'lastChatId':window.lastChatMessageId},
+		data:{'messageId':window.messageId, 'lastChatId':window.lastChatMessageId, 'startDate':window.startDate},
 		success:function(res) {
 			
 			let readList = res;
@@ -262,7 +249,7 @@ function getMessageList() {
 		let readList = res;
 		let plusMsg = "";
 		for(let i =0 ; i < readList.length; i++){
-			plusMsg += '<div class="message" onclick="getMessage(' + readList[i].messageId + ')">'
+			plusMsg += '<div class="message" onclick="getMessage(' + readList[i].messageId + ',\'' + dateFormat(new Date(readList[i].startDate)) + '\')">'
 					+  '	<div class="message-user">'
 					+  '		<a href="#"> <img src="https://avatars.githubusercontent.com/u/50897259?v=4" alt="Profile Image" /> </a>'
 					+  '	</div>'
@@ -279,6 +266,15 @@ function getMessageList() {
 		$('.message-list').append(plusMsg);
 		}
 	});
+}
+
+function listOpen() {
+	getMessageList();
+	window.messageId = 0;
+	$('.chat-message').removeAttr("style");
+	$('.chat-list').show("fast");
+	$('.list-btn').fadeOut('slow');
+	$('.message-log').empty();
 }
 
 // 날짜 포매팅 함수

@@ -129,7 +129,8 @@
 		            FROM MESSAGE_DETAIL M
 		            JOIN USERS U
 		              ON M.SENDER_ID = U.ID
-		            WHERE M.MESSAGE_ID = #{messageId}
+		            WHERE M.MESSAGE_ID = #{messageId} 
+		              AND M.SEND_DATE >= #{startDate}
 		            ORDER BY M.ID DESC
 		         ) B 
 		    ) I
@@ -159,6 +160,7 @@
 		            JOIN USERS U
 		              ON M.SENDER_ID = U.ID
 		            WHERE M.MESSAGE_ID = #{messageId}
+		              AND M.SEND_DATE >= #{startDate}
 		            ORDER BY M.ID DESC
 		         ) B 
 		    ) I

@@ -1,5 +1,6 @@
  package com.org.team4.web;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -8,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -74,10 +74,12 @@ public class MessageController {
 	
 	@GetMapping("detail")
 	@ResponseBody
-	public List<MessageLogDTO> messageLog(@RequestParam("messageId") long messageId, HttpSession session) {
+	public List<MessageLogDTO> messageLog(@RequestParam("messageId") long messageId, @RequestParam("startDate") String startDate, HttpSession session) {
 		try {
+			log.info(startDate);
+			
 			UserDTO userInfo = (UserDTO) session.getAttribute("userInfo");
-			MessageLogParamDTO mlpDTO = new MessageLogParamDTO(messageId, 0);
+			MessageLogParamDTO mlpDTO = new MessageLogParamDTO(messageId, 0, startDate.split(" ")[0]);
 			return messageService.getMessageLogInit(mlpDTO);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -88,10 +90,10 @@ public class MessageController {
 	
 	@GetMapping("detailappend")
 	@ResponseBody
-	public List<MessageLogDTO> messageLogAppend(@RequestParam("messageId") long messageId, @RequestParam("lastChatId") long lastChatId, HttpSession session) {
+	public List<MessageLogDTO> messageLogAppend(@RequestParam("messageId") long messageId, @RequestParam("lastChatId") long lastChatId, @RequestParam("startDate") String startDate, HttpSession session) {
 		try {
 			UserDTO userInfo = (UserDTO) session.getAttribute("userInfo");
-			MessageLogParamDTO mlpDTO = new MessageLogParamDTO(messageId, lastChatId);
+			MessageLogParamDTO mlpDTO = new MessageLogParamDTO(messageId, lastChatId, startDate.split(" ")[0]);
 			return messageService.getMessageLogAppend(mlpDTO);
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -13,4 +13,5 @@ public class MessageLogParamDTO {
 
 	long messageId;
 	long lastChatId;
+	String startDate;
 }

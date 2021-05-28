@@ -41,8 +41,6 @@
 
 </head>
 <body>
-	<input type="hidden" value="${sessionScope.userInfo.id}" id="user-id"/>
-	<input type="hidden" value="${sessionScope.userInfo.nickname}" id="user-nick"/>
 	<header class="page-header">
 		<div class="header-logo">
 			<a href="./index.html"> <img src="../resources/img/icon.png"
@@ -77,6 +75,9 @@
 			</div>
 		</div>
 	</header>
+	
+	<input type="hidden" value="${sessionScope.userInfo.id}" id="user-id"/>
+	<input type="hidden" value="${sessionScope.userInfo.nickname}" id="user-nick"/>
 
 	<section class="chatting">
 		<div class="container">
@@ -86,14 +87,9 @@
 					<h2>쪽지함</h2>
 
 					<div class="items scroll message-list" id="autoScroll">
-
+<%-- 
 						<c:forEach var="msgr" items="${messageRoomList}">
-							<script>
-								window.messageId = ${msgr.messageId}; 
-								window.userId = ${sessionScope.userInfo.id};
-								connect();
-							</script>
-							<div class="message" id="message${msgr.messageId}" onclick="getMessage(${msgr.messageId},'${msgr.partnerName}')">
+							<div class="message" id="message${msgr.messageId}" onclick="getMessage(${msgr.messageId})">
 								<div class="message-user">
 									<a href="#"> <img
 										src="https://avatars.githubusercontent.com/u/50897259?v=4"
@@ -111,14 +107,15 @@
 									<p class="message-text">${msgr.message}</p>
 								</div>
 							</div>
-						</c:forEach>
+						</c:forEach> --%>
 
 					</div>
 				</div>
 
 				<div class="chat-message">
-					<h2>내용</h2>
-
+					<div style="display:flex; flex-direction: row">
+						<h2>내용</h2><button class="list-btn" onclick="listOpen()">쪽지함</button>
+					</div>
 					<div class="items scroll message-log" id="autoScroll">
 
 					</div>

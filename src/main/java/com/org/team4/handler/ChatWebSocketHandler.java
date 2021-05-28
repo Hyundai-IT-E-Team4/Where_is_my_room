@@ -1,9 +1,10 @@
 package com.org.team4.handler;
 
-import java.io.IOException;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentSkipListSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -21,30 +22,32 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Configuration
 public class ChatWebSocketHandler extends TextWebSocketHandler {
-	
+
 	@Autowired
 	MessageService messageService;
-	
 	private Map<Long, HashSet<WebSocketSession>> messageRooms = new ConcurrentHashMap<>();
 
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+		
 		String uri = session.getUri().getPath();
 		long messageId = Long.parseLong(uri.substring(uri.lastIndexOf("/") + 1));
 		HashSet<WebSocketSession> set;
+		
 		if (!messageRooms.containsKey(messageId)) {
 			set = new HashSet<WebSocketSession>();
 			messageRooms.put(messageId, set);
 		} else {
 			set = messageRooms.get(messageId);
 		}
-		
+
 		set.add(session);
+		log.info(messageRooms + "");
 	}
 
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-		
+
 		String uri = session.getUri().getPath();
 		long messageId = Long.parseLong(uri.substring(uri.lastIndexOf("/") + 1));
 		long loginId = Long.parseLong(uri.split("/")[4]);
@@ -55,9 +58,9 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
 
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-		
-		UserDTO userDTO = (UserDTO)session.getAttributes().get("userInfo");
-		
+
+		UserDTO userDTO = (UserDTO) session.getAttributes().get("userInfo");
+
 		try {
 			long senderId = userDTO.getId();
 			String senderNick = userDTO.getNickname();
@@ -67,10 +70,9 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
 			MessageDTO messageDTO = new MessageDTO(senderId, messageId, msg);
 			messageService.insertMessage(messageDTO);
 			HashSet<WebSocketSession> set = messageRooms.get(messageId);
-			
-			log.info("senderId : {"+senderId+"}  senderNick : {"+senderNick+"}  messageId : {"+messageId+"}  msg : {"+msg+"}");
-			
-			
+
+			//log.info("senderId : {" + senderId + "}  senderNick : {" + senderNick + "}  messageId : {" + messageId + "}  msg : {" + msg + "}");
+
 			for (WebSocketSession curSession : set) {
 				curSession.sendMessage(new TextMessage(messageId + ":" + senderId + ":" + senderNick + ":" + msg));
 			}
