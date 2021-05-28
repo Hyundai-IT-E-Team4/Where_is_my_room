@@ -53,7 +53,8 @@
 		                         ON I.PARTNERID = U.ID
 		                ORDER BY SEND_DATE DESC
 		             ) O
-		     )
+		     	)
+		WHERE SENDDATE > STARTDATE
 	</select>
 	
 	<select id="getMessageRoomList" parameterType="MessageListParamDTO" resultType="MessageListDTO">
@@ -106,6 +107,7 @@
 		                ORDER BY SEND_DATE DESC
 		             ) O
 		     )
+		WHERE SENDDATE > STARTDATE
 	</select>
 	
 	<select id="getMessageLogInit" parameterType="MessageLogParamDTO" resultType="MessageLogDTO" >
@@ -130,7 +132,7 @@
 		            JOIN USERS U
 		              ON M.SENDER_ID = U.ID
 		            WHERE M.MESSAGE_ID = #{messageId} 
-		              AND M.SEND_DATE >= #{startDate}
+		              AND M.SEND_DATE > TO_DATE(#{startDate},'YYYY-MM-DD HH24:MI:SS')
 		            ORDER BY M.ID DESC
 		         ) B 
 		    ) I
@@ -160,7 +162,7 @@
 		            JOIN USERS U
 		              ON M.SENDER_ID = U.ID
 		            WHERE M.MESSAGE_ID = #{messageId}
-		              AND M.SEND_DATE >= #{startDate}
+		              AND M.SEND_DATE > TO_DATE(#{startDate},'YYYY-MM-DD HH24:MI:SS')
 		            ORDER BY M.ID DESC
 		         ) B 
 		    ) I
@@ -176,5 +178,13 @@
 			)
 		}
 	</insert>
+	
+	<update id="setMessageStartDate" parameterType="MessageUpdateParamDTO" statementType="CALLABLE">
+		{CALL MESSAGE_PACK.UPDATE_STARTDATE(
+			#{messageId, mode = IN, jdbcType=NUMERIC},
+			#{userId,    mode = IN, jdbcType=NUMERIC}
+			)
+		}
+	</update>
 	
 </mapper>

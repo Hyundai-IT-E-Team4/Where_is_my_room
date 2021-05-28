@@ -11,6 +11,7 @@ import com.org.team4.dto.MessageDTO;
 import com.org.team4.dto.MessageListDTO;
 import com.org.team4.dto.MessageLogDTO;
 import com.org.team4.dto.MessageLogParamDTO;
+import com.org.team4.dto.MessageUpdateParamDTO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -65,6 +66,16 @@ public class MessageServiceImpl implements MessageService{
 	public void insertMessage(MessageDTO messageDTO) throws Exception {
 		try {			
 			messageDAO.insertMessage(messageDTO);
+		} catch (Exception e) {
+			log.error(e.getMessage());
+			throw e;
+		}
+	}
+
+	@Override
+	public void setMessageStartDate(MessageUpdateParamDTO mupDTO) throws Exception {
+		try {
+			messageDAO.setMessageStartDate(mupDTO);
 		} catch (Exception e) {
 			log.error(e.getMessage());
 			throw e;

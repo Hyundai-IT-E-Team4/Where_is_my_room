@@ -113,8 +113,12 @@
 				</div>
 
 				<div class="chat-message">
-					<div style="display:flex; flex-direction: row">
-						<h2>내용</h2><button class="list-btn" onclick="listOpen()">쪽지함</button>
+					<div style="display:flex; flex-direction: row; justify-content: space-between;">
+						<h2>내용</h2>
+						<div>
+							<button class="delete-btn" onclick="deleteMsg()">나가기</button>
+							<button class="list-btn" onclick="listOpen()">쪽지함</button>
+						</div>
 					</div>
 					<div class="items scroll message-log" id="autoScroll">
 

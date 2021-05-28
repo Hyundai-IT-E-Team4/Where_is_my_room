@@ -9,6 +9,7 @@ window.onload = ()=>{
 	getMessageList();
 	
 	$('.list-btn').hide();
+	$('.delete-btn').hide();
 	
 	$(".submit_btn").click(function() {
 		send();
@@ -122,6 +123,7 @@ function getMessage(messageId, startDate) {
 	$('.chat-message').width('100%');
 	$('.chat-form').width('100%');
 	$('.list-btn').fadeIn('slow');
+	$('.delete-btn').fadeIn('slow');
 	$('.message-log').empty();
 	
 	$.ajax({
@@ -274,7 +276,19 @@ function listOpen() {
 	$('.chat-message').removeAttr("style");
 	$('.chat-list').show("fast");
 	$('.list-btn').fadeOut('slow');
+	$('.delete-btn').fadeOut('slow')
 	$('.message-log').empty();
+}
+
+function deleteMsg() {
+	$.ajax({
+		url:"delete",
+		type:"GET",
+		data:{"messageId":window.messageId},
+		success:function(res) {
+			listOpen();
+		}
+	});
 }
 
 // 날짜 포매팅 함수
