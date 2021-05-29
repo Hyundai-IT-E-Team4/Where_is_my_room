@@ -14,5 +14,4 @@ public class LocationDTO {
 	private double swLng;
 	private double neLat;
 	private double neLng;
-	private long pageNum;
 }
