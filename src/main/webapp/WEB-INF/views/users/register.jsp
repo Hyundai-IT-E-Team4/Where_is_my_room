@@ -85,6 +85,20 @@
         })
     });
 	
+	/* 인증번호 이메일 전송 */
+	function authEmail() {
+
+	    var email = $("#email").val() + '@' + $("#textEmail").val();
+	    
+	    $.ajax({
+	        type:"GET",
+	        url:"./mailCheck?email=" + email,
+	        success: function (data) {
+				console.log("data : " + data);
+			}
+	    });
+	}
+	
 </script>
 </head>
 <body>
@@ -157,10 +171,11 @@
 							</td>
 						</tr>
 						<tr>
-							<td><h5>비밀번호</h5>
-							<td><input onkeyup="passwordCheckFunction();"
-								id="userPassword1" type="password" name="password"
-								maxlength="20" placeholder="비밀번호를 입력하시오."></td>
+							<td>
+							<td class="inputs">
+								<input class="mail_check_input_box" id="mail_check_input_box_false" maxlength="6" disabled="disabled" >
+								<input style="cursor: pointer;" onclick="authEmail();" type="button" value="인증번호 전송" >
+							</td>
 						</tr>
 						<tr>
 							<td><h5>비밀번호 확인</h5>

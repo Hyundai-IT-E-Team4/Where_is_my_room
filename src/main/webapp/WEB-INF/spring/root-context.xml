@@ -11,17 +11,36 @@
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<tx:annotation-driven
 		transaction-manager="transactionManager" />
-		
-		<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
-			<property name="driverClassName" value="net.sf.log4jdbc.DriverSpy"/>
-			<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@localhost:1521/xepdb1"/>
-			<property name="username" value="team4"/>
-			<property name="password" value="team4"/>
-		</bean>
-		
-		<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
-			<constructor-arg ref="hikariConfig" />
-		</bean>
+
+	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+		<property name="driverClassName"
+			value="net.sf.log4jdbc.DriverSpy" />
+		<property name="jdbcUrl"
+			value="jdbc:log4jdbc:oracle:thin:@localhost:1521/xepdb1" />
+		<property name="username" value="team4" />
+		<property name="password" value="team4" />
+	</bean>
+
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"
+		destroy-method="close">
+		<constructor-arg ref="hikariConfig" />
+	</bean>
+
+	<!-- gmail설정 -->
+	<bean id="mailSender"
+		class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com" />
+		<property name="port" value="587" />
+		<property name="username" value="ok267733@gmail.com" /> <!-- 자신의 이메일 아이디 -->
+		<property name="password" value="hsh!ok6902hsh!" /> <!-- 자신의 비밀번호 -->
+		<!-- 보안연결 TLS과 관련된 설정 -->
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+			</props>
+		</property>
+	</bean>
 
 	<bean id="SqlSession"
 		class="org.mybatis.spring.SqlSessionFactoryBean"
