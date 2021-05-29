@@ -40,6 +40,8 @@
 <script src="//unpkg.com/bootstrap@4/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 
+	var code = "";
+
 	// 닉네임 중복 체크
 	function registerCheckFunction() {
 		var nickname = $('#nickname').val();
@@ -85,18 +87,37 @@
         })
     });
 	
-	/* 인증번호 이메일 전송 */
+	/* 인증번호 이메일 전송 및 확인 */
 	function authEmail() {
 
 	    var email = $("#email").val() + '@' + $("#textEmail").val();
+	    //var cehckBox = $(".mail_check_input");        // 인증번호 입력란
+	    var boxWrap = $(".mail_check_input_box");    // 인증번호 입력란 박스
+	    var chkbtn = $(".mail_check_btn");
 	    
-	    $.ajax({
-	        type:"GET",
-	        url:"./mailCheck?email=" + email,
-	        success: function (data) {
-				console.log("data : " + data);
+	    if (chkbtn.val() == '인증번호 전송') {
+		    $.ajax({
+		        type:"GET",
+		        url:"./mailCheck?email=" + email,
+		        success: function (data) {
+					// console.log("data : " + data);
+		        	boxWrap.attr("disabled", false);
+		        	boxWrap.attr("id", "mail_check_input_box_true");
+		        	chkbtn.val("인증번호 확인");
+		        	code = data;
+				}
+		    });
+		}
+	    else if (chkbtn.val() == '인증번호 확인') {
+			let input = boxWrap.val();
+			
+			if(input == code){
+				alert('인증번호가 일치합니다.');
 			}
-	    });
+			else {
+				alert('인증번호가 일치하지 않습니다.');
+			}
+		}
 	}
 	
 </script>
@@ -173,8 +194,8 @@
 						<tr>
 							<td>
 							<td class="inputs">
-								<input class="mail_check_input_box" id="mail_check_input_box_false" maxlength="6" disabled="disabled" >
-								<input style="cursor: pointer;" onclick="authEmail();" type="button" value="인증번호 전송" >
+								<input class="mail_check_input_box" id="mail_check_input_box_false" maxlength="6" disabled="disabled" placeholder="인증번호 6자리" >
+								<input class="mail_check_btn" style="cursor: pointer;" onclick="authEmail();" type="button" value="인증번호 전송" >
 							</td>
 						</tr>
 						<tr>

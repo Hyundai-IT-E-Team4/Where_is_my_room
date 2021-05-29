@@ -156,7 +156,7 @@ public class UserController {
 		log.info("인증번호 " + checkNum);
 		
 		/* 이메일 보내기 */
-		String setFrom = "ok267733@gmail.com";
+		String setFrom = "이메일";
 		String toMail = email;
 		String title = "회원가입 인증 이메일 입니다.";
 		String content = 
@@ -170,6 +170,7 @@ public class UserController {
 			
 			MimeMessage message = mailSender.createMimeMessage();
 			MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+			
 			helper.setFrom(setFrom);
 			helper.setTo(toMail);
 			helper.setSubject(title);

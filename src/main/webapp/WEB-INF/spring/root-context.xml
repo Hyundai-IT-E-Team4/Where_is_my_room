@@ -31,8 +31,8 @@
 		class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="smtp.gmail.com" />
 		<property name="port" value="587" />
-		<property name="username" value="ok267733@gmail.com" /> <!-- 자신의 이메일 아이디 -->
-		<property name="password" value="hsh!ok6902hsh!" /> <!-- 자신의 비밀번호 -->
+		<property name="username" value="이메일" /> <!-- 자신의 이메일 아이디 -->
+		<property name="password" value="비밀번호" /> <!-- 자신의 비밀번호 -->
 		<!-- 보안연결 TLS과 관련된 설정 -->
 		<property name="javaMailProperties">
 			<props>
