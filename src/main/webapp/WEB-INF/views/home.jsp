@@ -81,7 +81,6 @@
 				</div>
 			</div>
 		</div>
-		</div>
 	</header>
 	<section class="landing">
 		<div class="container">

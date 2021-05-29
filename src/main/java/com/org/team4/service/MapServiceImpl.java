@@ -20,16 +20,6 @@ public class MapServiceImpl implements MapService{
 	@Qualifier(value="boardDAO")
 	private BoardDAO boardDAO;
 	
-	
-	@Override
-	public List<MapDTO> getMapList() throws Exception {
-		try {
-			return boardDAO.getMapList();
-		} catch (Exception e) {
-			log.info(e.getMessage());
-			throw e;
-		}	
-	}
 
 
 	@Override

@@ -39,36 +39,30 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
 <script src="//unpkg.com/bootstrap@4/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript">
+
+	var code = "";
+
+	// 닉네임 중복 체크
 	function registerCheckFunction() {
 		var nickname = $('#nickname').val();
-		
+
 		$.ajax({
 			type : 'POST',
-			url : './UserRegisterCheckNickname',
+			url : './CheckNickname',
 			data : {
 				nickname : nickname
 			},
 			success : function(result) {
 				if (result == 1) {
-					
-					$('a[href="#ex7"]').modal({
-				        fadeDuration: 250
-				     });
-					//$('#checkMessage').html('사용할 수 있는 닉네임입니다.');
-					//$('#checkType').attr('class',
-							//' modal-content panel-success');
+					alert("이미 있는 닉네임입니다.");
 				} else {
-					$('a[href="#ex7"]').modal({
-				        fadeDuration: 250
-				     });
-					//$('#checkMessage').html('사용할 수 없는 닉네임입니다.');
-					//$('#checkType').attr('class',
-						//	' modal-content panel-warning');
+					alert("사용할 수 있는 닉네임입니다.");
 				}
 			}
 		});
 	}
 
+	// 비밀번호 확인 체크
 	function passwordCheckFunction() {
 		var userPassword1 = $('#userPassword1').val();
 		var userPassword2 = $('#userPassword2').val();
@@ -79,19 +73,66 @@
 			$('#passwordCheckMessage').html('');
 		}
 	}
+	
+	// 이메일 자동완성
+	$(function() {
+        $('#select').change(function() {
+            if ($('#select').val() == 'directly') {
+                $('#textEmail').attr("disabled", false);
+                $('#textEmail').val("");
+                $('#textEmail').focus();	 
+            } else {
+                $('#textEmail').val($('#select').val());
+            }
+        })
+    });
+	
+	/* 인증번호 이메일 전송 및 확인 */
+	function authEmail() {
+
+	    var email = $("#email").val() + '@' + $("#textEmail").val();
+	    //var cehckBox = $(".mail_check_input");        // 인증번호 입력란
+	    var boxWrap = $(".mail_check_input_box");    // 인증번호 입력란 박스
+	    var chkbtn = $(".mail_check_btn");
+	    
+	    if (chkbtn.val() == '인증번호 전송') {
+		    $.ajax({
+		        type:"GET",
+		        url:"./mailCheck?email=" + email,
+		        success: function (data) {
+					// console.log("data : " + data);
+		        	boxWrap.attr("disabled", false);
+		        	boxWrap.attr("id", "mail_check_input_box_true");
+		        	chkbtn.val("인증번호 확인");
+		        	code = data;
+				}
+		    });
+		}
+	    else if (chkbtn.val() == '인증번호 확인') {
+			let input = boxWrap.val();
+			
+			if(input == code){
+				alert('인증번호가 일치합니다.');
+			}
+			else {
+				alert('인증번호가 일치하지 않습니다.');
+			}
+		}
+	}
+	
 </script>
 </head>
 <body>
 	<header class="page-header">
 		<div class="header-logo">
-			<a href="./index.html"> <img src="../resources/img/icon.png"
+			<a href="/team4"> <img src="../resources/img/icon.png"
 				alt="Logo" />
 			</a>
 		</div>
 		<div class="header-menu">
 			<nav class="header-navigation">
-				<a href="/project/map">지도</a> <a href="/project/boards/insert">방
-					내놓기</a> <a href="/project/qna">Q&amp;A</a>
+				<a href="/team4/map">지도</a> <a href="/team4/boards/enroll">방
+					내놓기</a> <a href="#">Q&amp;A</a>
 			</nav>
 			<div class="header-profile dropdown">
 				<button type="button" class="dropdown-button">
@@ -110,82 +151,92 @@
 						<li><a href="#">쪽지</a></li>
 					</ul>
 					<ul>
-						<li><a href="/project/users/logout">로그아웃</a></li>
+						<li><a href="/team4/users/logout">로그아웃</a></li>
 					</ul>
 				</div>
 			</div>
 		</div>
-		</div>
 	</header>
 
-    <section>
-        <div class="container">
-          <form class="register-form" method="post" action="register">
-            <a href="./index.html">
-              <img src="../resources/img/icon.png" alt="Logo" width=360/>
-            </a>
-            <table class="register-form-table">
-              <thead>
-                <tr>
-                  <th><h3>회원 가입</h3></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <h5>이메일</h5>
-                  <td><input type="text" id="email" name="email"
-                    maxlength="20" placeholder="이메일을 입력하시오."></td>
-             
-                </tr>
-                <tr>
-                  <td><h5>비밀번호</h5>
-                  <td><input onkeyup="passwordCheckFunction();"
-                    id="userPassword1" type="password" name="password"
-                    maxlength="20" placeholder="비밀번호를 입력하시오."></td>
-                </tr>
-                <tr>
-                  <td><h5>비밀번호 확인</h5>
-                  <td><input onkeyup="passwordCheckFunction();"
-                    id="userPassword2" type="password" maxlength="20"
-                    placeholder="비밀번호 확인을 입력하시오."></td>
-                </tr>
-                <tr>
-                  <td><h5>이름</h5>
-                  <td><input id="name" type="text" name="name"
-                    maxlength="20" placeholder="이름을 입력하시오."></td>
-                </tr>
-                <tr>
-                  <td><h5>닉네임</h5>
-                  <td class="inputs">
-                    <input id="nickname" type="text" name="nickname" maxlength="20" placeholder="닉네임을 입력하시오.">
-                    <button class="check-btn" onclick="registerCheckFunction();" type="button">
-                      Check
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td><h5>성별</h5>
-                  <td>
-                    <div class="inputs">
-                      <label>남자</label>
-                      <input class="radio" type="radio" name="gender" value="M" checked>
-                      <label>여자</label>
-                      <input class="radio" type="radio" name="gender" value="F">
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+	<section>
+		<div class="container">
+			<form class="register-form" method="post" action="register">
+				<a href="/team4"> <img src="../resources/img/icon.png"
+					alt="Logo" width=360 />
+				</a>
+				<table class="register-form-table">
+					<thead>
+						<tr>
+							<th><h3>회원 가입</h3></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>
+								<h5>이메일</h5>
+							<td>	
+								<div class="email-input">
+									<input type="text" id="email" name="email" maxlength="20"
+										placeholder="이메일">
+									<strong>@</strong>
+									<input id="textEmail" name="textEmail" placeholder="이메일 선택"> 
+									<select id="select">
+										<option value="" disabled selected>E-Mail 선택</option>
+										<option value="naver.com" id="naver.com">naver.com</option>
+										<option value="hanmail.net" id="hanmail.net">hanmail.net</option>
+										<option value="gmail.com" id="gmail.com">gmail.com</option>
+										<option value="nate.com" id="nate.com">nate.com</option>
+										<option value="directly" id="textEmail">직접 입력하기</option>
+									</select>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+							<td class="inputs">
+								<input class="mail_check_input_box" id="mail_check_input_box_false" maxlength="6" disabled="disabled" placeholder="인증번호 6자리" >
+								<input class="mail_check_btn" style="cursor: pointer;" onclick="authEmail();" type="button" value="인증번호 전송" >
+							</td>
+						</tr>
+						<tr>
+							<td><h5>비밀번호 확인</h5>
+							<td><input onkeyup="passwordCheckFunction();"
+								id="userPassword2" type="password" maxlength="20"
+								placeholder="비밀번호 확인을 입력하시오."></td>
+						</tr>
+						<tr>
+							<td><h5>이름</h5>
+							<td><input id="name" type="text" name="name" maxlength="20"
+								placeholder="이름을 입력하시오."></td>
+						</tr>
+						<tr>
+							<td><h5>닉네임</h5>
+							<td class="inputs"><input id="nickname" type="text"
+								name="nickname" maxlength="20" placeholder="닉네임을 입력하시오.">
+								<button class="check-btn" onclick="registerCheckFunction();"
+									type="button">Check</button></td>
+						</tr>
+						<tr>
+							<td><h5>성별</h5>
+							<td>
+								<div class="inputs">
+									<label>남자</label> <input class="radio" type="radio"
+										name="gender" value="남성" checked> <label>여자</label> <input
+										class="radio" type="radio" name="gender" value="여성">
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
 
-            <h5 style="color: red;" id="passwordCheckMessage"></h5>
-            <button class="submit-btn" type="submit">가입하기
+				<h5 style="color: red;" id="passwordCheckMessage"></h5>
+				<button class="submit-btn" type="submit">가입하기</button>
 
-          </form>
-        </div>
-      </section>
+			</form>
+		</div>
+	</section>
 
-	
+
 	<!-- app -->
 	<script src="../resources/js/dropdown-menu.js"></script>
 </body>
