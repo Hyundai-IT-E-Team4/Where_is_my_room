@@ -1,1 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.org.team4.dao.FilesDAO">
+	<insert id="insertFile" parameterType="FileDTO">
+		insert 
+		into 
+			files(board_id, upload_file_name, real_file_name)
+		values(#{boardId}, #{uploadFileName}, #{realFileName})
+	</insert>
+
+	<select id="getFileList" parameterType="long" resultType="FileDTO">
+		select
+			id,
+			board_id boardId,
+			upload_file_name uploadFileName,
+			real_file_name realFileName
+		from
+			files 
+		where
+			board_id = #{boardId}
+		order by id
+	</select>
+
+	<delete id="deleteFileList" parameterType="long">
+		delete from files where board_id = {boardId}
+	</delete>
+</mapper>

@@ -5,13 +5,13 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@ToString
-@AllArgsConstructor
 @Getter
 @Setter
-public class MessageLogParamDTO {
-
+@ToString
+@AllArgsConstructor
+public class MessageUpdateParamDTO {
+	
 	long messageId;
-	long lastChatId;
-	String startDate;
+	long userId;
+
 }

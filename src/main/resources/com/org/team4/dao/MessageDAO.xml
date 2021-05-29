@@ -4,7 +4,7 @@
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.org.team4.dao.MessageDAO">
-	<select id="getMessageRoomListInitial" parameterType="long" resultType="MessageListDTO">
+	<select id="getMessageRoomListInit" parameterType="long" resultType="MessageListDTO">
 		SELECT * 
 		FROM (
 		        SELECT 
@@ -53,8 +53,8 @@
 		                         ON I.PARTNERID = U.ID
 		                ORDER BY SEND_DATE DESC
 		             ) O
-		     )
-		WHERE RNUM BETWEEN 1 AND 15
+		     	)
+		WHERE SENDDATE > STARTDATE
 	</select>
 	
 	<select id="getMessageRoomList" parameterType="MessageListParamDTO" resultType="MessageListDTO">
@@ -107,14 +107,14 @@
 		                ORDER BY SEND_DATE DESC
 		             ) O
 		     )
-		WHERE RNUM BETWEEN #{lastChatId} AND #{lastChatId} + 14	
+		WHERE SENDDATE > STARTDATE
 	</select>
 	
 	<select id="getMessageLogInit" parameterType="MessageLogParamDTO" resultType="MessageLogDTO" >
 		SELECT 
 		    I.RNUM                      ,
 		    I.ID                        ,
-		    I.MESSAGE_ID AS MESSAGEID    ,
+		    I.MESSAGE_ID AS MESSAGEID   ,
 		    I.SENDER_ID  AS SENDERID    ,
 		    I.NICKNAME                  ,
 		    I.MESSAGE                   ,
@@ -131,7 +131,8 @@
 		            FROM MESSAGE_DETAIL M
 		            JOIN USERS U
 		              ON M.SENDER_ID = U.ID
-		            WHERE M.MESSAGE_ID = #{messageId}
+		            WHERE M.MESSAGE_ID = #{messageId} 
+		              AND M.SEND_DATE > TO_DATE(#{startDate},'YYYY-MM-DD HH24:MI:SS')
 		            ORDER BY M.ID DESC
 		         ) B 
 		    ) I
@@ -143,7 +144,7 @@
 		SELECT 
 		    I.RNUM                      ,
 		    I.ID                        ,
-		    I.MESSAGE_ID AS MESSAGEID    ,
+		    I.MESSAGE_ID AS MESSAGEID   ,
 		    I.SENDER_ID  AS SENDERID    ,
 		    I.NICKNAME                  ,
 		    I.MESSAGE                   ,
@@ -161,11 +162,29 @@
 		            JOIN USERS U
 		              ON M.SENDER_ID = U.ID
 		            WHERE M.MESSAGE_ID = #{messageId}
+		              AND M.SEND_DATE > TO_DATE(#{startDate},'YYYY-MM-DD HH24:MI:SS')
 		            ORDER BY M.ID DESC
 		         ) B 
 		    ) I
 		WHERE RNUM BETWEEN #{lastChatId} AND #{lastChatId} + 19
 		ORDER BY ID
 	</select>
-
+	
+	<insert id="insertMessage" parameterType="MessageDTO" statementType="CALLABLE">
+		{CALL MESSAGE_PACK.MESSAGE_INSERT(
+			#{senderId,  mode = IN, jdbcType=NUMERIC},
+			#{messageId, mode = IN, jdbcType=NUMERIC},
+			#{message,   mode = IN, jdbcType=VARCHAR}
+			)
+		}
+	</insert>
+	
+	<update id="setMessageStartDate" parameterType="MessageUpdateParamDTO" statementType="CALLABLE">
+		{CALL MESSAGE_PACK.UPDATE_STARTDATE(
+			#{messageId, mode = IN, jdbcType=NUMERIC},
+			#{userId,    mode = IN, jdbcType=NUMERIC}
+			)
+		}
+	</update>
+	
 </mapper>

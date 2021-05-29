@@ -41,7 +41,6 @@
 
 </head>
 <body>
-	<input type="hidden" value="${sessionScope.userInfo.id}" id="user-id"/>
 	<header class="page-header">
 		<div class="header-logo">
 			<a href="./index.html"> <img src="../resources/img/icon.png"
@@ -76,6 +75,9 @@
 			</div>
 		</div>
 	</header>
+	
+	<input type="hidden" value="${sessionScope.userInfo.id}" id="user-id"/>
+	<input type="hidden" value="${sessionScope.userInfo.nickname}" id="user-nick"/>
 
 	<section class="chatting">
 		<div class="container">
@@ -85,9 +87,9 @@
 					<h2>쪽지함</h2>
 
 					<div class="items scroll message-list" id="autoScroll">
-
+<%-- 
 						<c:forEach var="msgr" items="${messageRoomList}">
-							<div class="message" onclick="getMessage(${msgr.messageId})">
+							<div class="message" id="message${msgr.messageId}" onclick="getMessage(${msgr.messageId})">
 								<div class="message-user">
 									<a href="#"> <img
 										src="https://avatars.githubusercontent.com/u/50897259?v=4"
@@ -105,23 +107,27 @@
 									<p class="message-text">${msgr.message}</p>
 								</div>
 							</div>
-						</c:forEach>
+						</c:forEach> --%>
 
 					</div>
 				</div>
 
 				<div class="chat-message">
-					<h2>내용</h2>
-
+					<div style="display:flex; flex-direction: row; justify-content: space-between;">
+						<h2>내용</h2>
+						<div>
+							<button class="delete-btn" onclick="deleteMsg()">나가기</button>
+							<button class="list-btn" onclick="listOpen()">쪽지함</button>
+						</div>
+					</div>
 					<div class="items scroll message-log" id="autoScroll">
 
 					</div>
 
 					<div class="chat-form">
-						<form action="#" method="post">
 							<input class="message_input" type="text" placeholder="메시지를 입력하세요">
-							<input class="submit_btn" type="submit" value="전송">
-						</form>
+							<input class="submit_btn" type="button" value="전송">
+
 					</div>
 
 				</div>

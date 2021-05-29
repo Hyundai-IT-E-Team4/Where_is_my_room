@@ -11,5 +11,4 @@ import lombok.ToString;
 @Setter
 public class MessageListParamDTO {
 	long id;
-	long lastChatId;
 }
