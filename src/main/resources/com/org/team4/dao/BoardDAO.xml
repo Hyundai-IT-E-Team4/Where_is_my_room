@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.org.team4.dao.BoardDAO">
-	<insert id="insertBoard" parameterType="BoardinsertDTO">
+	<insert id="insertBoard" useGeneratedKeys="true" keyProperty="id" keyColumn="id" parameterType="BoardDTO">
 		insert into
 		board(title,content, writer_id, latitude, longitude, room_type, contract_type, rental_fee,
-		address, write_date, deleted)
+		address, detail_address, write_date, deleted)
 		values
 		(#{title},
 		#{content},
@@ -16,9 +16,37 @@
 		#{contract_type},
 		#{rental_fee},
 		#{address},
+		#{detailAddress},
 		sysdate,
 		0)
 	</insert>
+	
+	<select id="detail" resultType="BoardDetailDTO" parameterType="long">
+		select 
+			board.id id, 
+			title,
+			content, 
+			room_type roomType,
+			contract_type contractType,
+			rental_fee rentalFee,
+			address,
+			detail_address detailAddress,
+			write_date writeDate,
+			latitude,
+			longitude,
+			nvl(nickname,'탈퇴회원') writerNickName,
+			writer_id writerId
+		from 
+			board 
+		join 
+			users
+		on
+			board.id = #{id} and board.deleted = 0 and board.writer_id = users.id
+	</select>
+	
+	<update id="delete" parameterType="BoardDeleteDTO">
+		update board set deleted = 1 where id = #{boardId} and writer_id = #{writerId} 
+	</update>
 
 	<select id="getMapList" resultType="MapDTO">
 		select title, latitude, longitude, address
@@ -48,6 +76,4 @@ board.longitude between #{swLng} and #{neLng}
 order by board.id desc) dummy1) dummy2 where seq <= 10
 ]]>
 	</select>
-
-
 </mapper>

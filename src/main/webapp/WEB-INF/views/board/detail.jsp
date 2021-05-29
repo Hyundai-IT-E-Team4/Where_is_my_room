@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" isELIgnored="false"%>
+<%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,24 +21,32 @@
 	rel="stylesheet" />
 
 <!-- styles -->
-<link rel="stylesheet" href="resources/css/reset.css" />
-<link rel="stylesheet" href="resources/css/grid.min.css" />
-<link rel="stylesheet" href="resources/css/header.css" />
-<link rel="stylesheet" href="resources/css/footer.css" />
-<link rel="stylesheet" href="resources/css/dropdown.css" />
+<link rel="stylesheet" href="../resources/css/reset.css" />
+<link rel="stylesheet" href="../resources/css/grid.min.css" />
+<link rel="stylesheet" href="../resources/css/header.css" />
+<link rel="stylesheet" href="../resources/css/footer.css" />
+<link rel="stylesheet" href="../resources/css/dropdown.css" />
 
 <!-- favicon -->
-<link rel="shortcut icon" href="resources/img/favicon.ico"
+<link rel="shortcut icon" href="../resources/img/favicon.ico"
 	type="image/x-icon" />
-<link rel="icon" href="resources/img/favicon.ico" type="image/x-icon" />
+<link rel="icon" href="../resources/img/favicon.ico" type="image/x-icon" />
 
 <!-- app -->
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9dad515bc29f7c64e401203f2300d728&libraries=services"></script>
+<script src="../resources/js/detail.js" ></script>
+<script>
+let latitude = "${boardDetailDTO.latitude}";
+let longitude = "${boardDetailDTO.longitude}";
+</script>
+
 </head>
 <body>
+	${boardDetailDTO.content }
 	<header class="page-header">
 		<div class="header-logo">
-			<a href="./index.html"> <img src="resources/img/icon.png"
+			<a href="./index.html"> <img src="../resources/img/icon.png"
 				alt="Logo" />
 			</a>
 		</div>
@@ -68,7 +78,6 @@
 				</div>
 			</div>
 		</div>
-		</div>
 	</header>
 
 
@@ -76,16 +85,53 @@
 
 
 	<section>
+		<strong>집 상세 정보</strong>
 		<div class="container">
 			<!-- 여기에 작성하세요 :) -->
+			<div>
+			<strong>제목</strong>
+			${boardDetailDTO.title }
+			</div>
+			<div>
+			<strong>집 정보</strong><br>
+			<div>
+			<strong>종류</strong>
+			${boardDetailDTO.roomType } &nbsp;
+			<strong>구분</strong>
+			${boardDetailDTO.contractType }
+			
+			<strong>양도 가격</strong>
+			${boardDetailDTO.rentalFee} (만)원
+			</div>
+			<div>
+			<strong>위치</strong>
+			${boardDetailDTO.address} ${boardDetailDTO.detailAddress}
+			</div>
+			<div id="map" style="width:100%;height:350px;"></div>
+			<div>
+			<strong>집 사진</strong>
+			<c:forEach var="file" items="${boardDetailDTO.files}">
+    		<img src="${file.url}" title="${file.uploadFileName}" width="50%" height="50%">
+			</c:forEach>
+			</div>
+			<div>
+			
+			</div>
+			</div>
+			<div>
+			<strong>상세 설명</strong><br>
+			${boardDetailDTO.content}
+			</div>
 		</div>
+		<div>
+		<strong id="list" onClick="location.href=history.back()">목록으로</strong>
+		<strong id="showComments">댓글보기</strong>
+		<%-- <c:if test="${userInfo} != null && ${userInfo}.id == ${boardDetailDTO.writerId }"> --%>
+			<strong id="delete">삭제하기</strong>
+		<%-- </c:if> --%>
+		</div>
+		<div id="commentsContainer"></div>
 	</section>
-
-
-
-
-
-
 
 	<!-- Footer Section -->
 	<footer class="page-footer">
@@ -104,8 +150,7 @@
 			</div>
 		</div>
 	</footer>
-
 	<!-- app -->
-	<script src="resources/js/dropdown-menu.js"></script>
+	<script src="../resources/js/dropdown-menu.js"></script>
 </body>
 </html>

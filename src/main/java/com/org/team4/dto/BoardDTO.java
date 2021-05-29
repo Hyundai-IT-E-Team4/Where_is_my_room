@@ -1,13 +1,18 @@
 package com.org.team4.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 @Getter
 @Setter
 @ToString
-public class BoardInsertDTO {
+@AllArgsConstructor
+@NoArgsConstructor
+public class BoardDTO {
+	private long id;
 	private String title;
 	private String content;
 	private double latitude;
@@ -16,7 +21,8 @@ public class BoardInsertDTO {
 	private String contract_type;
 	private int rental_fee;
 	private String address;
+	private String detailAddress;
 	private String write_date;
 	private int deleted;
-	private int writer_id;
+	private long writer_id;
 }
