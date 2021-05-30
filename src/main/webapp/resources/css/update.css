@@ -1,0 +1,125 @@
+@charset "UTF-8";
+
+@import url("https://fonts.googleapis.com/css?family=Dax:400,900");
+
+.update {
+	display: flex;
+	flex-direction: column;
+	margin: 60px auto 0 auto;
+	width: 480px;
+	padding: 24px;
+	border: 1px solid #ededed;
+	border-radius: 12px;
+}
+
+.update h1 {
+	line-height: 30px;
+	color: #292929;
+	font-size: 22px;
+	font-weight: bold;
+}
+
+.update .input {
+	margin-top: 24px;
+}
+
+.update .input .label {
+	flex: auto;
+	line-height: 20px;
+	color: #737373;
+	font-size: 12px;
+	font-weight: bold;
+	display: flex;
+	justify-content: space-between;
+}
+
+.update .input .label p {
+	flex-shrink: 0;
+	line-height: 20px;
+	color: #a6a6a6;
+	font-size: 12px;
+	font-weight: normal;
+}
+
+.update .input .input-info {
+	display: block;
+	box-sizing: border-box;
+	margin-top: 4px;
+	padding: 8px;
+	border: 1px solid #ededed;
+	border-radius: 12px;
+	width: 100%;
+	height: 40px;
+	line-height: 24px;
+	color: #292929;
+	font-size: 16px;
+	font-weight: normal;
+	background-color: #f9f9f9;
+	background-repeat: no-repeat;
+	background-position: right 8px center;
+	background-size: 24px 24px;
+	appearance: none;
+	letter-spacing: -0.5px;
+}
+
+.update .input .radio {
+
+}
+
+#nickname {
+	width: 75%;
+}
+
+.inputs {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.inputs button {
+	border-radius: 12px;
+	color: #fff;
+	font-size: 16px;
+	font-weight: normal;
+	background-color: rgba(154, 226, 232, 1);
+	width: 20%;
+}
+
+.update .rules p {
+	margin-top: 24px;
+	line-height: 18px;
+	color: #737373;
+	font-size: 12px;
+}
+
+.update input {
+	margin-top: 24px;
+	border: 0;
+	border-radius: 12px;
+	width: 100%;
+	height: 40px;
+	color: #fff;
+	font-size: 16px;
+	font-weight: bold;
+	background-color: rgba(154, 226, 232, 1);
+}
+
+input[type=submit] {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	letter-spacing: -0.5px;
+	cursor: pointer;
+	transition: opacity 150ms ease-in-out;
+}
+
+input[type=submit]:hover {
+	opacity: 0.8;
+}
+
+.caution {
+	margin: 4px 0 0 8px;
+	line-height: 20px;
+	color: #c62917;
+	font-size: 12px;
+}
