@@ -6,6 +6,8 @@ window.onload = ()=>{
 	window.findAll = false; // 채팅방 다 찾았는지 여부
 	window.messageId = 0;
 	
+	connect();
+	
 	getMessageList();
 	
 	$('.list-btn').hide();
@@ -48,50 +50,74 @@ function onOpen(evt) {
 
 function onMessage(evt) {
 	let date = dateFormat(new Date());
+
 	let data = evt.data;
-	let messageId = data.split(':')[0]
-	let senderId = data.split(':')[1]
-	let senderNick = data.split(':')[2];
-	let msg = data.split(':')[3];
+	let parseData = data.split(":");
 	
-	let plusMsg = '';
-	
-	if (messageId == window.messageId) {
+	if(parseData.length > 3) {
+		let messageId  = parseData[0]
+		let senderId   = parseData[1]
+		let senderNick = parseData[2];
+		let msg        = parseData[3];
 		
-		if (senderId == window.userId) {
+		let plusMsg = '';
+		
+		if (messageId == window.messageId) {
 			
-			plusMsg += '<div class="message-reverse">'
-			        +  '	<div class="message-user-reverse">'    
-		            +  '		<a href="#"> <img src="https://avatars.githubusercontent.com/u/50897259?v=4" src="https://avatars.githubusercontent.com/u/50897259?v=4" alt="Profile Image" /> </a>' 
-		            +  '	</div>'
-		            +  '	<div class="message-content-reverse">'
-		            +  '		<div class="message-info-reverse">'
-		            +  '			<strong class="message-sender-reverse"> <a href="#">' + senderNick + '</a> </strong>'
-		            +  '			<div class="message-timestamp-reverse">' + date + '</div> '
-		            +  '		</div>'
-		            +  '		<p class="message-text-reverse">' + msg + '</p>'
-		            +  '	</div>'
-		            +  '</div>'
-		} else {
-					plusMsg += '<div class="message">'
-			        +  '	<div class="message-user">'    
-		            +  '		<a href="#"> <img src="https://avatars.githubusercontent.com/u/50897259?v=4" src="https://avatars.githubusercontent.com/u/50897259?v=4" alt="Profile Image" /> </a>' 
-		            +  '	</div>'
-		            +  '	<div class="message-content">'
-		            +  '		<div class="message-info">'
-		            +  '			<strong class="message-sender"> <a href="#">' + senderNick + '</a> </strong>'
-		            +  '			<div class="message-timestamp">' + date + '</div> '
-		            +  '		</div>'
-		            +  '		<p class="message-text">' + msg + '</p>'
-		            +  '	</div>'
-		            +  '</div>'
+			if (senderId == window.userId) {
+				
+				plusMsg += '<div class="message-reverse">'
+				        +  '	<div class="message-user-reverse">'    
+			            +  '		<a href="#"> <img src="https://avatars.githubusercontent.com/u/50897259?v=4" src="https://avatars.githubusercontent.com/u/50897259?v=4" alt="Profile Image" /> </a>' 
+			            +  '	</div>'
+			            +  '	<div class="message-content-reverse">'
+			            +  '		<div class="message-info-reverse">'
+			            +  '			<strong class="message-sender-reverse"> <a href="#">' + senderNick + '</a> </strong>'
+			            +  '			<div class="message-timestamp-reverse">' + date + '</div> '
+			            +  '		</div>'
+			            +  '		<p class="message-text-reverse">' + msg + '</p>'
+			            +  '	</div>'
+			            +  '</div>'
+			} else {
+						plusMsg += '<div class="message">'
+				        +  '	<div class="message-user">'    
+			            +  '		<a href="#"> <img src="https://avatars.githubusercontent.com/u/50897259?v=4" src="https://avatars.githubusercontent.com/u/50897259?v=4" alt="Profile Image" /> </a>' 
+			            +  '	</div>'
+			            +  '	<div class="message-content">'
+			            +  '		<div class="message-info">'
+			            +  '			<strong class="message-sender"> <a href="#">' + senderNick + '</a> </strong>'
+			            +  '			<div class="message-timestamp">' + date + '</div> '
+			            +  '		</div>'
+			            +  '		<p class="message-text">' + msg + '</p>'
+			            +  '	</div>'
+			            +  '</div>'
+			}
 		}
-	
-		$('.message-log').append(plusMsg);
-		$('.message-log').scrollTop($('.message-log')[0].scrollHeight);
+			$('.message-log').append(plusMsg);
+			$('.message-log').scrollTop($('.message-log')[0].scrollHeight);
 		
-	}	
-	//getMessageList();
+	} else{
+		let message = evt.data.split(":");
+		let command = message[0];
+		let senderNick = message[1];
+		let content = message[2];
+		
+		plusMsg = '';
+		plusMsg += `	<div class="popup">`
+		        +  '        <button class="closeBtn" onClick="closePopup($(this))">X</button>'
+		        +  `		<p class="popup-title">📧새로운 ${command}</p>`
+				+  `		<p class="popup-content">${senderNick} : ${content}</p>`
+				+  '	</div>';
+		
+		$(".popup-container").append(plusMsg);
+		$('.popup' + window.popupId).hide();
+		$('.popup' + window.popupId).show("slow");
+		
+		setTimeout(()=>{
+			$('.popup:first').remove();
+		}, 5000);
+	}
+
 };
 
 function onClose(evt) {
@@ -100,18 +126,19 @@ function onClose(evt) {
 
 function send() {
 	let msg = $(".message_input").val();
-	wsocket.send(window.messageId + ":" + msg);
+	wsocket.send(window.partnerName + ":" + msg);
 	$(".message_input").val("");
 	window.lastChatMessageId += 1;
 };
 
 
 // 채팅방의 메세지 내역 보여주는 함수
-function getMessage(messageId, startDate) { 
+function getMessage(messageId, startDate, partnerName) { 
 
 	window.messageId = messageId;
 	window.lastChatMessageId = 21; // 마지막으로 읽은 메시지 아이디
 	window.chatMessageFindAll = false; // 채팅방의 메시지를 다 읽었는지
+	window.partnerName = partnerName;
 	
 	if (window.wsocket != null) {
 		disconnect();
@@ -131,16 +158,19 @@ function getMessage(messageId, startDate) {
 		type:'get',
 		data:{"messageId" : window.messageId, "startDate" : startDate},
 		success:function(res) {
-			console.log(startDate);
-			window.startDate = startDate;
+
 			let readList = res;
+			
+			window.startDate = startDate;
+			
 			if(readList.length < 20) {
 				findLll = true;
 			}
+			
 			let plusMsg = '';
+			
 			for(let i=0; i<readList.length; i++) {
-				console.log(readList[i].sendDate);
-				console.log(new Date(readList[i].sendDate));
+
 				if(readList[i].senderId == userId) {
 					plusMsg += '<div class="message-reverse">'
 					        +  '	<div class="message-user-reverse">'    
@@ -251,7 +281,7 @@ function getMessageList() {
 		let readList = res;
 		let plusMsg = "";
 		for(let i =0 ; i < readList.length; i++){
-			plusMsg += '<div class="message" onclick="getMessage(' + readList[i].messageId + ',\'' + dateFormat(new Date(readList[i].startDate)) + '\')">'
+			plusMsg += '<div class="message" onclick="getMessage(' + readList[i].messageId + ',\'' + dateFormat(new Date(readList[i].startDate)) + '\',\'' + readList[i].partnerName + '\'' + ')">'
 					+  '	<div class="message-user">'
 					+  '		<a href="#"> <img src="https://avatars.githubusercontent.com/u/50897259?v=4" alt="Profile Image" /> </a>'
 					+  '	</div>'
@@ -278,6 +308,11 @@ function listOpen() {
 	$('.list-btn').fadeOut('slow');
 	$('.delete-btn').fadeOut('slow')
 	$('.message-log').empty();
+	
+	if (window.wsocket != null) {
+		disconnect();
+	}
+	connect();
 }
 
 function deleteMsg() {
@@ -293,15 +328,15 @@ function deleteMsg() {
 
 // 날짜 포매팅 함수
 function dateFormat(date) {
-    let month = date.getMonth() + 1;
-    let day = date.getDate();
-    let hour = date.getHours();
+    let month  = date.getMonth() + 1;
+    let day    = date.getDate();
+    let hour   = date.getHours();
     let minute = date.getMinutes();
     let second = date.getSeconds();
 
-    month = month >= 10 ? month : '0' + month;
-    day = day >= 10 ? day : '0' + day;
-    hour = hour >= 10 ? hour : '0' + hour;
+    month  = month >= 10 ? month : '0' + month;
+    day    = day >= 10 ? day : '0' + day;
+    hour   = hour >= 10 ? hour : '0' + hour;
     minute = minute >= 10 ? minute : '0' + minute;
     second = second >= 10 ? second : '0' + second;
 
