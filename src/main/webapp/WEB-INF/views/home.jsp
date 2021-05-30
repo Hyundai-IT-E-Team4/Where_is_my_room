@@ -45,7 +45,7 @@
 		</div>
 		<div class="header-menu">
 			<nav class="header-navigation">
-				<a href="/project/map">지도</a> <a href="/project/boards/insert">방
+				<a href="/team4/map">지도</a> <a href="/team4/board/enroll">방
 					내놓기</a> <a href="/project/qna">Q&amp;A</a>
 			</nav>
 			<div class="header-profile dropdown">
@@ -63,7 +63,7 @@
 								<li><a href="/team4/users/info">내 정보</a></li>
 								<li><a href="#">내가 등록한 방</a></li>
 								<li><a href="#">최근 본 방</a></li>
-								<li><a href="/team4/users/chat">쪽지</a></li>
+								<li><a href="/team4/messages">쪽지</a></li>
 							</ul>
 							<ul>
 								<li><a href="/team4/users/logout">로그아웃</a></li>

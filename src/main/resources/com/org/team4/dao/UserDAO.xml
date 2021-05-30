@@ -24,13 +24,33 @@
 		}
 	</select>
 
-	<select id="withdrawUser" parameterType="LoginDTO" resultType="long">
+	<update id="withdrawUser" parameterType="LoginDTO">
 		update users set 
 			nickname = null, 
 			email = null
     	where email = #{email} and 
     		password = #{password}
-	</select>
+	</update>
+        
+    <update id="updateUser" parameterType="UserDTO" >
+		UPDATE USERS SET 
+			NAME = #{name},
+			NICKNAME = #{nickname},
+			GENDER = #{gender}
+        WHERE EMAIL = #{email} AND PASSWORD = #{password}
+	</update>
+	
+	<update id="updateEmail" parameterType="UpdateEmailDTO" >
+		UPDATE USERS SET 
+			EMAIL = #{emailAfter}
+        WHERE EMAIL = #{emailBefore} AND PASSWORD = #{password}
+	</update>
+	
+	<update id="updatePassword" parameterType="UpdatePasswordDTO" >
+		UPDATE USERS SET 
+			password = #{passwordAfter}
+        WHERE EMAIL = #{email} AND PASSWORD = #{passwordBefore}
+	</update>
 	
 	<select id="checkNickname" parameterType="String" resultType="int">
 		select count(*)
@@ -39,4 +59,3 @@
 	</select>
 
 </mapper>
-

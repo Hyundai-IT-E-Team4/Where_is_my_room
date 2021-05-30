@@ -135,3 +135,13 @@ table tr td:first-child {
 #mail_check_input_box_true{
     background-color:white;
 }
+
+.input-info {
+	width: 350px;
+	border: 1px solid #e8e8e8;
+	border-radius: 5px;
+	padding: 10px 10px;
+	font-size: 15px;
+	line-height: 1.2;
+	letter-spacing: -0.02em;
+}
