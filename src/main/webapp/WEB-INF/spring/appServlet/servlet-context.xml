@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+<beans:beans
+	xmlns="http://www.springframework.org/schema/mvc"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:websocket="http://www.springframework.org/schema/websocket"
 	xsi:schemaLocation="http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.3.xsd
@@ -9,39 +11,56 @@
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
-	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
-	
+	<!-- DispatcherServlet Context: defines this servlet's request-processing 
+		infrastructure -->
+
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
 
-	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
+		up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
 
-	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
-	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
+		in the /WEB-INF/views directory -->
+	<beans:bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
-	
-	<beans:bean id="multipartResolver" 
-	class="org.springframework.web.multipart.commons.CommonsMultipartResolver" 
-	>
+
+	<beans:bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<beans:property name="maxUploadSize" value="10485760" />
 	</beans:bean>
-	
-	<context:component-scan base-package="com.org.team4" />
-	
-	
+
+	<context:component-scan
+		base-package="com.org.team4" />
+
+
 	<websocket:handlers>
-	
+
 		<websocket:mapping handler="chatHandler"
-				path="/messages/socket/*" />		
+			path="/messages/socket/*" />
 		<websocket:handshake-interceptors>
-			<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
+			<beans:bean
+				class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
 		</websocket:handshake-interceptors>
 	</websocket:handlers>
 
 	<beans:bean id="chatHandler"
 		class="com.org.team4.handler.ChatWebSocketHandler" />
+
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<mvc:exclude-mapping path="/" />
+			<mvc:exclude-mapping path="/map" />
+			<mvc:exclude-mapping path="/users/login" />
+			<mvc:exclude-mapping path="/users/register" />
+			<mvc:exclude-mapping path="/assets/**" />
+			<beans:bean class="com.org.team4.interceptor.AuthInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
 	
 </beans:beans>

@@ -22,6 +22,7 @@ import com.org.team4.dto.RegisterDTO;
 import com.org.team4.dto.UpdateEmailDTO;
 import com.org.team4.dto.UpdatePasswordDTO;
 import com.org.team4.dto.UserDTO;
+import com.org.team4.interceptor.Auth;
 import com.org.team4.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -64,6 +65,7 @@ public class UserController {
 		}
 	}
 
+	@Auth
 	@GetMapping("/logout")
 	public String logout(Model model, HttpSession session) {
 
@@ -99,6 +101,7 @@ public class UserController {
 
 	}
 
+	@Auth
 	@GetMapping("/withdraw")
 	public String withdraw(HttpSession session) {
 
@@ -130,6 +133,7 @@ public class UserController {
 		return "result";
 	}
 	
+	@Auth
 	@GetMapping("/info")
 	public String info(HttpSession session) {
 
@@ -141,6 +145,7 @@ public class UserController {
 			return "users/info";
 	}
 
+	@Auth
 	@GetMapping("/update")
 	public String update(HttpSession session) {
 
@@ -175,6 +180,7 @@ public class UserController {
 		return "result";
 	}
 	
+	@Auth
 	@GetMapping("/updateEmail")
 	public String updateEmail(HttpSession session) {
 
@@ -186,6 +192,7 @@ public class UserController {
 			return "users/updateEmail";
 	}
 
+	@Auth
 	@PostMapping("/updateEmail")
 	public String updateEmail(@ModelAttribute UpdateEmailDTO updateEmailDTO, Model model, HttpSession session) throws Exception {
 
@@ -205,6 +212,7 @@ public class UserController {
 		return "result";
 	}
 	
+	@Auth
 	@GetMapping("/updatePassword")
 	public String updatePassword(HttpSession session) {
 
@@ -252,6 +260,7 @@ public class UserController {
 	}
 
 	/* 이메일 인증 */
+	@Auth
 	@GetMapping("/mailCheck")
 	@ResponseBody
 	public String mailCheckGET(@RequestParam String email) throws Exception {
