@@ -119,7 +119,7 @@
 					<div style="display:flex; flex-direction: row; justify-content: space-between;">
 						<h2>내용</h2>
 						<div>
-							<button class="delete-btn" onclick="deleteMsg()">나가기</button>
+							<button class="delete-btn" onclick="deleteMsg()">방 나가기</button>
 							<button class="list-btn" onclick="listOpen()">쪽지함</button>
 						</div>
 					</div>
