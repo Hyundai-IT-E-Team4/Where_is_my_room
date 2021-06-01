@@ -20,8 +20,6 @@ public class MapServiceImpl implements MapService{
 	@Qualifier(value="boardDAO")
 	private BoardDAO boardDAO;
 	
-
-
 	@Override
 	public List<MapDTO> getMapListWithLoction(LocationDTO locationDTO) throws Exception {
 		try {

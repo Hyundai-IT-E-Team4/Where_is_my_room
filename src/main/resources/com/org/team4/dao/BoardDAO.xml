@@ -20,8 +20,7 @@
 		sysdate,
 		0)
 	</insert>
-<<<<<<< HEAD
-=======
+
 	
 	<select id="detail" resultType="BoardDetailDTO" parameterType="long">
 		select 
@@ -49,13 +48,12 @@
 	<update id="delete" parameterType="BoardDeleteDTO">
 		update board set deleted = 1 where id = #{boardId} and writer_id = #{writerId} 
 	</update>
->>>>>>> refs/remotes/team/develop
 
 	<select id="getMapListWithLoction" resultType="MapDTO"
 		parameterType="LocationDTO">
 	<![CDATA[
-select * from 
-(select dummy1.* from 
+select dummy2.* from 
+(select dummy1.* , rownum as seq from 
 (select 
 latitude, 
 longitude,

@@ -24,7 +24,7 @@ public class MapController {
 	private MapService mapService;
 
 	//남서 위도 경도 북동 위도 경
-	@GetMapping("/map/{swLat}/{swLng}/{neLat}/{neLng}")
+	@GetMapping("/map/{swLat}/{swLng}/{neLat}/{neLng}/")
 	@ResponseBody
 	public Map<String, Object> Map2(@PathVariable double swLat,
 							 @PathVariable double swLng,

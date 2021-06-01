@@ -20,4 +20,6 @@ public interface BoardDAO {
 	 List<MapDTO> getMapListWithLoction(LocationDTO locationDTO) throws SQLException;
 	 
 	 int delete(BoardDeleteDTO boardDeleteDTO) throws SQLException;
+
+	
 }

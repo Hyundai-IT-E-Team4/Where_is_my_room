@@ -8,5 +8,7 @@ import com.org.team4.dto.MapDTO;
 public interface MapService {
 
 	List<MapDTO> getMapListWithLoction(LocationDTO locationDTO) throws Exception;
-
+	
+		
 }
+

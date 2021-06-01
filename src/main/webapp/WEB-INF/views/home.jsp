@@ -109,11 +109,6 @@
 					<p class="service-desc">방학, 휴가 등 거주하지 않는 집을 내버려두지 않고 소득을 얻을 수
 						있는 서비스입니다. 자신의 집을 소개해보세요!</p>
 				</div>
-				<div class="col-12 col-md-6">
-					<h2 class="service-title">짧은 기간동안 머무를 집이 필요한가요?</h2>
-					<p class="service-desc">1년 미만 정도의 기간동안 편하게 머무를 수 있는 공간을 쉽고 빠르게
-						다양한 집을 만나보세요!</p>
-				</div>
 			</div>
 		</div>
 	</section>

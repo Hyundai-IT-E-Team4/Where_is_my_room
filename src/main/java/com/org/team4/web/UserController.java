@@ -2,12 +2,12 @@ package com.org.team4.web;
 
 import java.util.Random;
 
-import javax.mail.internet.MimeMessage;
+//import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
+//import org.springframework.mail.javamail.JavaMailSender;
+//import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,7 +36,7 @@ public class UserController {
 	private JavaMailSender mailSender;		
 	
 	@Autowired
-	//private BCryptPasswordEncoder pwEncoder;
+	private BCryptPasswordEncoder pwEncoder;
 
 	@GetMapping("/login")
 	public String login() {
