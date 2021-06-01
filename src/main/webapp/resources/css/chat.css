@@ -255,7 +255,6 @@
 
 .list-btn {
   cursor: pointer;
-  width: 60px;
   height: 30px;
   border-radius: 2px;
   box-shadow: rgb(0 0 0 / 10%) 0px 7px 15px -2px;
@@ -267,7 +266,6 @@
 
 .delete-btn {
   cursor: pointer;
-  width: 60px;
   height: 30px;
   border-radius: 2px;
   box-shadow: rgb(0 0 0 / 10%) 0px 7px 15px -2px;
@@ -275,4 +273,18 @@
   border: 0;
   border-radius: 8px;
   margin-left: auto;
+}
+
+#refresh-btn {
+   width: 20px;
+   height: 20px;
+   cursor: pointer;
+   margin-top:20px;
+   margin-right: 10px;
+   transition: all ease 1s
+   
+}
+
+#refresh-btn:hover {
+   transform: rotate( 180deg );
 }

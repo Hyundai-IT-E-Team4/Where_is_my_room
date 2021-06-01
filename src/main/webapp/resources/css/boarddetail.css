@@ -1,0 +1,206 @@
+
+.title-container {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.profile-container {
+    display: flex;
+    flex: row;
+}
+
+.profile-container p {
+    font-size: 14pt;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.content-container {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 40px;
+}
+
+.comment-container {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(245, 240, 223);
+    margin-bottom: 20px;
+    display: none;
+    padding-top:15px;
+    padding-bottom: 15px;
+}
+
+.comment {
+    display: flex;
+    flex-direction: column;
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-top: 15px;
+}
+
+.comment-writer {
+    font-weight: bold;
+    color: rgb(106, 163, 73);
+}
+
+.comment-top {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.comment-mid {
+    margin-top: 10pt;
+    margin-bottom: 10pt;
+}
+
+.comment-bottom {
+    display: flex;
+    flex-direction: column;
+}
+
+.comment-time {
+    margin-bottom: 10pt;
+    color: darkgray;
+}
+
+.comment-btn button {
+    background-color: rgb(245, 240, 223);
+    border: solid;
+    border-width: 0.5px;
+    border-color:  rgb(165, 137, 45);
+    color: rgb(165, 137, 45);
+}
+
+.comment-write {
+    display: flex;
+    flex-direction: column;
+    background: white;
+    border: solid;
+    border-width: 0.5px;
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
+.comment-banner {
+    text-align: center;
+    vertical-align: middle;
+    border: solid;
+    border-width: 0.5px;
+    width: 70px;
+    height: 30px;
+    margin-bottom: 5px;
+}
+
+.comment-write-form {
+    border-width: 0;
+    margin-top: 15px;
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-bottom: 15px;
+    width: 97%;
+    height:120px;
+    resize: none;
+}
+
+.comment-write-writer {
+    font-weight: bold;
+    color: darkgray;
+    margin-top: 15px;
+    margin-left: 15px;
+}
+
+.comment-submit {
+    height: 50px;
+    width: 90px;
+    color: darkgray;
+    text-align: center;
+    vertical-align: middle;
+    margin-left: auto;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.reply-cancel {
+    height: 50px;
+    width: 90px;
+    color: darkgray;
+    text-align: center;
+    vertical-align: middle;
+    margin-left: auto;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.paging {
+    text-align: center;
+    vertical-align: middle;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.paging li {
+    cursor: pointer;
+}
+
+.paging-btn {
+    float: left;
+    background-color: none;
+    border: solid;
+    border-width: thin;
+    border-color:darkgray;
+    color: rgb(165, 137, 45);
+    margin-left: 5px;
+    margin-right: 5px;
+    width: 25px;
+    height:25px;
+    text-align: center;
+    vertical-align: middle;
+    color:rgb(106, 163, 73);
+    font-weight: bold;
+}
+
+.paging-move {
+    float: left;
+    background-color: none;
+    border: solid;
+    border-width: thin;
+    border-color: darkgray;
+    color: rgb(165, 137, 45);
+    margin-left: 5px;
+    margin-right: 5px;
+    width: 40px;
+    height:25px;
+    text-align: center;
+    vertical-align: middle;
+    color:rgb(106, 163, 73);
+    font-weight: bold;
+}
+
+.chat-btn {
+    cursor: pointer;
+    width: 80px;
+    height: 40px;
+    border-radius: 2px;
+    box-shadow: rgb(0 0 0 / 10%) 0px 7px 15px -2px;
+    background-color: rgba(154, 226, 232, 1);
+    border: 0;
+    border-radius: 8px;
+    margin-left: auto;
+}
+
+.child {
+	padding-left : 30px;
+}

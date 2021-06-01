@@ -22,137 +22,137 @@ import lombok.extern.slf4j.Slf4j;
 @Configuration
 public class ChatWebSocketHandler extends TextWebSocketHandler {
 
-	@Autowired
-	MessageService messageService;
-	//
-	private Map<Long, HashSet<WebSocketSession>> messageRooms = new ConcurrentHashMap<>();
-	private Map<String, WebSocketSession> globalUsers = new ConcurrentHashMap<String, WebSocketSession>();
+   @Autowired
+   MessageService messageService;
+   //
+   private Map<Long, HashSet<WebSocketSession>> messageRooms = new ConcurrentHashMap<>();
+   private Map<String, WebSocketSession> globalUsers = new ConcurrentHashMap<String, WebSocketSession>();
 
-	@Override
-	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+   @Override
+   public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 
-		HashSet<WebSocketSession> set;
-		long messageId = getMessageId(session);
-		
+      HashSet<WebSocketSession> set;
+      long messageId = getMessageId(session);
+      
 
-		globalUsers.put(getNickname(session), session);
+      globalUsers.put(getNickname(session), session);
 
-		if (messageId == 0) {
-			return;
-		}
+      if (messageId == 0) {
+         return;
+      }
 
-		if (!messageRooms.containsKey(messageId)) {
-			set = new HashSet<WebSocketSession>();
-			messageRooms.put(messageId, set);
-		} else {
-			set = messageRooms.get(messageId);
-		}
+      if (!messageRooms.containsKey(messageId)) {
+         set = new HashSet<WebSocketSession>();
+         messageRooms.put(messageId, set);
+      } else {
+         set = messageRooms.get(messageId);
+      }
 
-		set.add(session);
+      set.add(session);
 
-	}
+   }
 
-	@Override
-	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-		long messageId = getMessageId(session);
-		
-		if (messageId != 0)
-			messageRooms.get(messageId).remove(session);
-		
-		globalUsers.remove(getNickname(session));
-	}
+   @Override
+   public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
+      long messageId = getMessageId(session);
+      
+      if (messageId != 0)
+         messageRooms.get(messageId).remove(session);
+      
+      globalUsers.remove(getNickname(session));
+   }
 
-	@Override
-	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-		try {
-			long senderId = getUserId(session);
-			String senderNick = getNickname(session);
-			long messageId = getMessageId(session);
-			String msg = message.getPayload();
-			String msgcontent = msg.split(":")[1];
+   @Override
+   protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+      try {
+         long senderId = getUserId(session);
+         String senderNick = getNickname(session);
+         long messageId = getMessageId(session);
+         String msg = message.getPayload();
+         String msgcontent = msg.split(":")[1];
 
-			// 메세지 형식 "댓글:보낸이:알림내용"
-			if (messageId == 0) {
-				msg = message.getPayload();
-				String formatMsg = makeMesssage("댓글", senderNick, msg);
-				WebSocketSession receiver = getReceiver(msg);
-				if(receiver != null) {
-					receiver.sendMessage(new TextMessage(formatMsg));
-				} else {
-					log.info("receiver is null");
-				}
-			} else {
+         // 메세지 형식 "댓글:보낸이:알림내용"
+         if (messageId == 0) {
+            msg = message.getPayload();
+            String formatMsg = makeMesssage("댓글", senderNick, msg);
+            WebSocketSession receiver = getReceiver(msg);
+            if(receiver != null) {
+               receiver.sendMessage(new TextMessage(formatMsg));
+            } else {
+               log.info("receiver is null");
+            }
+         } else {
 
-				if (msg == null)
-					throw new RuntimeException("메세지를 입력하지 않았습니다");
+            if (msg == null)
+               throw new RuntimeException("메세지를 입력하지 않았습니다");
 
-				messageService.insertMessage(new MessageDTO(senderId, messageId, msgcontent));
-				
-				HashSet<WebSocketSession> set = messageRooms.get(messageId);
-				if (set.size() == 1) {
-					WebSocketSession receiver = getReceiver(msg);
-					if(receiver != null) {
-						receiver.sendMessage(new TextMessage(makeMesssage("쪽지", senderNick, msg)));
-					} else {
-						log.info("receiver is null");
-					}
-				}
+            messageService.insertMessage(new MessageDTO(senderId, messageId, msgcontent));
+            
+            HashSet<WebSocketSession> set = messageRooms.get(messageId);
+            if (set.size() == 1) {
+               WebSocketSession receiver = getReceiver(msg);
+               if(receiver != null) {
+                  receiver.sendMessage(new TextMessage(makeMesssage("쪽지", senderNick, msg)));
+               } else {
+                  log.info("receiver is null");
+               }
+            }
 
-				for (WebSocketSession curSession : set) {
-					curSession.sendMessage(new TextMessage(messageId + ":" + senderId + ":" + senderNick + ":" + msgcontent));
-				}
-			}
+            for (WebSocketSession curSession : set) {
+               curSession.sendMessage(new TextMessage(messageId + ":" + senderId + ":" + senderNick + ":" + msgcontent));
+            }
+         }
 
-		} catch (Exception e) {
-			log.warn(e.getMessage());
-		}
+      } catch (Exception e) {
+         log.warn(e.getMessage());
+      }
 
-	}
+   }
 
-	@Override
-	public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {
-		log.info(session.getId() + " 익셉션 발생: " + exception.getMessage());
-	}
+   @Override
+   public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {
+      log.info(session.getId() + " 익셉션 발생: " + exception.getMessage());
+   }
 
-	private long getMessageId(WebSocketSession session) {
-		String path = session.getUri().getPath();
-		return Long.parseLong(path.substring(path.lastIndexOf("/") + 1));
-	}
+   private long getMessageId(WebSocketSession session) {
+      String path = session.getUri().getPath();
+      return Long.parseLong(path.substring(path.lastIndexOf("/") + 1));
+   }
 
-	private long getUserId(WebSocketSession session) {
-		UserDTO userDTO = (UserDTO) session.getAttributes().get("userInfo");
-		return userDTO.getId();
-	}
+   private long getUserId(WebSocketSession session) {
+      UserDTO userDTO = (UserDTO) session.getAttributes().get("userInfo");
+      return userDTO.getId();
+   }
 
-	private String getNickname(WebSocketSession session) {
-		UserDTO userDTO = (UserDTO) session.getAttributes().get("userInfo");
-		return userDTO.getNickname();
-	}
+   private String getNickname(WebSocketSession session) {
+      UserDTO userDTO = (UserDTO) session.getAttributes().get("userInfo");
+      return userDTO.getNickname();
+   }
 
-	private void sendAlarm(String payload) throws IOException {
-		String[] parseArr = payload.split(":");
-		String nickname = parseArr[0];
-		String content = parseArr[1];
-		WebSocketSession session = globalUsers.get(nickname);
-		session.sendMessage(new TextMessage(content));
-	}
-	private String makeMesssage(String ... messages) { //첫번째는 명령어, 두번째는 발송자, 세번 째는 내용
-		StringBuffer sb = new StringBuffer();
-		String payload = messages[2];
-		String[] parseData = payload.split(":");
-		String msg = parseData[1]; // 내용
-		sb.append(messages[0]);
-		sb.append(":");
-		sb.append(messages[1]);
-		sb.append(":");
-		sb.append(msg);
-		return sb.toString();
-	}
-	
-	private WebSocketSession getReceiver(String payload) {
-		String[] parseArr = payload.split(":");
-		String nickname = parseArr[0];
-		WebSocketSession session = globalUsers.get(nickname);
-		return session;
-	}
+   private void sendAlarm(String payload) throws IOException {
+      String[] parseArr = payload.split(":");
+      String nickname = parseArr[0];
+      String content = parseArr[1];
+      WebSocketSession session = globalUsers.get(nickname);
+      session.sendMessage(new TextMessage(content));
+   }
+   private String makeMesssage(String ... messages) { //첫번째는 명령어, 두번째는 발송자, 세번 째는 내용
+      StringBuffer sb = new StringBuffer();
+      String payload = messages[2];
+      String[] parseData = payload.split(":");
+      String msg = parseData[1]; // 내용
+      sb.append(messages[0]);
+      sb.append(":");
+      sb.append(messages[1]);
+      sb.append(":");
+      sb.append(msg);
+      return sb.toString();
+   }
+   
+   private WebSocketSession getReceiver(String payload) {
+      String[] parseArr = payload.split(":");
+      String nickname = parseArr[0];
+      WebSocketSession session = globalUsers.get(nickname);
+      return session;
+   }
 }

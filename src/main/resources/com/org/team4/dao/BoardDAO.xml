@@ -2,6 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.org.team4.dao.BoardDAO">
+	<select id="writerCheck" parameterType="BoardCheckDTO" resultType="int">
+		select count(*) from board where id = #{boardId} and writer_id = #{writerId}
+	</select>	
 	<insert id="insertBoard" useGeneratedKeys="true" keyProperty="id" keyColumn="id" parameterType="BoardDTO">
 		insert into
 		board(title,content, writer_id, latitude, longitude, room_type, contract_type, rental_fee,
@@ -9,17 +12,32 @@
 		values
 		(#{title},
 		#{content},
-		#{writer_id},
+		#{writerId},
 		#{latitude},
 		#{longitude},
-		#{room_type},
-		#{contract_type},
-		#{rental_fee},
+		#{roomType},
+		#{contractType},
+		#{rentalFee},
 		#{address},
 		#{detailAddress},
 		sysdate,
 		0)
 	</insert>
+	<update id="updateBoard" parameterType="BoardDTO">
+		update 
+		board
+		set 
+			title = #{title},
+			content = #{content},
+			latitude = #{latitude},
+			longitude = #{longitude},
+			room_type = #{roomType},
+			contract_type = #{contractType},
+			rental_fee = #{rentalFee},
+			address = #{address},
+			detail_address = #{detailAddress}
+		where writer_id = #{writerId}
+	</update>
 	
 	<select id="detail" resultType="BoardDetailDTO" parameterType="long">
 		select 
@@ -44,7 +62,26 @@
 			board.id = #{id} and board.deleted = 0 and board.writer_id = users.id
 	</select>
 	
-	<update id="delete" parameterType="BoardDeleteDTO">
+	<select id="getUpdateInfo" resultType="BoardDetailDTO" parameterType="long">
+		select 
+			id, 
+			title,
+			content, 
+			room_type roomType,
+			contract_type contractType,
+			rental_fee rentalFee,
+			address,
+			detail_address detailAddress,
+			write_date writeDate,
+			latitude,
+			longitude
+		from 
+			board
+		where id = #{id} 
+	</select>
+	
+	
+	<update id="delete" parameterType="BoardCheckDTO">
 		update board set deleted = 1 where id = #{boardId} and writer_id = #{writerId} 
 	</update>
 

@@ -9,4 +9,5 @@ public interface FilesDAO {
 	public void insertFile(FileDTO fileDTO) throws SQLException;
 	public List<FileDTO> getFileList(long boardId) throws SQLException;
 	public void deleteFileList(long boardId) throws SQLException;
+	public void updateAndDelete(List<Long> imgs) throws SQLException;
 }

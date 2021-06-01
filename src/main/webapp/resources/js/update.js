@@ -2,16 +2,21 @@
  * 
  */
 $(document).ready(()=>{
+	$(`input:radio[name='roomType']:input[value=${roomType}]`).attr("checked","checked");
+	$(`input:radio[name='contractType']:input[value=${contractType}]`).attr("checked","checked");
 	var container = document.getElementById('map');
 	var options = {
-		center: new kakao.maps.LatLng(33.450701, 126.570667),
+		center: new kakao.maps.LatLng(latitude, longitude),
 		level: 3
 	};
 	window.fileCnt = 1;
 	window.map = new kakao.maps.Map(container, options);
-	window.geocoder = new kakao.maps.services.Geocoder();
+	window.marker = new kakao.maps.Marker({
+		            map: window.map,
+		            position: new kakao.maps.LatLng(latitude, longitude)
+		        });
 	//마커 클릭 이벤트를 통해 좌표 설정
-	kakao.maps.event.addListener(window.map, 'click', function(mouseEvent) {        
+	kakao.maps.event.addListener(window.map, 'click', function(mouseEvent) {
 	    // 클릭한 위도, 경도 정보를 가져옵니다 
 	    var latlng = mouseEvent.latLng; 
 	    // 마커 위치를 클릭한 위치로 옮깁니다
@@ -19,17 +24,25 @@ $(document).ready(()=>{
 	    setLoc(latlng.getLat(), latlng.getLng());
 	});
 	
+	window.geocoder = new kakao.maps.services.Geocoder();
+	
 	$("a[name='delete']").on("click",function(e){
         e.preventDefault();
         fileDelete($(this));
     });
     $("#add").on("click",function(e){
         e.preventDefault();
+        alert("hu");
         fileAdd();
     });
-
+    $('.imgDelete').click(function(e){
+		e.preventDefault();
+		$(this).closest('div').remove();	
+	});	
 });
- 
+
+
+
 function execDaumPostcode() {
     new daum.Postcode({
         oncomplete: function(data) {
@@ -78,7 +91,6 @@ function execDaumPostcode() {
 		     if (status === kakao.maps.services.Status.OK) {
 		
 		        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-		        console.log(coords);
 				setLoc(coords.getLat(), coords.getLng());
 		        // 결과값으로 받은 위치를 마커로 표시합니다
 		        window.marker = new kakao.maps.Marker({
@@ -87,10 +99,10 @@ function execDaumPostcode() {
 		        });
 		
 		        // 인포윈도우로 장소에 대한 설명을 표시합니다
-		        /*var infowindow = new kakao.maps.InfoWindow({
+		    /*    var infowindow = new kakao.maps.InfoWindow({
 		            content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
-		        });*/
-		        //infowindow.open(map, marker);
+		        });
+		        infowindow.open(map, marker);*/
 		
 		        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
 		        map.setCenter(coords);
@@ -115,8 +127,8 @@ function fileDelete(obj){
 function fileAdd(){
     let str = "<p><input type='file' name='file_"+(fileCnt++)+"'/><a href='#this' name='delete'>삭제하기</a></p> ";
     $("#fileContainer").append(str);
-     $("a[name='delete']").on("click",function(e){
+    $("a[name='delete']").on("click",function(e){
         e.preventDefault();
         fileDelete($(this));         
-    })
-} 
+    });
+}

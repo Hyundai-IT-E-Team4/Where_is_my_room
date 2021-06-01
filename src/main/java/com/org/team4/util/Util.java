@@ -17,13 +17,14 @@ public class Util {
 	public static String originImgFolder = "imgs/";
 	public static String thumbImgFolder = "thumb/";
 	public static String profileFolder = "profile/";
-	public static byte[] mamkeThumbnail(String filePath) throws IOException {
-		URL url = new URL(filePath);
+	public static byte[] mamkeThumbnail(String type, String fileURL) throws IOException {
+		URL url = new URL(fileURL);
 		BufferedImage srcImg = ImageIO.read(url);
 		BufferedImage destImg = Scalr.resize(srcImg, Scalr.Method.AUTOMATIC,
 				Scalr.Mode.FIT_TO_HEIGHT, 100);
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		ImageIO.write(destImg, getType(filePath), baos);
+		ImageIO.write(destImg, type, baos);
+		//ImageIO.write(destImg, "PNG", baos);
 		return baos.toByteArray();
 	}
 	public static String makeFileName(MultipartFile file) {
@@ -52,7 +53,7 @@ public class Util {
 		return sb.toString();
 	}
 	
-	private static String getType(String file) {
+	public static String getType(String file) {
 		int idx = file.lastIndexOf(".");
 		return file.substring(idx + 1);
 	}

@@ -9,8 +9,11 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager" p:dataSource-ref="dataSource" />
+	
 	<tx:annotation-driven
-		transaction-manager="transactionManager" />
+		transaction-manager="transactionManager" />	
+		
 
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
 		<property name="driverClassName"

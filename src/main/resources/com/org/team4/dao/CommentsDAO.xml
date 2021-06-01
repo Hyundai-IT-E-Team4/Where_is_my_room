@@ -1,1 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.org.team4.dao.CommentsDAO">
+	<insert id="enrollComment" parameterType="CommentInsertDTO">
+		insert into comments
+		(parent_id, board_id, writer_id, content, comment_date, read, deleted) 
+		values(#{parentId, jdbcType = INTEGER}, #{boardId}, #{writerId}, #{content}, sysdate, 0, 0) 
+	</insert>
+	
+	<update id="updateComment" parameterType="CommentUpdateDTO">
+		update 
+		comments
+		set 
+		content = #{content}
+		where id = #{id} and writer_id = #{writerId} and deleted = 0
+	</update>
+	
+	<delete id="deleteComment" parameterType="CommentDeleteDTO">
+		update
+		comments
+		set
+		deleted = 1
+		where id = #{id} and writer_id = #{writerId} and deleted = 0
+	</delete>
+	
+	<select id="getComment" parameterType="CommentPagingDTO" resultType="CommentDTO">
+	<![CDATA[
+		select
+			(select count(*) from comments where board_id = #{boardId} and ((deleted = 1 and count_child(id) > 0) or deleted = 0)) totalCount,
+		    info2.id id,
+		    info2.parent_id parentId, 
+		    board_id boardId, 
+		    writer_id writerId, 
+		    nvl(u.nickname, '탈퇴회원') nickname,
+		    case when deleted = 1 then '삭제된 댓글입니다.' 
+		        else info2.content end 
+		    content,
+		    to_char(comment_date,'YYYY/MM/DD HH24:MI:SS') commentDate, 
+		    read, 
+		    deleted 
+		from
+		    (select info.*, rownum seq from 
+		        (select * from comments start with board_id = #{boardId} and parent_id is null and count_child(id) - deleted >= 0 connect by parent_id = prior id and level <= 2 ) info) info2
+		join users u on seq between (#{page} - 1) * 10 + 1 and #{page} * 10 and u.id = writer_id order by seq
+		]]>
+	</select>
+</mapper>

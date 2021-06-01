@@ -17,12 +17,12 @@ public class BoardDTO {
 	private String content;
 	private double latitude;
 	private double longitude;
-	private String room_type;
-	private String contract_type;
-	private int rental_fee;
+	private String roomType;
+	private String contractType;
+	private int rentalFee;
 	private String address;
 	private String detailAddress;
-	private String write_date;
+	private String writeDate;
 	private int deleted;
-	private long writer_id;
+	private long writerId;
 }

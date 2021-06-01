@@ -21,6 +21,13 @@
 			board_id = #{boardId}
 		order by id
 	</select>
+	
+	<delete id="updateAndDelete" parameterType="java.util.List">
+		delete from files where id not in
+			<foreach collection="list" item="item" separator="," index="index" open="(" close=")">
+				#{item}
+			</foreach>
+	</delete>
 
 	<delete id="deleteFileList" parameterType="long">
 		delete from files where board_id = {boardId}
