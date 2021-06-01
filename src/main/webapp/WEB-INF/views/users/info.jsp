@@ -38,19 +38,19 @@
 <body>
 	<header class="page-header">
 		<div class="header-logo">
-			<a href="/team4"> <img src="../resources/img/icon.png"
+			<a href="/team4/"> <img src="../resources/img/icon.png"
 				alt="Logo" />
 			</a>
 		</div>
 		<div class="header-menu">
 			<nav class="header-navigation">
-				<a href="/team4/map">지도</a> <a href="/team4/board/enroll">방
-					내놓기</a> <a href="/project/qna">Q&amp;A</a>
+				<a href="/team4/map">지도</a> 
+				<a href="/team4/board/enroll">방 내놓기</a> 
+				<a href="/team4/qna">Q&amp;A</a>
 			</nav>
 			<div class="header-profile dropdown">
 				<button type="button" class="dropdown-button">
-					<img src="https://avatars.githubusercontent.com/u/50897259?v=4"
-						alt="Profile Image" draggable="false" />
+					<img src="https://avatars.githubusercontent.com/u/50897259?v=4" alt="Profile Image" draggable="false" />
 				</button>
 				<div class="dropdown-menu">
 					<c:choose>
@@ -59,10 +59,10 @@
 								반갑습니다 :) <strong>${sessionScope.userInfo.nickname}</strong> 님
 							</h3>
 							<ul>
-								<li><a href="/team4/users/info">내 정보</a></li>
+								<li><a href="/team4/users/info">내 정보 관리</a></li>
 								<li><a href="#">내가 등록한 방</a></li>
 								<li><a href="#">최근 본 방</a></li>
-								<li><a href="/team4/messages">쪽지</a></li>
+								<li><a href="/team4/messages">메시지</a></li>
 							</ul>
 							<ul>
 								<li><a href="/team4/users/logout">로그아웃</a></li>
@@ -81,7 +81,6 @@
 			</div>
 		</div>
 	</header>
-
 
 	<section>
 		<div class="container">
@@ -126,20 +125,19 @@
 				<h2>서비스</h2>
 				<ul>
 					<li>
-						<a href="/team4/users/update" class="item">지도에서 찾기</a>
+						<a href="/team4/map" class="item">지도에서 찾기</a>
 					</li>
 					<li>
-						<a href="/team4/users/updateEmail" class="item">내가 등록한 방</a>
+						<a href="/team4/" class="item">내가 등록한 방</a>
 					</li>
 					<li>
-						<a href="/team4/users/updatePassword" class="item">최근 둘러본 방</a>
+						<a href="/team4/" class="item">최근 둘러본 방</a>
 					</li>
 					<li>
-						<a href="/team4/users/withdraw" class="item">채팅</a>
+						<a href="/team4/messages" class="item">채팅</a>
 					</li>
 				</ul>
 			</div>
-			
 		</div>
 	</section>
 
