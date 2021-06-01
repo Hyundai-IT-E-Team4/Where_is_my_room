@@ -14,6 +14,7 @@ window.onload = ()=>{
 	$('.delete-btn').hide();
 	
 	$(".submit_btn").click(function() {
+		$(".message_input").focus();
 		send();
 	})
 	
@@ -61,42 +62,42 @@ function onMessage(evt) {
 		let msg        = parseData[3];
 		
 		let plusMsg = '';
-		
-		if (messageId == window.messageId) {
 			
-			if (senderId == window.userId) {
-				
-				plusMsg += '<div class="message-reverse">'
-				        +  '	<div class="message-user-reverse">'    
-			            +  '		<a href="#"> <img src="https://avatars.githubusercontent.com/u/50897259?v=4" src="https://avatars.githubusercontent.com/u/50897259?v=4" alt="Profile Image" /> </a>' 
-			            +  '	</div>'
-			            +  '	<div class="message-content-reverse">'
-			            +  '		<div class="message-info-reverse">'
-			            +  '			<strong class="message-sender-reverse"> <a href="#">' + senderNick + '</a> </strong>'
-			            +  '			<div class="message-timestamp-reverse">' + date + '</div> '
-			            +  '		</div>'
-			            +  '		<p class="message-text-reverse">' + msg + '</p>'
-			            +  '	</div>'
-			            +  '</div>'
-			} else {
-						plusMsg += '<div class="message">'
-				        +  '	<div class="message-user">'    
-			            +  '		<a href="#"> <img src="https://avatars.githubusercontent.com/u/50897259?v=4" src="https://avatars.githubusercontent.com/u/50897259?v=4" alt="Profile Image" /> </a>' 
-			            +  '	</div>'
-			            +  '	<div class="message-content">'
-			            +  '		<div class="message-info">'
-			            +  '			<strong class="message-sender"> <a href="#">' + senderNick + '</a> </strong>'
-			            +  '			<div class="message-timestamp">' + date + '</div> '
-			            +  '		</div>'
-			            +  '		<p class="message-text">' + msg + '</p>'
-			            +  '	</div>'
-			            +  '</div>'
-			}
+		if (senderId == window.userId) {
+			
+			plusMsg += '<div class="message-reverse">'
+			        +  '	<div class="message-user-reverse">'    
+		            +  '		<a href="#"> <img src="https://avatars.githubusercontent.com/u/50897259?v=4" src="https://avatars.githubusercontent.com/u/50897259?v=4" alt="Profile Image" /> </a>' 
+		            +  '	</div>'
+		            +  '	<div class="message-content-reverse">'
+		            +  '		<div class="message-info-reverse">'
+		            +  '			<strong class="message-sender-reverse"> <a href="#">' + senderNick + '</a> </strong>'
+		            +  '			<div class="message-timestamp-reverse">' + date + '</div> '
+		            +  '		</div>'
+		            +  '		<p class="message-text-reverse">' + msg + '</p>'
+		            +  '	</div>'
+		            +  '</div>'
+		} else {
+					plusMsg += '<div class="message">'
+			        +  '	<div class="message-user">'    
+		            +  '		<a href="#"> <img src="https://avatars.githubusercontent.com/u/50897259?v=4" src="https://avatars.githubusercontent.com/u/50897259?v=4" alt="Profile Image" /> </a>' 
+		            +  '	</div>'
+		            +  '	<div class="message-content">'
+		            +  '		<div class="message-info">'
+		            +  '			<strong class="message-sender"> <a href="#">' + senderNick + '</a> </strong>'
+		            +  '			<div class="message-timestamp">' + date + '</div> '
+		            +  '		</div>'
+		            +  '		<p class="message-text">' + msg + '</p>'
+		            +  '	</div>'
+		            +  '</div>'
 		}
-			$('.message-log').append(plusMsg);
-			$('.message-log').scrollTop($('.message-log')[0].scrollHeight);
+
+		
+		$('.message-log').append(plusMsg);
+		$('.message-log').scrollTop($('.message-log')[0].scrollHeight);
 		
 	} else{
+		
 		let message = evt.data.split(":");
 		let command = message[0];
 		let senderNick = message[1];
