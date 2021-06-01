@@ -12,23 +12,121 @@
 <meta name="author" content="Hyndai IT&E KTH, BEJ, HMS, HSH" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>짧게 머물자, 구해줘 룸즈!</title>
+<style>
+.map_wrap, .map_wrap * {
+	margin: 0;
+	padding: 0;
+	font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;
+	font-size: 12px;
+}
+.map_wrap a, .map_wrap a:hover, .map_wrap a:active {
+	color: #000;
+	text-decoration: none;
+}
+.map_wrap {
+	position: relative;
+	width: 100%;
+	height: 970px;
+}
+#menu_wrap {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	width: 250px;
+	margin: 10px 0 30px 10px;
+	padding: 5px;
+	overflow-y: auto;
+	background: #ffffff;
+	z-index: 1;
+	font-size: 12px;
+	border-radius: 10px;
+}
+
+#menu_wrap hr {
+	display: block;
+	height: 1px;
+	border: 0;
+	border-top: 2px solid #5F5F5F;
+	margin: 3px 0;
+}
+
+#menu_wrap .option {
+	text-align: center;
+}
+
+#menu_wrap .option p {
+	margin: 10px 0;
+}
+
+#menu_wrap .option button {
+	margin-left: 5px;
+}
+
+#placesList li {
+	list-style: none;
+}
+
+#placesList .item {
+	position: relative;
+	border-bottom: 1px solid #888;
+	overflow: hidden;
+	cursor: pointer;
+	min-height: 65px;
+}
+
+#placesList .item span {
+	display: block;
+	margin-top: 4px;
+}
+
+#placesList .item h5, #placesList .item .info {
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+#placesList .item .info {
+	padding: 10px 0 10px 55px;
+}
+
+#placesList .info .gray {
+	color: #8a8a8a;
+}
+
+#pagination {
+	margin: 10px auto;
+	text-align: center;
+}
+
+#pagination a {
+	display: inline-block;
+	margin-right: 10px;
+}
+
+#pagination .on {
+	font-weight: bold;
+	cursor: default;
+	color: #777;
+}
+</style>
 <!-- fonts -->
 <link
 	href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap"
 	rel="stylesheet" />
 <!-- styles -->
-<link rel="stylesheet" href="../resources/css/reset.css" />
-<link rel="stylesheet" href="../resources/css/grid.min.css" />
-<link rel="stylesheet" href="../resources/css/header.css" />
-<link rel="stylesheet" href="../resources/css/footer.css" />
-<link rel="stylesheet" href="../resources/css/dropdown.css" />
+<link rel="stylesheet" href="resources/css/reset.css" />
+<link rel="stylesheet" href="resources/css/grid.min.css" />
+<link rel="stylesheet" href="resources/css/header.css" />
+<link rel="stylesheet" href="resources/css/footer.css" />
+<link rel="stylesheet" href="resources/css/dropdown.css" />
 <!-- 해당 페이지의 css 적용! style 지우고 해당 css 입력! -->
 <!-- <link rel="stylesheet" href="../assets/css/page.css" /> -->
 
 <!-- favicon -->
-<link rel="shortcut icon" href="..resources/img/favicon.ico"
+<link rel="shortcut icon" href="resources/img/favicon.ico"
 	type="image/x-icon" />
-<link rel="icon" href="..resources/img/favicon.ico" type="image/x-icon" />
+<link rel="icon" href="resources/img/favicon.ico" type="image/x-icon" />
 
 <!-- app -->
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -37,15 +135,14 @@
 </head>
 <body>
 	<header class="page-header">
+
 		<div class="header-logo">
-			<a href="/team4/"> <img src="../resources/img/icon.png"
-				alt="Logo" />
+			<a href="/"> <img src="resources/img/icon.png" alt="Logo" />
 			</a>
 		</div>
 		<div class="header-menu">
 			<nav class="header-navigation">
-				<a href="/team4/map">지도</a> <a href="/team4/board/enroll">방 내놓기</a>
-				<a href="/team4/qna">Q&amp;A</a>
+				<a href="">지도</a> <a href="">방 내놓기</a> <a href="/project/qna">Q&amp;A</a>
 			</nav>
 			<div class="header-profile dropdown">
 				<button type="button" class="dropdown-button">
@@ -53,28 +150,19 @@
 						alt="Profile Image" draggable="false" />
 				</button>
 				<div class="dropdown-menu">
-					<c:choose>
-						<c:when test="${sessionScope.userInfo.nickname ne null}">
-							<h3>
-								반갑습니다 :) <strong>${sessionScope.userInfo.nickname}</strong> 님
-							</h3>
-							<ul>
-								<li><a href="/team4/users/info">내 정보 관리</a></li>
-								<li><a href="#">내가 등록한 방</a></li>
-								<li><a href="#">최근 본 방</a></li>
-								<li><a href="/team4/messages">메시지</a></li>
-							</ul>
-							<ul>
-								<li><a href="/team4/users/logout">로그아웃</a></li>
-							</ul>
-						</c:when>
-						<c:otherwise>
-							<h3>로그인 후 이용해보세요!</h3>
-							<ul>
-								<li><a href="/team4/users/login">로그인 및 회원가입</a></li>
-							</ul>
-						</c:otherwise>
-					</c:choose>
+					<h3>
+						<!-- 세션 없을 시  : <a href="/project/users/login">Sign in</a> -->
+						반갑습니다 :) <strong>한승훈</strong> 님
+					</h3>
+					<ul>
+						<li><a href="#">내 정보</a></li>
+						<li><a href="#">내가 등록한 방</a></li>
+						<li><a href="#">최근 본 방</a></li>
+						<li><a href="#">쪽지</a></li>
+					</ul>
+					<ul>
+						<li><a href="">로그아웃</a></li>
+					</ul>
 				</div>
 			</div>
 		</div>
@@ -82,17 +170,23 @@
 
 
 	<!-- 여기에 지도 작성하세요 :) -->
-	<div id="menu_wrap">
-		<div>
-			<form onsubmit="searchPlaces(); return false;">
-				키워드 : <input type="text" value="" id="keyword" size="15">
-				<button type="submit">검색하기</button>
-			</form>
+	<div class="map_wrap">
+		<div id="map"
+			style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>
+		<div id="menu_wrap" class="bg_white">
+			<div>
+				<form onsubmit="searchPlaces(); return false;">
+					키워드 : <input type="text" value="" id="keyword" size="15">
+					<button type="submit">검색하기</button>
+				</form>
+			</div>
+			<ul id="placesList"></ul>
+			<div class="pagination" id="pagination"></div>
 		</div>
-		<ul id="placesList"></ul>
 	</div>
-	<div id="map" style="width: 100%; height: 350px;"></div>
 	<script>
+		var allData;
+	
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
 		mapOption = {
 			center : new kakao.maps.LatLng(37.5490198, 127.0092967), // 지도의 중심좌표
@@ -148,12 +242,12 @@
 		// 데이터를 가져와 마커를 생성하고 클러스터러 객체에 넘겨줍니다
 
 		var getNearLocation = function(swLatLng, neLatLng) {
-			var reqUrl = "map/" + swLatLng.getLat() + "/" + swLatLng.getLng()
+ 			var reqUrl = "map/" + swLatLng.getLat() + "/" + swLatLng.getLng()
 					+ "/" + neLatLng.getLat() + "/" + neLatLng.getLng() + "/";
+					
 			$.get(reqUrl, function(data) {
 				// 데이터에서 좌표 값을 가지고 마커를 표시합니다
 				// 마커 클러스터러로 관리할 마커 객체는 생성할 때 지도 객체를 설정하지 않습니다
-
 				var markers = $(data.positions).map(
 						function(i, position) {
 							return new kakao.maps.Marker({
@@ -162,14 +256,10 @@
 
 							});
 						});
-
-				console.log(data.positions[0]);
+				
+				console.log(data.positions.length);
+				//전체 게시글 개수
 				displayPlaces(data.positions);
-
-				//데이터가 자바스크립트 안에있다.
-				//이 데이터를 저렇게 html 보내야된다.
-
-				// 클러스터러에 마커들을 추가합니다
 				clusterer.clear();
 				clusterer.addMarkers(markers);
 
@@ -194,49 +284,48 @@
 		/********************************** 클러스터링 끝 **********************************/
 
 		/********** 목록만들기 시작 ***********/
-		function displayPlaces(places) {
+function displayPlaces(places) {
+    var listEl = document.getElementById('placesList'),
+    menuEl = document.getElementById('menu_wrap'),
+    fragment = document.createDocumentFragment(), 
+    listStr = '';
+    
+    // 검색 결과 목록에 추가된 항목들을 제거합니다
+    removeAllChildNods(listEl);
+    for ( var i=0; i<places.length; i++ ) {
+      var itemEl = getListItem(places[i]); // 검색 결과 항목 Element를 생성합니다
+        fragment.appendChild(itemEl);
+    }
+    // 검색결과 항목들을 검색결과 목록 Elemnet에 추가합니다
+    listEl.appendChild(fragment);
+    menuEl.scrollTop = 0;
+}
+function getListItem(place) {
+    var el = document.createElement('li');
+    var itemStr = '<div class="info">' +
+        '   <h5>' + place.title + '</h5></div>';
+	el.innerHTML += itemStr;
+    el.className = 'item';
+    return el;
+}
+function removeAllChildNods(el) {   
+    while (el.hasChildNodes()) {
+        el.removeChild (el.lastChild);
+    }
+}
 
-			var listEl = document.getElementById('placesList'), menuEl = document
-					.getElementById('menu_wrap'), fragment = document
-					.createDocumentFragment(), listStr = '';
-
-			// 검색 결과 목록에 추가된 항목들을 제거합니다
-			removeAllChildNods(listEl);
-
-			for (var i = 0; i < places.length; i++) {
-				var itemEl = getListItem(places[i]); // 검색 결과 항목 Element를 생성합니다
-				fragment.appendChild(itemEl);
-			}
-
-			// 검색결과 항목들을 검색결과 목록 Elemnet에 추가합니다
-			listEl.appendChild(fragment);
-			menuEl.scrollTop = 0;
-		}
-
-		function getListItem(place) {
-			var el = document.createElement('li');
-			var itemStr = '<div class="info">' + '   <h5>' + place.title
-					+ '</h5></div>';
-			el.innerHTML += itemStr;
-			el.className = 'item';
-			console.log(place.title);
-			console.log(el);
-			return el;
-		}
-
-		function removeAllChildNods(el) {
-			while (el.hasChildNodes()) {
-				el.removeChild(el.lastChild);
-			}
-		}
 
 		/********** 목록만들기 끝 ***********/
+
+		/** 페이징 시작 **/
+
+
+		
+		/** 페이징 끝 **/
 	</script>
 
 
 	<!---------------------  지도 끝        ------------->
 
-	<!-- app -->
-	<script src="../resources/js/dropdown-menu.js"></script>
 </body>
 </html>
