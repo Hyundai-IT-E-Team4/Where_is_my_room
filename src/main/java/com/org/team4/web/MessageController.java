@@ -5,10 +5,13 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,6 +20,7 @@ import com.org.team4.dto.MessageListDTO;
 import com.org.team4.dto.MessageListParamDTO;
 import com.org.team4.dto.MessageLogDTO;
 import com.org.team4.dto.MessageLogParamDTO;
+import com.org.team4.dto.MessageRoomParamDTO;
 import com.org.team4.dto.MessageUpdateParamDTO;
 import com.org.team4.dto.UserDTO;
 import com.org.team4.service.MessageService;
@@ -124,4 +128,16 @@ public class MessageController {
       }
    }
 
+
+   @PostMapping("")
+   @ResponseBody
+   public ResponseEntity<String> createMessage(MessageRoomParamDTO messageRoomParamDTO){
+	   try {
+		   log.info("{}", messageRoomParamDTO);
+		   messageService.createMessageRoom(messageRoomParamDTO);
+		   return new ResponseEntity<String>(HttpStatus.CREATED);		   
+	   } catch(Exception e) {
+		   return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
+	   }
+   }
 }

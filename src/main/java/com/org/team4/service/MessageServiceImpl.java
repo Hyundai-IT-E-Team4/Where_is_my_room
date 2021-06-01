@@ -1,5 +1,6 @@
 package com.org.team4.service;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import com.org.team4.dto.MessageDTO;
 import com.org.team4.dto.MessageListDTO;
 import com.org.team4.dto.MessageLogDTO;
 import com.org.team4.dto.MessageLogParamDTO;
+import com.org.team4.dto.MessageRoomParamDTO;
 import com.org.team4.dto.MessageUpdateParamDTO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -82,4 +84,16 @@ public class MessageServiceImpl implements MessageService{
 		}
 	}
 
+	@Override
+	public void createMessageRoom(MessageRoomParamDTO messageRoomParamDTO) throws SQLException {
+		// TODO Auto-generated method stub
+		try {
+			messageDAO.createMessageRoom(messageRoomParamDTO);
+		} catch(Exception e) {
+			log.error(e.getMessage());
+			throw e;
+		}
+	}
+
+	
 }

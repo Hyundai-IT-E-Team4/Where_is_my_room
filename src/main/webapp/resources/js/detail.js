@@ -115,14 +115,16 @@ function replyCancel(obj){
 
 function commentSubmit(obj){
 	let content = obj.parent().find('textarea').val();
-	
 	if(valueCheck(content)){
 		$.ajax({
 			url: "/team4/boards/" + getBoardNumber() + "/comments",
             method: "POST",
             data : {"content" : content}
 		}).done(function (data, textStatus, xhr) {
-			
+			if(userNickname != writerNickName){
+				let msg = `${writerNickName}:<a href="/team4/boards/${getBoardNumber()}">새로운 댓글을 달았습니다.</a>`;
+				send(msg);
+			}
 		    location.reload();
 		}).fail(function (data, textStatus, xhr){
 			alert("권한이 없습니다");
@@ -140,8 +142,9 @@ function replySubmit(obj){
             method: "POST",
             data : {"content" : content, "parentId" : parentId}
 		}).done(function (data, textStatus, xhr) {
-			if(writerName != userNickname) {
-				send(`댓글:${userNickname}:content`);
+			if(userNickname != writerNickName){
+				let msg = `${writerNickName}:<a href="/team4/boards/${getBoardNumber()}">새로운 대댓글을 달았습니다.</a>`;
+				send(msg);
 			}
 		    location.reload();
 		}).fail(function (data, textStatus, xhr){
@@ -260,4 +263,18 @@ function valueCheck(str){
 		return false;	
 	}
 	return true;
+}
+
+function contact(){
+	let minId = Math.min(writerId, userId);
+	let maxId = Math.max(writerId, userId);
+	$.ajax({
+			url: "/team4/messages/",
+            method: "POST",	
+            data : {"minId" : minId, "maxId" : maxId}
+		}).done(function (data, textStatus, xhr) {
+		    location.reload();
+		}).fail(function (data, textStatus, xhr){
+			alert("권한이 없습니다");
+		});
 }

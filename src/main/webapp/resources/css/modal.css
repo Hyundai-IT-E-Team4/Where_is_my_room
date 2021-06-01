@@ -1,0 +1,44 @@
+@charset "UTF-8";
+
+#modal {
+	width: 500px;
+	height: 300px;
+	background-color: white;
+	display: flex;
+	flex-direction: column;
+}
+
+.modal-button-container {
+	display:flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	padding-top: 10px;
+}
+
+#modal-text-area {
+	width: 500px;
+	height:200px;
+	margin-top: 5px;
+}
+
+#modal-submit-btn {
+  cursor: pointer;
+  height: 40px;
+  border-radius: 2px;
+  box-shadow: rgb(0 0 0 / 10%) 0px 7px 15px -2px;
+  background-color: rgba(154, 226, 232, 1);
+  border: 0;
+  border-radius: 8px;
+}
+
+#modal-close-btn {
+  cursor: pointer;
+  height: 40px;
+  border-radius: 2px;
+  box-shadow: rgb(0 0 0 / 10%) 0px 7px 15px -2px;
+  background-color: #ff8c8c;
+  border: 0;
+  border-radius: 8px;
+  margin-right: 15px;
+  margin-left: 15px;
+}

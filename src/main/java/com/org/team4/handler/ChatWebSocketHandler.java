@@ -33,10 +33,12 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
 
       HashSet<WebSocketSession> set;
       long messageId = getMessageId(session);
-      
+      String nickname = getNickname(session);
 
       globalUsers.put(getNickname(session), session);
-
+      log.info(nickname);
+      log.info("현재 접속자 수 : {}", globalUsers.size());
+      
       if (messageId == 0) {
          return;
       }

@@ -29,6 +29,8 @@
 <link rel="stylesheet" href="../resources/css/dropdown.css" />
 <link rel="stylesheet" href="../resources/css/boarddetail.css" />
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+<link rel="stylesheet" href="${contextPath}/resources/css/popup.css" />
+<link rel="stylesheet" href="${contextPath}/resources/css/modal.css" />
 
 <!-- favicon -->
 <link rel="shortcut icon" href="../resources/img/favicon.ico"
@@ -40,16 +42,21 @@
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9dad515bc29f7c64e401203f2300d728&libraries=services"></script>
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script src="../resources/js/global.js"></script>
 <script src="../resources/js/detail.js"></script>
+<script src="../resources/js/modal.js"></script>
 <script>
 	let latitude = "${boardDetailDTO.latitude}";
 	let longitude = "${boardDetailDTO.longitude}";
 	let userNickname = "${userInfo.nickname}";
+	let writerNickName = "${boardDetailDTO.writerNickName}";
+	let writerId = "${boardDetailDTO.writerId}";
+	let userId = "${userInfo.id}"; 
 </script>
 
 </head>
 <body>
-	${boardDetailDTO.content }
+	<div class="popup-container"></div>
 	<header class="page-header">
 		<div class="header-logo">
 			<a href="/team4/"> <img src="../resources/img/icon.png"
@@ -100,7 +107,9 @@
 				<h1>집 상세정보</h1>
 				<div class="profile-container">
 					<p>${boardDetailDTO.writerNickName }</p>
-					<button class="chat-btn">연락하기</button>
+					<c:if test="${boardDetailDTO.writerId != userInfo.id}">
+						<button class="chat-btn" onclick="modal()">연락하기</button>
+					</c:if>
 				</div>
 			</div>
 			<!-- <div class="content-container"> -->
@@ -211,6 +220,15 @@
 		</div>
 	</footer>
 	<!-- app -->
+	
+	<div id='modal'>
+		<h2>쪽지</h2>
+		<textarea id="modal-text-area"></textarea>
+		<div class="modal-button-container">
+			<button id="modal-submit-btn">전송</button>
+			<button id="modal-close-btn">취소</button>
+		</div>		
+	</div>
 	<script src="../resources/js/dropdown-menu.js"></script>
 </body>
 </html>

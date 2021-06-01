@@ -16,7 +16,7 @@ function onOpen(evt) {
 };
 
 function onMessage(evt) {
-
+	console.log(evt.data);
 
 	let message = evt.data.split(":");
 	let command = message[0];

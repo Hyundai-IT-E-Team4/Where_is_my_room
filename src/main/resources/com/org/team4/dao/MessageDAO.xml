@@ -187,4 +187,13 @@
 		}
 	</update>
 	
+	<insert id="createMessageRoom" parameterType="MessageRoomParamDTO" statementType="CALLABLE">
+		{CALL MESSAGE_PACK.CREATE_MESSAGE_ROOM(
+			#{userId1, mode = IN, jdbcType=NUMERIC},
+			#{userId2, mode = IN, jdbcType=NUMERIC},
+			#{message, mode = IN, jdbcType=VARCHAR}
+			)
+		}
+	</insert>
+	
 </mapper>
