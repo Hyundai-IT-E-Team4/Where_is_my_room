@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import com.org.team4.dao.UserDAO;
 import com.org.team4.dto.LoginDTO;
 import com.org.team4.dto.RegisterDTO;
+import com.org.team4.dto.UpdateEmailDTO;
+import com.org.team4.dto.UpdatePasswordDTO;
 import com.org.team4.dto.UserDTO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -18,39 +20,36 @@ public class UserServiceImpl implements UserService {
 	private UserDAO userDAO;
 
 	public UserDTO getUser(LoginDTO loginDTO) throws Exception {
-		try {
-			UserDTO userInfo = userDAO.getUser(loginDTO);
 
-			if (userInfo == null)
-				throw new RuntimeException("이메일 주소 혹은 비밀번호가 틀립니다.");
+		UserDTO userInfo = userDAO.getUser(loginDTO);
 
-			return userInfo;
-		} catch (Exception e) {
-			log.info(e.getMessage());
-			throw e;
-		}
+		if (userInfo == null)
+			throw new RuntimeException("이메일 주소 혹은 비밀번호가 틀립니다.");
+
+		return userInfo;
 	}
 
 	public void registerUser(RegisterDTO registerDTO) throws Exception {
 		userDAO.registerUser(registerDTO);
 	}
 
-
-	public void withdrawUser(LoginDTO loginDTO) throws Exception {
-		try {
-			long res = userDAO.withdrawUser(loginDTO);
-			
-			if (res == 0)
-				throw new RuntimeException("이메일 주소 혹은 비밀번호가 틀립니다.");
-
-		} catch (Exception e) {
-			log.info(e.getMessage());
-			throw e;
-		}
+	public int withdrawUser(LoginDTO loginDTO) throws Exception {
+		return userDAO.withdrawUser(loginDTO);
 	}
 
-	@Override
 	public int checkNickname(String nickname) throws Exception {
 		return userDAO.checkNickname(nickname);
+	}
+
+	public int updateUser(UserDTO userDTO) throws Exception {
+		return userDAO.updateUser(userDTO);
+	}
+
+	public int updateEmail(UpdateEmailDTO updateEmailDTO) throws Exception {
+		return userDAO.updateEmail(updateEmailDTO);
+	}
+
+	public int updatePassword(UpdatePasswordDTO updatePasswordDTO) throws Exception {
+		return userDAO.updatePassword(updatePasswordDTO);
 	}
 }

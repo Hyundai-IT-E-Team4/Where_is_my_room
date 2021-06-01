@@ -25,7 +25,7 @@
 <link rel="stylesheet" href="../resources/css/header.css" />
 <link rel="stylesheet" href="../resources/css/footer.css" />
 <link rel="stylesheet" href="../resources/css/dropdown.css" />
-<link rel="stylesheet" href="../resources/css/withdraw.css" />
+<link rel="stylesheet" href="../resources/css/updateEmail.css" />
 
 <!-- favicon -->
 <link rel="shortcut icon" href="../resources/img/favicon.ico"
@@ -81,26 +81,32 @@
 			</div>
 		</div>
 	</header>
-
+	
 	<section>
 		<div class="container">
-			<div class="withdraw">
-				<form method="post" action="withdraw">
-					<h1>회원 탈퇴</h1>
+			<div class="update-email">
+				<form method="post" action="updateEmail">
+					<h1>이메일 변경</h1>
+					<div class="input">
+						<div class="label">
+							<label>변경할 이메일</label>
+						</div>
+						<input type="hidden" name="emailBefore" value="${sessionScope.userInfo.email}">
+						<input type="email" name="emailAfter" maxlength="255" placeholder="이메일" autocomplete="off" value="${sessionScope.userInfo.email}">
+					</div>
 					<div class="input">
 						<div class="label">
 							<label>계정 비밀번호</label>
 						</div>
-						<input type="hidden" name="email" value="${sessionScope.userInfo.email}"> 
-						<input type="password" name="password" maxlength="20" placeholder="계정 비밀번호" autocomplete="off">
+						<input type="password" name="password" maxlength="20" placeholder="계정 비밀번호">
 					</div>
 					<div class="rules">
 						<p>
-							※ 탈퇴할 계정으로 로그인한 후, 비밀번호를 입력하세요.<br> 
-							※ 탈퇴 시, 계정 개인 정보가 삭제됩니다.
+							※ 반드시 본인의 이메일을 입력해주세요.<br> 
+							※ 계정 분실 시 아이디/비밀번호 찾기, 개인정보 관련 주요 고지사항 안내 등에 사용됩니다.
 						</p>
 					</div>
-					<input type="submit" value="회원 탈퇴">
+					<input type="submit" value="이메일 변경">
 				</form>
 			</div>
 		</div>

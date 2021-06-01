@@ -1,4 +1,4 @@
- package com.org.team4.web;
+package com.org.team4.web;
 
 import java.util.List;
 
@@ -77,7 +77,6 @@ public class MessageController {
 	@ResponseBody
 	public List<MessageLogDTO> messageLog(@RequestParam("messageId") long messageId, @RequestParam("startDate") String startDate, HttpSession session) {
 		try {
-			log.info(startDate);
 			
 			UserDTO userInfo = (UserDTO) session.getAttribute("userInfo");
 			MessageLogParamDTO mlpDTO = new MessageLogParamDTO(messageId, 0, startDate);

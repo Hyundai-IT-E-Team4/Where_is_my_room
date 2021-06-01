@@ -36,11 +36,14 @@
 
 <!-- app -->
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-
+<!-- <script src="../resources/js/global.js"></script> -->
 <script src="../resources/js/message.js" ></script>
+<!-- <script src="../resources/js/global.js"></script> -->
 
 </head>
 <body>
+	<div class="popup-container">
+	</div>
 	<header class="page-header">
 		<div class="header-logo">
 			<a href="./index.html"> <img src="../resources/img/icon.png"
@@ -116,7 +119,7 @@
 					<div style="display:flex; flex-direction: row; justify-content: space-between;">
 						<h2>내용</h2>
 						<div>
-							<button class="delete-btn" onclick="deleteMsg()">나가기</button>
+							<button class="delete-btn" onclick="deleteMsg()">방 나가기</button>
 							<button class="list-btn" onclick="listOpen()">쪽지함</button>
 						</div>
 					</div>
@@ -138,5 +141,6 @@
 
 	<!-- app -->
 	<script src="../resources/js/dropdown-menu.js"></script>
+	
 </body>
 </html>

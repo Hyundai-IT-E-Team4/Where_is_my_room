@@ -25,7 +25,7 @@
 <link rel="stylesheet" href="../resources/css/header.css" />
 <link rel="stylesheet" href="../resources/css/footer.css" />
 <link rel="stylesheet" href="../resources/css/dropdown.css" />
-<link rel="stylesheet" href="../resources/css/withdraw.css" />
+<link rel="stylesheet" href="../resources/css/updatePassword.css" />
 
 <!-- favicon -->
 <link rel="shortcut icon" href="../resources/img/favicon.ico"
@@ -34,6 +34,26 @@
 
 <!-- app -->
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript">
+
+	function passwordCheckFunction() {
+		var userPassword1 = $('#userPassword1').val();
+		var userPassword2 = $('#userPassword2').val();
+		
+		if (userPassword1.length < 4) {
+			$('#check-length').html('4자 이상 입력하세요.');
+		} else {
+			$('#check-length').html('');
+		}
+	
+		if (userPassword2 != '' && userPassword1 != userPassword2) {
+			$('#check-diff').html('비밀번호가 서로 일치하지 않습니다.');
+		} else {
+			$('#check-diff').html('');
+		}
+	}
+	
+</script>
 </head>
 <body>
 	<header class="page-header">
@@ -81,26 +101,39 @@
 			</div>
 		</div>
 	</header>
-
+	
 	<section>
 		<div class="container">
-			<div class="withdraw">
-				<form method="post" action="withdraw">
-					<h1>회원 탈퇴</h1>
+			<div class="update-Password">
+				<form method="post" action="updatePassword">
+					<h1>비밀번호 변경</h1>
 					<div class="input">
 						<div class="label">
-							<label>계정 비밀번호</label>
+							<label>새 비밀번호</label>
+							<p>4~20자</p>
 						</div>
-						<input type="hidden" name="email" value="${sessionScope.userInfo.email}"> 
-						<input type="password" name="password" maxlength="20" placeholder="계정 비밀번호" autocomplete="off">
+						<input onkeyup="passwordCheckFunction();"
+								id="userPassword1" type="password" name="passwordAfter" maxlength="20" placeholder="새 비밀번호">
+						<h5 class="caution" id="check-length"></h5>
+						<input onkeyup="passwordCheckFunction();"
+								id="userPassword2" type="password" maxlength="20" placeholder="새 비밀번호 확인">
+						<h5 class="caution" id="check-diff"></h5>
+					</div>
+					<div class="input">
+						<div class="label">
+							<label>현재 비밀번호</label>
+						</div>
+						<input type="hidden" name="email" value="${sessionScope.userInfo.email}">
+						<input type="password" name="passwordBefore" maxlength="20" placeholder="현재 비밀번호">
 					</div>
 					<div class="rules">
-						<p>
-							※ 탈퇴할 계정으로 로그인한 후, 비밀번호를 입력하세요.<br> 
-							※ 탈퇴 시, 계정 개인 정보가 삭제됩니다.
-						</p>
+						<p>	
+							<strong>※ 타인에게 비밀번호를 공유하는 것은 개인정보 유출로 이어질 수 있습니다.</strong>
+							<br>
+					        <span style="color: #c62917;">자신의 비밀번호를 공유하지 마세요!</span>
+					    </p> 
 					</div>
-					<input type="submit" value="회원 탈퇴">
+					<input type="submit" value="비밀번호 변경">
 				</form>
 			</div>
 		</div>

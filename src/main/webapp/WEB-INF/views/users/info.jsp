@@ -25,7 +25,7 @@
 <link rel="stylesheet" href="../resources/css/header.css" />
 <link rel="stylesheet" href="../resources/css/footer.css" />
 <link rel="stylesheet" href="../resources/css/dropdown.css" />
-<link rel="stylesheet" href="../resources/css/withdraw.css" />
+<link rel="stylesheet" href="../resources/css/info.css" />
 
 <!-- favicon -->
 <link rel="shortcut icon" href="../resources/img/favicon.ico"
@@ -84,24 +84,59 @@
 
 	<section>
 		<div class="container">
-			<div class="withdraw">
-				<form method="post" action="withdraw">
-					<h1>회원 탈퇴</h1>
-					<div class="input">
-						<div class="label">
-							<label>계정 비밀번호</label>
-						</div>
-						<input type="hidden" name="email" value="${sessionScope.userInfo.email}"> 
-						<input type="password" name="password" maxlength="20" placeholder="계정 비밀번호" autocomplete="off">
-					</div>
-					<div class="rules">
+			<div class="user-info">
+				<div class="title">
+					<h1>내 정보</h1>
+					<a href="/team4/users/logout" class="logout">로그아웃</a>
+				</div>
+				<div class="profile">
+					<img src="https://avatars.githubusercontent.com/u/50897259?v=4">
+					<div class="profile-detail">
+						<h3>${sessionScope.userInfo.name}</h3>
 						<p>
-							※ 탈퇴할 계정으로 로그인한 후, 비밀번호를 입력하세요.<br> 
-							※ 탈퇴 시, 계정 개인 정보가 삭제됩니다.
+							<span>${sessionScope.userInfo.nickname}</span>
+						</p>
+						<p>
+							<span>${sessionScope.userInfo.email}</span>
 						</p>
 					</div>
-					<input type="submit" value="회원 탈퇴">
-				</form>
+				</div>
+			</div>
+			
+			<div class="user-service">
+				<h2>계정</h2>
+				<ul>
+					<li>
+						<a href="/team4/users/update" class="item">개인정보 수정</a>
+					</li>
+					<li>
+						<a href="/team4/users/updateEmail" class="item">이메일 변경</a>
+					</li>
+					<li>
+						<a href="/team4/users/updatePassword" class="item">비밀번호 변경</a>
+					</li>
+					<li>
+						<a href="/team4/users/withdraw" class="item">회원 탈퇴</a>
+					</li>
+				</ul>
+			</div>
+			
+			<div class="user-service">
+				<h2>서비스</h2>
+				<ul>
+					<li>
+						<a href="/team4/map" class="item">지도에서 찾기</a>
+					</li>
+					<li>
+						<a href="/team4/" class="item">내가 등록한 방</a>
+					</li>
+					<li>
+						<a href="/team4/" class="item">최근 둘러본 방</a>
+					</li>
+					<li>
+						<a href="/team4/messages" class="item">채팅</a>
+					</li>
+				</ul>
 			</div>
 		</div>
 	</section>

@@ -45,13 +45,13 @@
 		</div>
 		<div class="header-menu">
 			<nav class="header-navigation">
-				<a href="/project/map">지도</a> <a href="/project/boards/insert">방
-					내놓기</a> <a href="/project/qna">Q&amp;A</a>
+				<a href="/team4/map">지도</a> 
+				<a href="/team4/board/enroll">방 내놓기</a> 
+				<a href="/team4/qna">Q&amp;A</a>
 			</nav>
 			<div class="header-profile dropdown">
 				<button type="button" class="dropdown-button">
-					<img src="https://avatars.githubusercontent.com/u/50897259?v=4"
-						alt="Profile Image" draggable="false" />
+					<img src="https://avatars.githubusercontent.com/u/50897259?v=4" alt="Profile Image" draggable="false" />
 				</button>
 				<div class="dropdown-menu">
 					<c:choose>
@@ -60,10 +60,10 @@
 								반갑습니다 :) <strong>${sessionScope.userInfo.nickname}</strong> 님
 							</h3>
 							<ul>
-								<li><a href="/team4/users/info">내 정보</a></li>
+								<li><a href="/team4/users/info">내 정보 관리</a></li>
 								<li><a href="#">내가 등록한 방</a></li>
 								<li><a href="#">최근 본 방</a></li>
-								<li><a href="/team4/users/chat">쪽지</a></li>
+								<li><a href="/team4/messages">메시지</a></li>
 							</ul>
 							<ul>
 								<li><a href="/team4/users/logout">로그아웃</a></li>
@@ -82,6 +82,7 @@
 			</div>
 		</div>
 	</header>
+	
 	<section class="landing">
 		<div class="container">
 			<div class="row">
