@@ -32,7 +32,7 @@ public class MessageServiceImpl implements MessageService{
 		try {			
 			List<MessageListDTO> messages = messageDAO.getMessageRoomListInit(id);
 			for(MessageListDTO dto : messages) {
-				dto.setProfileImg(s3Service.getFileURL("team4", s3Service.getFileURL("team4", "profileThumb/2021/06/02/검사.PNG")));
+				dto.setProfileImg(s3Service.getFileURL("team4", s3Service.getFileURL("team4", dto.getProfileImg())));
 				log.info("채팅 내역의 프로필 사진 : {}", dto.getProfileImg());
 			}
 			return messages;
@@ -48,7 +48,7 @@ public class MessageServiceImpl implements MessageService{
 			List<MessageListDTO> messages = messageDAO.getMessageRoomList(mlpDTO);
 			for(MessageListDTO dto : messages) {
 				//dto.setProfileImg(s3Service.getFileURL("team4", s3Service.getFileURL("team4", "profileThumb/2021/06/02/검사.PNG")));
-				dto.setProfileImg(s3Service.getFileURL("team4", "profileThumb/2021/06/02/검사.PNG"));
+				dto.setProfileImg(s3Service.getFileURL("team4", dto.getProfileImg()));
 				log.info("넘어오는 파일 url은 {}", dto.getProfileImg());
 			}
 			return messages;
@@ -62,10 +62,6 @@ public class MessageServiceImpl implements MessageService{
 	public List<MessageLogDTO> getMessageLogInit(MessageLogParamDTO mlpDTO) throws Exception {
 		try {
 			List<MessageLogDTO> messageLogs =  messageDAO.getMessageLogInit(mlpDTO);
-			for(MessageLogDTO dto : messageLogs) {
-				//dto.setProfileImg(s3Service.getFileURL("team4", "profileThumb/2021/06/02/검사.PNG"));
-				dto.setProfileImg(s3Service.getFileURL("team4", "profileThumb/2021/06/02/검사.PNG"));
-			}
 			return messageLogs;
 		} catch (Exception e) {
 			log.error(e.getMessage());
@@ -77,9 +73,6 @@ public class MessageServiceImpl implements MessageService{
 	public List<MessageLogDTO> getMessageLogAppend(MessageLogParamDTO mlpDTO) throws Exception {
 		try {			
 			List<MessageLogDTO> messageLogs = messageDAO.getMessageLogAppend(mlpDTO);
-			for(MessageLogDTO dto : messageLogs) {
-				dto.setProfileImg(s3Service.getFileURL("team4", "profileThumb/2021/06/02/검사.PNG"));
-			}
 			return messageLogs;
 		} catch (Exception e) {
 			log.error(e.getMessage());
@@ -109,7 +102,6 @@ public class MessageServiceImpl implements MessageService{
 
 	@Override
 	public void createMessageRoom(MessageRoomParamDTO messageRoomParamDTO) throws SQLException {
-		// TODO Auto-generated method stub
 		try {
 			messageDAO.createMessageRoom(messageRoomParamDTO);
 		} catch(Exception e) {

@@ -1,6 +1,6 @@
 window.onload = ()=>{
-   
    window.wsocket;
+   window.myprofileImg = $('.dropdown-button').children().attr("src");
    window.lastChatId = 16;  //채팅방의 마지막 읽은 채팅방 번호
    window.findAll = false; // 채팅방 다 찾았는지 여부
    window.messageId = 0;
@@ -73,7 +73,7 @@ function onMessage(evt) {
          
          plusMsg += '<div class="message-reverse">'
                  +  '   <div class="message-user-reverse">'    
-                  +  '      <a href="#"> <img src="https://avatars.githubusercontent.com/u/50897259?v=4" src="https://avatars.githubusercontent.com/u/50897259?v=4" alt="Profile Image" /> </a>' 
+                  +  `      <a href="#"> <img src="${window.myprofileImg}" alt="Profile Image" /> </a>`
                   +  '   </div>'
                   +  '   <div class="message-content-reverse">'
                   +  '      <div class="message-info-reverse">'
@@ -86,7 +86,7 @@ function onMessage(evt) {
       } else {
                plusMsg += '<div class="message">'
                  +  '   <div class="message-user">'    
-                  +  '      <a href="#"> <img src="https://avatars.githubusercontent.com/u/50897259?v=4" src="https://avatars.githubusercontent.com/u/50897259?v=4" alt="Profile Image" /> </a>' 
+                  +  `      <a href="#"> <img src="${window.partnerImg}" alt="Profile Image" /> </a>` 
                   +  '   </div>'
                   +  '   <div class="message-content">'
                   +  '      <div class="message-info">'
@@ -139,12 +139,13 @@ function send() {
 
 
 // 채팅방의 메세지 내역 보여주는 함수
-function getMessage(messageId, startDate, partnerName) { 
+function getMessage(messageId, startDate, partnerName, partnerImg) { 
 
    window.messageId = messageId;
    window.lastChatMessageId = 21; // 마지막으로 읽은 메시지 아이디
    window.chatMessageFindAll = false; // 채팅방의 메시지를 다 읽었는지
    window.partnerName = partnerName;
+   window.partnerImg = partnerImg;
    
    document.getElementById('submit_btn').disabled = false;
    document.getElementById('message_input').disabled = false;
@@ -184,7 +185,7 @@ function getMessage(messageId, startDate, partnerName) {
             if(readList[i].senderId == userId) {
                plusMsg += '<div class="message-reverse">'
                        +  '   <div class="message-user-reverse">'    
-                           +  `      <a href="#"> <img src=${readList[i].profileImg} alt="Profile Image" /> </a>` 
+                           +  `      <a href="#"> <img src=${window.myprofileImg} alt="Profile Image" /> </a>` 
                            +  '   </div>'
                            +  '   <div class="message-content-reverse">'
                            +  '      <div class="message-info-reverse">'
@@ -198,7 +199,7 @@ function getMessage(messageId, startDate, partnerName) {
             } else {
                plusMsg += '<div class="message">'
                        +  '   <div class="message-user">'    
-                           +  `      <a href="#"> <img src=${readList[i].profileImg} alt="Profile Image" /> </a>` 
+                           +  `      <a href="#"> <img src=${window.partnerImg} alt="Profile Image" /> </a>` 
                            +  '   </div>'
                            +  '   <div class="message-content">'
                            +  '      <div class="message-info">'
@@ -244,7 +245,7 @@ function getMessageAppend() {
             if(readList[i].senderId == window.userId) {
                plusMsg += '<div class="message-reverse">'
                        +  '   <div class="message-user-reverse">'    
-                           +  `      <a href="#"> <img src=${readList[i].profileImg} alt="Profile Image" /> </a>` 
+                           +  `      <a href="#"> <img src=${window.myprofileImg} alt="Profile Image" /> </a>` 
                            +  '   </div>'
                            +  '   <div class="message-content-reverse">'
                            +  '      <div class="message-info-reverse">'
@@ -258,7 +259,7 @@ function getMessageAppend() {
             } else {
                plusMsg += '<div class="message">'
                        +  '   <div class="message-user">'    
-                           +  `      <a href="#"> <img src=${readList[i].profileImg} alt="Profile Image" /> </a>` 
+                           +  `      <a href="#"> <img src=${window.partnerImg} alt="Profile Image" /> </a>` 
                            +  '   </div>'
                            +  '   <div class="message-content">'
                            +  '      <div class="message-info">'
@@ -294,7 +295,7 @@ function getMessageList() {
       let plusMsg = "";
       for(let i =0 ; i < readList.length; i++){
 		console.log(readList[i].profileImg);
-         plusMsg += `<div class="message" onclick="getMessage(${readList[i].messageId}, '${dateFormat(new Date(readList[i].startDate))}', '${readList[i].partnerName}')">`
+         plusMsg += `<div class="message" onclick="getMessage(${readList[i].messageId}, '${dateFormat(new Date(readList[i].startDate))}', '${readList[i].partnerName}', '${readList[i].profileImg}')">`
                +  '   <div class="message-user">'
                +  `      <a href="#"> <img src=${readList[i].profileImg} alt="Profile Image" /> </a>`
                +  '   </div>'

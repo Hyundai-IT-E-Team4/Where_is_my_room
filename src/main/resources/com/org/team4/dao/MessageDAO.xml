@@ -71,7 +71,8 @@
 		                        I.STARTDATE                ,
 		                        U.NICKNAME AS PARTNERNAME  ,
 		                        M.MESSAGE                  ,
-		                        SEND_DATE  AS SENDDATE
+		                        SEND_DATE  AS SENDDATE     ,
+		                        U.PROFILE_IMG PROFILEIMG
 		                  FROM (
 		                        SELECT 
 		                               ID                         ,  
@@ -120,8 +121,7 @@
 		    I.NICKNAME                  ,
 		    I.MESSAGE                   ,
 		    I.SEND_DATE  AS SENDDATE    ,
-		    I.READ						,
-		    PROFILEIMG
+		    I.READ						
 		FROM(
 		    SELECT
 		            ROWNUM AS RNUM  ,
@@ -129,8 +129,7 @@
 		    FROM (
 		            SELECT
 		                    M.*,
-		                    U.NICKNAME,
-		                    U.PROFILE_IMG PROFILEIMG
+		                    U.NICKNAME
 		            FROM MESSAGE_DETAIL M
 		            JOIN USERS U
 		              ON  M.MESSAGE_ID = #{messageId} AND M.SENDER_ID = U.ID
@@ -153,8 +152,7 @@
 		    I.NICKNAME                  ,
 		    I.MESSAGE                   ,
 		    I.SEND_DATE  AS SENDDATE    ,
-		    I.READ						,
-		    PROFILEIMG
+		    I.READ						
 		FROM(
 		    SELECT
 		            ROWNUM AS RNUM  ,
@@ -162,8 +160,7 @@
 		    FROM (
 		            SELECT
 		                    M.*,
-		                    U.NICKNAME,
-		                    U.PROFILE_IMG PROFILEIMG
+		                    U.NICKNAME
 		            FROM MESSAGE_DETAIL M
 		            JOIN USERS U
 		              ON  M.MESSAGE_ID = #{messageId} AND M.SENDER_ID = U.ID
