@@ -31,6 +31,7 @@
 <link rel="stylesheet" href="../resources/css/header.css" />
 <link rel="stylesheet" href="../resources/css/footer.css" />
 <link rel="stylesheet" href="../resources/css/dropdown.css" />
+<link rel="stylesheet" href="../resources/css/enroll.css" />
 
 <!-- favicon -->
 <link rel="shortcut icon" href="../resources/img/favicon.ico"
@@ -86,59 +87,59 @@
 
 	<section>
 		<div class="container">
-			<!-- 여기에 작성하세요 :) -->
+			<h1>방 정보 입력</h1>
 			<form action="../boards" method="post" enctype="multipart/form-data">
-				<div>
-					<strong>매물 종류</strong> <input type="radio" value="원룸"
-						name="roomType" />원룸 <input type="radio" value="투룸"
-						name="roomType" />투룸
+				<div class="input-box row">
+					<div class="input-label">매물 종류</div> 
+					<input type="radio" value="원룸" name="roomType" />원룸 
+					<input type="radio" value="투룸" name="roomType" />투룸
 				</div>
-				<br>
-				<br>
-				<div>
-					<strong>계약 종류</strong> <input type="radio" value="양도"
-						name="contractType" />양도 <input type="radio" value="대여"
-						name="contractType" />대여
+				<div class="input-box row">
+					<div class="input-label">계약 종류</div> 
+					<input type="radio" value="양도" name="contractType" />양도 
+					<input type="radio" value="대여" name="contractType" />대여
 				</div>
-				<div>
-					<strong>희망 가격</strong> <input type="text" name="rentalFee"
-						required="required">
+				<div class="input-box row">
+					<div class="input-label">희망 가격</div> 
+					<input type="text" name="rentalFee" required="required" style="width: 100px">&nbsp;(만)원
 				</div>
 
-				<div>
-					<strong>게시글 제목을 입력해주세요</strong> <input type="text" name="title"
-						required="required">
+				<div class="input-box row">
+					<div class="input-label">게시글 제목을 입력해주세요</div> 
+					<input type="text" name="title" required="required" style="width: 300px">
 				</div>
 
-				<div>
-					<strong>방에 대한 설명을 입력해주세요</strong>
+				<div class="input-box row">
+					<div class="input-label">방에 대한 설명을 입력해주세요</div>
 					<textarea rows="5" cols="10" name="content" required="required"></textarea>
 				</div>
-				<div>
-					<input type="text" id="postcode" placeholder="우편번호"> <input
-						type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
-					<input type="text" id="address" placeholder="주소" name="address"
-						required="required"><br> <input type="text"
-						id="detailAddress" placeholder="상세주소" name="detailAddress"
-						required="required"> <input type="text" id="extraAddress"
-						placeholder="참고항목"> <input type="hidden" name="latitude"
-						id="latitude"> <input type="hidden" name="longitude"
-						id="longitude">
+				<div class="input-box row">
+					<div class="input-label">주소를 입력해주세요</div>
+					<input type="text" id="postcode" placeholder="우편번호"> 
+					<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기" class="btn"><br>
+				</div>
+				<div class="input-box row">
+					<div class="input-label">&nbsp;</div>
+					<input type="text" id="address" placeholder="주소" name="address" required="required">
+					<input type="text" id="detailAddress" placeholder="상세주소" name="detailAddress" required="required"> 
+					<input type="text" id="extraAddress" placeholder="참고항목"> 
+					<input type="hidden" name="latitude" id="latitude"> 
+					<input type="hidden" name="longitude" id="longitude">
 				</div>
 				<div id="fileContainer">
 					<p>
-						<input type="file" name="file1"> <a href="#this"
-							name="delete">삭제하기</a>
+						<input type="file" name="file1" class="input-label"> 
+						<a href="#this" name="delete" class="delete-btn">사진 삭제하기</a>
 					</p>
 				</div>
-				<a href="#this" id="add">파일 추가하기</a> <input type="submit"
-					value="등록하기" />
+				<a href="#this" id="add" class="add-btn">사진 추가하기</a> 
+				
+				<div id="map" style="width: 100%; height: 350px;"></div>
+				
+				<div style="display: flex; align-items: center">
+					<input type="submit" value="등록하기" class="submit-btn"/>
+				</div>
 			</form>
-
-			<!-- 지도 표시 영역 시작-->
-			<div id="map" style="width: 100%; height: 350px;"></div>
-			<!-- 지도 표시 영역 끝-->
-
 
 		</div>
 	</section>

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html lang="en">
@@ -28,7 +28,8 @@
 <link rel="stylesheet" href="../resources/css/footer.css" />
 <link rel="stylesheet" href="../resources/css/dropdown.css" />
 <link rel="stylesheet" href="../resources/css/boarddetail.css" />
-<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+<link rel="stylesheet"
+	href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 <link rel="stylesheet" href="${contextPath}/resources/css/popup.css" />
 <link rel="stylesheet" href="${contextPath}/resources/css/modal.css" />
 
@@ -51,7 +52,7 @@
 	let userNickname = "${userInfo.nickname}";
 	let writerNickName = "${boardDetailDTO.writerNickName}";
 	let writerId = "${boardDetailDTO.writerId}";
-	let userId = "${userInfo.id}"; 
+	let userId = "${userInfo.id}";
 </script>
 
 </head>
@@ -100,11 +101,11 @@
 			</div>
 		</div>
 	</header>
+	
 	<section>
 		<div class="container">
-			<!-- 여기에 작성하세요 :) -->
 			<div class="title-container">
-				<h1>집 상세정보</h1>
+				<h1>${boardDetailDTO.title }</h1>
 				<div class="profile-container">
 					<p>${boardDetailDTO.writerNickName }</p>
 					<c:if test="${boardDetailDTO.writerId != userInfo.id}">
@@ -112,29 +113,39 @@
 					</c:if>
 				</div>
 			</div>
-			<!-- <div class="content-container"> -->
-			<h2>제목</h2>
-			<p>${boardDetailDTO.title }</p>
-			<h2>집 정보</h2>
-			<h2>종류</h2>
-			<p>${boardDetailDTO.roomType }</p>
-			<h2>구분</h2>
-			<p>${boardDetailDTO.contractType }</p>
-			<h2>양도가격</h2>
-			<p>${boardDetailDTO.rentalFee}</p>
-			<h2>위치</h2>
-			<p>${boardDetailDTO.address} ${boardDetailDTO.detailAddress}</p>
+			
+
+			
+			<div class="info-container">
+				<div class="info-sub-container blue">
+					<h7>양도가격</h7>
+					<h1>월 ${boardDetailDTO.rentalFee} 만원</h1>
+				</div>
+				<div class="info-sub-container">
+					<h7>종류</h7>
+					<h1>${boardDetailDTO.roomType }</h1>
+				</div>
+				<div class="info-sub-container">
+					<h7>구분</h7>
+					<h1>${boardDetailDTO.contractType }</h1>
+				</div>
+			</div>
+			
+			<h2>상세 정보</h2>
+			<hr style="border-width: 0.01px; margin-top: 10px; margin-bottom: 10px">
+			<p>${boardDetailDTO.content }</p>
+			
+			<p style="margin-top: 20px; margin-bottom: 15px"><strong>위치 : </strong>${boardDetailDTO.address}${boardDetailDTO.detailAddress}</p>
 			<div id="map" style="width: 100%; height: 350px;"></div>
-			<!-- <h2>사진</h2> -->
 			<c:set var="len" value="${fn:length(boardDetailDTO.files)}" />
 			<c:if test="${len > 0}">
 				<div class="swiper-container">
-					<strong>집 사진</strong>
+					<p style="margin-top: 20px; margin-bottom: 15px"><strong>사진</strong></p>
 					<div class="swiper-wrapper">
 						<c:forEach var="file" items="${boardDetailDTO.files}">
 							<div class="swiper-slide">
-								<img src="${file.url}" title="${file.uploadFileName}" width="50%"
-									height="50%">
+								<img src="${file.url}" title="${file.uploadFileName}"
+									width="50%" height="50%">
 							</div>
 						</c:forEach>
 					</div>
@@ -156,10 +167,22 @@
 					});
 				</script>
 			</c:if>
-			<h2>내용</h2>
-			<p>${boardDetailDTO.content }</p>
 
-			<div class="comment-banner">&#x1F4AC; 댓글</div>
+			<div class="banner-container">
+				<div class="comment-banner">&#x1F4AC; 댓글&nbsp;&nbsp;&or;</div>
+				<div>
+					<button id="list" onClick="location.href=history.back()"><strong>목록으로</strong></button>
+					<script>
+						console.log("${userInfo.id}");
+						console.log("${boardDetailDTO.writerId}");
+					</script>
+					<c:if
+						test="${userInfo != null &&  userInfo.id == boardDetailDTO.writerId }">
+						<button id="delete"><strong>삭제하기</strong></button>
+						<button id="update"><strong>수정하기</strong></button>
+					</c:if>
+				</div>
+			</div>
 			<div class="comment-container">
 				<div class="pagingBox"></div>
 
@@ -179,27 +202,9 @@
 
 
 
-			<div>
-				<strong id="list" onClick="location.href=history.back()">목록으로</strong>
-				<script>
-					console.log("${userInfo.id}");
-					console.log("${boardDetailDTO.writerId}");
-				</script>
-				<c:if test="${userInfo != null &&  userInfo.id == boardDetailDTO.writerId }">
-					<strong id="delete">삭제하기</strong>
-					<strong id="update">수정하기</strong>
-				</c:if>
-			</div>
+
 
 		</div>
-
-
-
-
-
-
-
-
 	</section>
 
 	<!-- Footer Section -->
@@ -220,14 +225,14 @@
 		</div>
 	</footer>
 	<!-- app -->
-	
+
 	<div id='modal' style="display: none">
 		<h2>쪽지</h2>
 		<textarea id="modal-text-area"></textarea>
 		<div class="modal-button-container">
 			<button id="modal-submit-btn">전송</button>
 			<button id="modal-close-btn">취소</button>
-		</div>		
+		</div>
 	</div>
 	<script src="../resources/js/dropdown-menu.js"></script>
 </body>

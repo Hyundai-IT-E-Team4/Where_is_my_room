@@ -32,6 +32,7 @@ let contractType = "${boardDetailDTO.contractType}";
 <link rel="stylesheet" href="${contextPath}/resources/css/header.css" />
 <link rel="stylesheet" href="${contextPath}/resources/css/footer.css" />
 <link rel="stylesheet" href="${contextPath}/resources/css/dropdown.css" />
+<link rel="stylesheet" href="${contextPath}/resources/css/enroll.css" />
 
 <!-- favicon -->
 <link rel="shortcut icon" href="${contextPath}/resources/img/favicon.ico"
@@ -88,68 +89,74 @@ let contractType = "${boardDetailDTO.contractType}";
 	</header>
 
 	<section>
-		<form action="${contextPath}/boards/${id}" method="post"
-			enctype="multipart/form-data">
-			<div>
-				<strong>매물 종류</strong> <input type="radio" value="원룸"
-					name="roomType" />원룸 <input type="radio" value="투룸" name="roomType" />투룸
-			</div>
-			<br>
-			<br>
-			<div>
-				<strong>계약 종류</strong> <input type="radio" value="양도"
-					name="contractType" />양도 <input type="radio" value="대여"
-					name="contractType" />대여
-			</div>
-			<div>
-				<strong>희망 가격</strong> <input type="text" name="rentalFee"
-					required="required" value="${boardDetailDTO.rentalFee}">
-			</div>
+		<div class="container">
+			<h1>방 정보 수정</h1>
+			<form action="${contextPath}/boards/${id}" method="post" enctype="multipart/form-data">
+				<div class="input-box row">
+					<div class="input-label">매물 종류</div> 
+					<input type="radio" value="원룸" name="roomType" />원룸 
+					<input type="radio" value="투룸" name="roomType" />투룸
+				</div>
+				<div class="input-box row">
+					<div class="input-label">계약 종류</div> 
+					<input type="radio" value="양도" name="contractType" />양도 
+					<input type="radio" value="대여" name="contractType" />대여
+				</div>
+				<div class="input-box row">
+					<div class="input-label">희망 가격</div> 
+					<input type="text" name="rentalFee" required="required" value="${boardDetailDTO.rentalFee}" style="width: 100px">&nbsp;(만)원
+				</div>
 
-			<div>
-				<strong>게시글 제목을 입력해주세요</strong> <input type="text" name="title"
-					required="required" value="${boardDetailDTO.title}">
-			</div>
+				<div class="input-box row">
+					<div class="input-label">게시글 제목을 입력해주세요</div> 
+					<input type="text" name="title" required="required" value="${boardDetailDTO.title}" style="width: 300px">
+				</div>
 
-			<div>
-				<strong>방에 대한 설명을 입력해주세요</strong>
-				<textarea rows="5" cols="10" name="content" required="required">${boardDetailDTO.content}</textarea>
-			</div>
-			<div>
-				<input type="text" id="postcode" placeholder="우편번호"> <input
-					type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
-				<input type="text" id="address" placeholder="주소" name="address"
-					required="required" value="${boardDetailDTO.address}"><br>
-				<input type="text" id="detailAddress" placeholder="상세주소"
-					name="detailAddress" required="required"
-					value="${boardDetailDTO.detailAddress}"> <input type="text"
-					id="extraAddress" placeholder="참고항목"> <input type="hidden"
-					name="latitude" id="latitude" value="${boardDetailDTO.latitude}">
-				<input type="hidden" name="longitude" id="longitude"
-					value="${boardDetailDTO.longitude}">
-			</div>
-			<div>
-				<strong>사진 목록</strong>
-				<c:forEach var="file" items="${boardDetailDTO.files}">
-					<div class="uploadImg">
-						<img src="${file.url}" title="${file.uploadFileName}"> <input
-							type="hidden" name="img" value="${file.id}">
-						<button class='imgDelete'>삭제</button>
-						<!-- 	    		<input type="button" class="imgDelete" value="삭제"> -->
-					</div>
-				</c:forEach>
-			</div>
-			<div id="fileContainer">
-				<p>
-					<input type="file" name="file1"> <a href="#this"
-						name="delete">삭제하기</a>
-				</p>
-			</div>
-			<a href="#this" id="add">파일 추가하기</a> <input type="submit"
-				value="등록하기" />
-		</form>
-		<div id="map" style="width: 100%; height: 350px;"></div>
+				<div class="input-box row">
+					<div class="input-label">방에 대한 설명을 입력해주세요</div>
+					<textarea rows="5" cols="10" name="content" required="required">
+						${boardDetailDTO.content}
+					</textarea>
+				</div>
+				<div class="input-box row">
+					<div class="input-label">주소를 입력해주세요</div>
+					<input type="text" id="postcode" placeholder="우편번호"> 
+					<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기" class="btn"><br>
+				</div>
+				<div class="input-box row">
+					<div class="input-label">&nbsp;</div>
+					<input type="text" id="address" placeholder="주소" name="address" required="required" value="${boardDetailDTO.address}">
+					<input type="text" id="detailAddress" placeholder="상세주소" name="detailAddress" required="required" value="${boardDetailDTO.detailAddress}"> 
+					<input type="text" id="extraAddress" placeholder="참고항목"> 
+					<input type="hidden" name="latitude" id="latitude" value="${boardDetailDTO.latitude}"> 
+					<input type="hidden" name="longitude" id="longitude" value="${boardDetailDTO.longitude}">
+				</div>
+				<div class="input-box row">
+					<div class="input-label">사진 목록</div>
+					<c:forEach var="file" items="${boardDetailDTO.files}">
+						<div class="uploadImg">
+							<img src="${file.url}" title="${file.uploadFileName}"> 
+							<input type="hidden" name="img" value="${file.id}">
+							<button class='imgDelete'>삭제</button>
+						</div>
+					</c:forEach>
+				</div>
+				<div id="fileContainer">
+					<p>
+						<input type="file" name="file1" class="input-label"> 
+						<a href="#this" name="delete" class="delete-btn">사진 삭제하기</a>
+					</p>
+				</div>
+				<a href="#this" id="add" class="add-btn">사진 추가하기</a> 
+				
+				<div id="map" style="width: 100%; height: 350px;"></div>
+				
+				<div style="display: flex; align-items: center">
+					<input type="submit" value="등록하기" class="submit-btn"/>
+				</div>
+			</form>
 
+		</div>
 	</section>
 
 

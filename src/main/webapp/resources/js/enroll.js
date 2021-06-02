@@ -113,7 +113,7 @@ function fileDelete(obj){
 }
 
 function fileAdd(){
-    let str = "<p><input type='file' name='file_"+(fileCnt++)+"'/><a href='#this' name='delete'>삭제하기</a></p> ";
+    let str = "<p><input type='file' name='file_"+(fileCnt++)+"' class='input-label'/><a href='#this' name='delete' class='delete-btn'>사진 삭제하기</a></p> ";
     $("#fileContainer").append(str);
      $("a[name='delete']").on("click",function(e){
         e.preventDefault();

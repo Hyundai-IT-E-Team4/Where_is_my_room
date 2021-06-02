@@ -20,10 +20,12 @@ $(document).ready(()=>{
 	$('.comment-banner').on('click',()=>{
 		if($('.comment-container').css("display") == "none"){
 			$('.comment-container').show();
+			$('.comment-banner').html("&#x1F4AC; 댓글&nbsp;&nbsp;&and;");
 			window.commentPage = 1;
 			getCommentList(1);
 		} else{
 			$('.comment-container').hide();
+			$('.comment-banner').html("&#x1F4AC; 댓글&nbsp;&nbsp;&or;");
 		}
 	});
 	$('#delete').on('click',()=>{
