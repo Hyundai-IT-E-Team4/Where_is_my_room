@@ -18,5 +18,5 @@ public class MessageListDTO {
 	String partnerName;
 	String message;
 	Date sendDate;
-	
+	String profileImg;
 }

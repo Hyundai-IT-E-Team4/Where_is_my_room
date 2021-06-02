@@ -71,13 +71,17 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
          String senderNick = getNickname(session);
          long messageId = getMessageId(session);
          String msg = message.getPayload();
+         log.info("메시지 : {}", msg);
          String msgcontent = msg.split(":")[1];
 
          // 메세지 형식 "댓글:보낸이:알림내용"
          if (messageId == 0) {
-            msg = message.getPayload();
-            String formatMsg = makeMesssage("댓글", senderNick, msg);
-            WebSocketSession receiver = getReceiver(msg);
+            msg = message.getPayload(); //만약 연락하기 보낸거라면 쪽지:받는이:내용 BUT 댓글 알림에는 받는이:내용
+            String[] strArr = msg.split(":");
+            String command = strArr[0];
+            String content = msg.substring(msg.indexOf(":") + 1);
+            String formatMsg = makeGlobalMesssage(command, senderNick, content);
+            WebSocketSession receiver = getReceiver(content);
             if(receiver != null) {
                receiver.sendMessage(new TextMessage(formatMsg));
             } else {
@@ -94,7 +98,15 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
             if (set.size() == 1) {
                WebSocketSession receiver = getReceiver(msg);
                if(receiver != null) {
-                  receiver.sendMessage(new TextMessage(makeMesssage("쪽지", senderNick, msg)));
+            	   String link = String.format("/team4/messages", messageId);
+            	   log.info(msg);
+            	   String content = msg.split(":")[1];
+            	   String newMsg = String.format("<a href='%s'>%s</a>", link, content);
+            	   newMsg = "1:"+newMsg;
+            	   log.info(newMsg);
+            	   //
+                  receiver.sendMessage(new TextMessage(makeMesssage("쪽지", senderNick, newMsg)));
+            	   //receiver.sendMessage(new TextMessage(makeMesssage("쪽지", senderNick, msg)));
                } else {
                   log.info("receiver is null");
                }
@@ -149,6 +161,19 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
       sb.append(":");
       sb.append(msg);
       return sb.toString();
+   }
+   
+   private String makeGlobalMesssage(String ... messages) { //첫번째는 명령어, 두번째는 발송자, 세번 째는 내용
+	   StringBuffer sb = new StringBuffer();
+	   String payload = messages[2];
+	   String[] parseData = payload.split(":");
+	   String msg = parseData[1]; // 내용
+	   sb.append(messages[0]);
+	   sb.append(":");
+	   sb.append(messages[1]);
+	   sb.append(":");
+	   sb.append(msg);
+	   return sb.toString();
    }
    
    private WebSocketSession getReceiver(String payload) {

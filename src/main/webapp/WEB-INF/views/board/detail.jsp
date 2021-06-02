@@ -221,7 +221,7 @@
 	</footer>
 	<!-- app -->
 	
-	<div id='modal'>
+	<div id='modal' style="display: none">
 		<h2>쪽지</h2>
 		<textarea id="modal-text-area"></textarea>
 		<div class="modal-button-container">

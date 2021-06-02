@@ -55,7 +55,7 @@ public class S3ServiceImpl implements S3Service{
 
 	// 파일 URL
 	@Override
-	public String getFileURL(String bucketName, String fileName) {
+	public String getFileURL(String bucketName, String fileName) { //filename이 경로
 		System.out.println("넘어오는 파일명 : "+fileName);
 		String imgName = (fileName).replace(File.separatorChar, '/');
 		return S3Client.generatePresignedUrl(new GeneratePresignedUrlRequest(bucketName, imgName)).toString();

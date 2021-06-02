@@ -122,7 +122,7 @@ function commentSubmit(obj){
             data : {"content" : content}
 		}).done(function (data, textStatus, xhr) {
 			if(userNickname != writerNickName){
-				let msg = `${writerNickName}:<a href="/team4/boards/${getBoardNumber()}">새로운 댓글을 달았습니다.</a>`;
+				let msg = `댓글:${writerNickName}:<a href="/team4/boards/${getBoardNumber()}">새로운 댓글을 달았습니다.</a>`;
 				send(msg);
 			}
 		    location.reload();
@@ -135,15 +135,16 @@ function commentSubmit(obj){
 function replySubmit(obj){
 	let content = obj.parent().find('textarea').val();
 	let parentId = obj.parent().find('input').val();
-	let writerName = obj.parent().prev().children('.comment-top').children('.comment-writer').html();
+	let commentWriterName = obj.parent().prev().children('.comment-top').children('.comment-writer').html();
+	commentWriterName = commentWriterName.trim();
 	if(valueCheck(content)){
 		$.ajax({
 			url: "/team4/boards/" + getBoardNumber() + "/comments",
             method: "POST",
             data : {"content" : content, "parentId" : parentId}
 		}).done(function (data, textStatus, xhr) {
-			if(userNickname != writerNickName){
-				let msg = `${writerNickName}:<a href="/team4/boards/${getBoardNumber()}">새로운 대댓글을 달았습니다.</a>`;
+			if(userNickname != commentWriterName){
+				let msg = `댓글:${writerNickName}:<a href="/team4/boards/${getBoardNumber()}">새로운 대댓글을 달았습니다.</a>`;
 				send(msg);
 			}
 		    location.reload();

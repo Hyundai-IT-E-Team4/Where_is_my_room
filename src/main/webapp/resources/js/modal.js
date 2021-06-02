@@ -52,7 +52,10 @@
 		}).done(function (data, textStatus, xhr) {
 			alert("전송되었습니다!");
 			bg.remove();
-			//send();
+        	modal.style.display = 'none';
+        	/*${writerNickName}:<a href="/team4/boards/${getBoardNumber()}">새로운 댓글을 달았습니다.*/
+        	
+			send(`쪽지:${writerNickName}:${message}`);
 		}).fail(function (data, textStatus, xhr){
 			alert("전송 실패!");
 		});

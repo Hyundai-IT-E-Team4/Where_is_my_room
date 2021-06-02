@@ -17,7 +17,8 @@
 		                        I.STARTDATE                ,
 		                        U.NICKNAME AS PARTNERNAME  ,
 		                        M.MESSAGE                  ,
-		                        SEND_DATE  AS SENDDATE
+		                        SEND_DATE  AS SENDDATE,
+		                        U.PROFILE_IMG PROFILEIMG
 		                  FROM (
 		                        SELECT 
 		                               ID                         ,  
@@ -119,7 +120,8 @@
 		    I.NICKNAME                  ,
 		    I.MESSAGE                   ,
 		    I.SEND_DATE  AS SENDDATE    ,
-		    I.READ
+		    I.READ						,
+		    PROFILEIMG
 		FROM(
 		    SELECT
 		            ROWNUM AS RNUM  ,
@@ -127,12 +129,13 @@
 		    FROM (
 		            SELECT
 		                    M.*,
-		                    U.NICKNAME
+		                    U.NICKNAME,
+		                    U.PROFILE_IMG PROFILEIMG
 		            FROM MESSAGE_DETAIL M
 		            JOIN USERS U
-		              ON M.SENDER_ID = U.ID
-		            WHERE M.MESSAGE_ID = #{messageId} 
-		              AND M.SEND_DATE > TO_DATE(#{startDate},'YYYY-MM-DD HH24:MI:SS')
+		              ON  M.MESSAGE_ID = #{messageId} AND M.SENDER_ID = U.ID
+		            WHERE
+		            	M.SEND_DATE > TO_DATE(#{startDate},'YYYY-MM-DD HH24:MI:SS')
 		            ORDER BY M.ID DESC
 		         ) B 
 		    ) I
@@ -141,6 +144,7 @@
 	</select>
 	
 	<select id="getMessageLogAppend" parameterType="MessageLogParamDTO" resultType="MessageLogDTO" >
+		
 		SELECT 
 		    I.RNUM                      ,
 		    I.ID                        ,
@@ -149,7 +153,8 @@
 		    I.NICKNAME                  ,
 		    I.MESSAGE                   ,
 		    I.SEND_DATE  AS SENDDATE    ,
-		    I.READ
+		    I.READ						,
+		    PROFILEIMG
 		FROM(
 		    SELECT
 		            ROWNUM AS RNUM  ,
@@ -157,12 +162,13 @@
 		    FROM (
 		            SELECT
 		                    M.*,
-		                    U.NICKNAME
+		                    U.NICKNAME,
+		                    U.PROFILE_IMG PROFILEIMG
 		            FROM MESSAGE_DETAIL M
 		            JOIN USERS U
-		              ON M.SENDER_ID = U.ID
-		            WHERE M.MESSAGE_ID = #{messageId}
-		              AND M.SEND_DATE > TO_DATE(#{startDate},'YYYY-MM-DD HH24:MI:SS')
+		              ON  M.MESSAGE_ID = #{messageId} AND M.SENDER_ID = U.ID
+		            WHERE
+		            	M.SEND_DATE > TO_DATE(#{startDate},'YYYY-MM-DD HH24:MI:SS')
 		            ORDER BY M.ID DESC
 		         ) B 
 		    ) I

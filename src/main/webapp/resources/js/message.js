@@ -108,12 +108,11 @@ function onMessage(evt) {
       let command = message[0];
       let senderNick = message[1];
       let content = message[2];
-      
       plusMsg = '';
       plusMsg += `   <div class="popup">`
               +  '        <button class="closeBtn" onClick="closePopup($(this))">X</button>'
               +  `      <p class="popup-title">📧새로운 ${command}</p>`
-            +  `      <p class="popup-content">${senderNick} : ${content}</p>`
+            +  `      <div class="popup-content">${senderNick} : ${content}</div>`
             +  '   </div>';
       
       $(".popup-container").append(plusMsg);
@@ -185,7 +184,7 @@ function getMessage(messageId, startDate, partnerName) {
             if(readList[i].senderId == userId) {
                plusMsg += '<div class="message-reverse">'
                        +  '   <div class="message-user-reverse">'    
-                           +  '      <a href="#"> <img src="https://avatars.githubusercontent.com/u/50897259?v=4" src="https://avatars.githubusercontent.com/u/50897259?v=4" alt="Profile Image" /> </a>' 
+                           +  `      <a href="#"> <img src=${readList[i].profileImg} alt="Profile Image" /> </a>` 
                            +  '   </div>'
                            +  '   <div class="message-content-reverse">'
                            +  '      <div class="message-info-reverse">'
@@ -199,7 +198,7 @@ function getMessage(messageId, startDate, partnerName) {
             } else {
                plusMsg += '<div class="message">'
                        +  '   <div class="message-user">'    
-                           +  '      <a href="#"> <img src="https://avatars.githubusercontent.com/u/50897259?v=4" src="https://avatars.githubusercontent.com/u/50897259?v=4" alt="Profile Image" /> </a>' 
+                           +  `      <a href="#"> <img src=${readList[i].profileImg} alt="Profile Image" /> </a>` 
                            +  '   </div>'
                            +  '   <div class="message-content">'
                            +  '      <div class="message-info">'
@@ -245,7 +244,7 @@ function getMessageAppend() {
             if(readList[i].senderId == window.userId) {
                plusMsg += '<div class="message-reverse">'
                        +  '   <div class="message-user-reverse">'    
-                           +  '      <a href="#"> <img src="https://avatars.githubusercontent.com/u/50897259?v=4" src="https://avatars.githubusercontent.com/u/50897259?v=4" alt="Profile Image" /> </a>' 
+                           +  `      <a href="#"> <img src=${readList[i].profileImg} alt="Profile Image" /> </a>` 
                            +  '   </div>'
                            +  '   <div class="message-content-reverse">'
                            +  '      <div class="message-info-reverse">'
@@ -259,7 +258,7 @@ function getMessageAppend() {
             } else {
                plusMsg += '<div class="message">'
                        +  '   <div class="message-user">'    
-                           +  '      <a href="#"> <img src="https://avatars.githubusercontent.com/u/50897259?v=4" src="https://avatars.githubusercontent.com/u/50897259?v=4" alt="Profile Image" /> </a>' 
+                           +  `      <a href="#"> <img src=${readList[i].profileImg} alt="Profile Image" /> </a>` 
                            +  '   </div>'
                            +  '   <div class="message-content">'
                            +  '      <div class="message-info">'
@@ -294,9 +293,10 @@ function getMessageList() {
       let readList = res;
       let plusMsg = "";
       for(let i =0 ; i < readList.length; i++){
+		console.log(readList[i].profileImg);
          plusMsg += `<div class="message" onclick="getMessage(${readList[i].messageId}, '${dateFormat(new Date(readList[i].startDate))}', '${readList[i].partnerName}')">`
                +  '   <div class="message-user">'
-               +  '      <a href="#"> <img src="https://avatars.githubusercontent.com/u/50897259?v=4" alt="Profile Image" /> </a>'
+               +  `      <a href="#"> <img src=${readList[i].profileImg} alt="Profile Image" /> </a>`
                +  '   </div>'
                +  '   <div class="message-content">'
                +  '      <div class="message-info">'

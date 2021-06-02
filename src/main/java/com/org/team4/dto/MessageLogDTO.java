@@ -18,4 +18,5 @@ public class MessageLogDTO {
 	String message;
 	Date sendDate;
 	int read;
+	String profileImg;
 }

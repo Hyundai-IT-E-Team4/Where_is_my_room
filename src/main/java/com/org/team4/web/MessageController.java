@@ -56,6 +56,8 @@ public class MessageController {
 
    @GetMapping("/")
    public String messagemain(Model model, HttpSession session) {
+	   Long messageId = (Long)model.asMap().get("messageId");
+	   log.info("넘어온 메시지 아이디는 : {}" , messageId);
 
       if (session.getAttribute("userInfo") == null)
          return "redirect:../users/login";
@@ -69,6 +71,7 @@ public class MessageController {
 
       return "message/chat";
    }
+	   
 
    @GetMapping("list")
    @ResponseBody
