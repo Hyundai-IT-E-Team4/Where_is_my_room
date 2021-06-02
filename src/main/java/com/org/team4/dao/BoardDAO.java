@@ -18,8 +18,6 @@ public interface BoardDAO {
 	 int updateBoard(BoardDTO boardDTO) throws SQLException;
 	 
 	 BoardDetailDTO getUpdateInfo(long id) throws SQLException;
-	
-	 List<MapDTO> getMapList() throws SQLException;
 
 	 List<MapDTO> getMapListWithLoction(LocationDTO locationDTO) throws SQLException;
 	 

@@ -9,9 +9,15 @@ import lombok.ToString;
 @ToString
 public class MapDTO {
 
+	private long boardId;
 	private String title;
 	private double latitude;
 	private double longitude;
 	private String address;
+	private int rentalFee;
+	private String contractType;
+	private String roomType;
+	private String nickName;
+	
 	
 }

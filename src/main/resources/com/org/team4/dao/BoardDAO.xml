@@ -88,8 +88,8 @@
 	<select id="getMapListWithLoction" resultType="MapDTO"
 		parameterType="LocationDTO">
 	<![CDATA[
-select * from 
-(select dummy1.* from 
+select dummy2.* from 
+(select dummy1.* , rownum as seq from 
 (select 
 latitude, 
 longitude,
@@ -97,14 +97,17 @@ board.id boardId,
 board.title title,
 board.room_type roomType,
 board.contract_type contractType,
-board.rental_fee rentalFee
+board.rental_fee rentalFee,
+board.address address,
+users.nickname nickName
 from
-board
+board board, users users
 where 
 board.deleted = 0 and 
 board.latitude between #{swLat} and #{neLat}
 and
 board.longitude between #{swLng} and #{neLng}
+and board.writer_id = users.id
 order by board.id desc) dummy1) dummy2
 ]]>
 	</select>
