@@ -33,8 +33,8 @@ public class UserServiceImpl implements UserService {
 		
 		log.info("db의 프로필 경로는 {} " , userInfo.getProfile_img());
 		log.info("로그인 정보는 {}", userInfo.toString());
-		
-		userInfo.setProfile_img(s3Service.getFileURL("team4", "thumb/" + userInfo.getProfile_img()));
+		if(userInfo.getProfile_img() != null) userInfo.setProfile_img(s3Service.getFileURL("team4", Util.profileThumbFolder + userInfo.getProfile_img()));
+		else userInfo.setProfile_img("/team4/resources/img/user.png");
 		return userInfo;
 	}
 
@@ -53,11 +53,11 @@ public class UserServiceImpl implements UserService {
 	public int updateUser(UserDTO userDTO, MultipartFile uploadProfileImg) throws Exception {	
 		String newFileName = Util.makeFileName(uploadProfileImg);
 		String filePath = Util.getCurrentUploadPath() + newFileName;
-		s3Service.fileUpload("team4", Util.originImgFolder + filePath, uploadProfileImg.getBytes());
-		s3Service.fileUpload("team4", Util.thumbImgFolder + filePath, Util.mamkeThumbnail(Util.getType(uploadProfileImg.getOriginalFilename()) , s3Service.getFileURL("team4", Util.originImgFolder + filePath)));
+		s3Service.fileUpload("team4", Util.profileFolder + filePath, uploadProfileImg.getBytes());
+		s3Service.fileUpload("team4", Util.profileThumbFolder + filePath, Util.mamkeThumbnail(Util.getType(uploadProfileImg.getOriginalFilename()) , s3Service.getFileURL("team4", Util.profileFolder + filePath)));
 		userDTO.setProfile_img(filePath);
 		int result = userDAO.updateUser(userDTO);
-		userDTO.setProfile_img(s3Service.getFileURL("team4", "thumb/" + filePath));
+		userDTO.setProfile_img(s3Service.getFileURL("team4", Util.profileThumbFolder + filePath));
 		log.info(userDTO.getProfile_img());
 		return result;
 	}

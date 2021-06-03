@@ -8,6 +8,8 @@
 	position: relative;
 	width: 100%;
 	height: calc(100vh - 85px);
+	display: flex;
+	flex-direction: row-reverse;
 }
 
 .map_wrap * {
@@ -31,18 +33,16 @@
 }
 
 #menu_wrap {
-	position: absolute;
 	top: 0;
 	left: 0;
 	bottom: 0;
-	width: 400px;
-	padding: 5px;
+	width: 700px;
+	padding: 24px;
 	overflow-y: auto;
 	background: #ffffff;
 	z-index: 1;
 	font-size: 12px;
 	border-radius: 10px;
-	margin: 10px 0px 10px 10px;
 }
 
 #menu_wrap hr {
@@ -78,7 +78,7 @@
 	text-overflow: ellipsis;
 	overflow: hidden;
 	white-space: nowrap;
-	padding: 10px 0 10px 10px;
+	padding: 10px 0 10px 0px;
 	display: block;
 	margin-top: 4px;
 	text-overflow: ellipsis;
@@ -121,6 +121,8 @@
 	display: flex;
 	color: #8a8a8a;
 	border-top: 1px solid gray;
+	padding-top: 12px;
+	padding-bottom: 12px;
 }
 
 #placesList info-wrap:first-child {
@@ -129,37 +131,79 @@
 
 .info-text h1 {
 	color: rgb(34, 34, 34);
-    font-size: 18px;
-    font-weight: 700;
-    height: 27px;
-    margin-bottom: 4px;
+	font-size: 18px;
+	font-weight: 700;
+	height: 27px;
+	margin-bottom: 4px;
 	margin-top: 12px;
-    line-height: 27px;
+	line-height: 27px;
 }
 
 .info-text p {
 	color: rgb(34, 34, 34);
-    font-size: 14px;
-    font-weight: 300;
-    line-height: 20px;
-    width: 212px;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
+	font-size: 14px;
+	font-weight: 300;
+	line-height: 20px;
+	width: 212px;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
 }
 
 .info-text strong {
 	color: rgb(34, 34, 34);
-    font-size: 16px;
-    font-weight: bold;
-    line-height: 20px;
-    width: 212px;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
+	font-size: 16px;
+	font-weight: bold;
+	line-height: 20px;
+	width: 212px;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
 }
 
 .paginationjs .paginationjs-pages li:last-child {
-    border-right: none;
-    border-radius: 0 3px 3px 0;
+	border-right: none;
+	border-radius: 0 3px 3px 0;
+}
+
+.input-form {
+	display: flex;
+	align-content: center;
+	align-items: center;
+	vertical-align: middle;
+}
+
+#keyword {
+	box-sizing: border-box;
+	padding: 8px;
+	border: 1px solid #ededed;
+	border-radius: 12px 0px 0px 12px;
+	width: 70%;
+	height: 40px;
+	line-height: 24px;
+	color: #292929;
+	font-size: 16px;
+	font-weight: normal;
+	background-color: #f9f9f9;
+	background-repeat: no-repeat;
+	background-position: right 8px center;
+	background-size: 24px 24px;
+	appearance: none;
+	letter-spacing: -0.5px;
+	margin-left: 12px;
+}
+
+svg:not(:root).svg-inline--fa {
+	width: 30px;
+	height: 30px;
+}
+
+.search-btn {
+	border-radius: 0px 12px 12px 0px ;
+	color: #fff;
+	font-size: 16px;
+	font-weight: normal;
+	background-color: rgba(154, 226, 232, 1);
+	height: 40px;
+	width: 60px;
 }

@@ -60,6 +60,7 @@ public class BoardController {
 	public String enroll(BoardDTO boardDTO, HttpSession session, MultipartHttpServletRequest mreq, Model model) {
 		log.info("enroll test");
 		UserDTO userInfo = getUserInfo(session);
+		log.info("pk: {}, email : {}",userInfo.getId(), userInfo.getEmail());
 		boardDTO.setWriterId(userInfo.getId()); // 테스트용 임시 게시글 작성자pk 설정
 		Map<String, MultipartFile> files = mreq.getFileMap();
 		try {

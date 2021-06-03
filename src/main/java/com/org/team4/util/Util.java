@@ -17,6 +17,7 @@ public class Util {
 	public static String originImgFolder = "imgs/";
 	public static String thumbImgFolder = "thumb/";
 	public static String profileFolder = "profile/";
+	public static String profileThumbFolder = "profileThumb/";
 	public static byte[] mamkeThumbnail(String type, String fileURL) throws IOException {
 		URL url = new URL(fileURL);
 		BufferedImage srcImg = ImageIO.read(url);

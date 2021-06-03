@@ -37,7 +37,7 @@
 			NAME = #{name},
 			NICKNAME = #{nickname},
 			GENDER = #{gender},
-			PROFILE_IMG = #{profileImg}
+			PROFILE_IMG = #{profile_img}
         WHERE EMAIL = #{email} AND PASSWORD = #{password}
 	</update>
 	

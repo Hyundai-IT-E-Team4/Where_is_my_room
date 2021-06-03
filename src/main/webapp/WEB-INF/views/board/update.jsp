@@ -44,23 +44,32 @@ let contractType = "${boardDetailDTO.contractType}";
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9dad515bc29f7c64e401203f2300d728&libraries=services"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="${contextPath}/resources/js/update.js"></script>
+<script src="${contextPath}/resources/js/global.js"></script>
 </head>
 <body>
+	<div class="popup-container"></div>
 	<header class="page-header">
 		<div class="header-logo">
-			<a href="/team4/"> <img src="${contextPath}/resources/img/icon.png"
+			<a href="${contextPath}"> <img src="${contextPath}/resources/img/icon.png"
 				alt="Logo" />
 			</a>
 		</div>
 		<div class="header-menu">
 			<nav class="header-navigation">
-				<a href="/team4/map">지도</a> <a href="${contextPath}/boards/enroll">방 내놓기</a>
-				<a href="/team4/qna">Q&amp;A</a>
+				<a href="${contextPath}/map"><b>지도</b></a> 
+				<a href="${contextPath}/boards/enroll"><b>방 내놓기</b></a> 
+				<a href="${contextPath}/messages"><b>메시지</b></a>
 			</nav>
 			<div class="header-profile dropdown">
 				<button type="button" class="dropdown-button">
-					<img src="https://avatars.githubusercontent.com/u/50897259?v=4"
-						alt="Profile Image" draggable="false" />
+					<c:choose>
+						<c:when test="${sessionScope.userInfo.profile_img eq null}">
+							<img src="${contextPath}/resources/img/user.png" alt="Default Profile Image" draggable="false" />
+						</c:when>
+						<c:otherwise>
+							<img src="${sessionScope.userInfo.profile_img}" alt="Profile Image" draggable="false" />
+						</c:otherwise>
+					</c:choose>
 				</button>
 				<div class="dropdown-menu">
 					<c:choose>
@@ -69,17 +78,19 @@ let contractType = "${boardDetailDTO.contractType}";
 								반갑습니다 :) <strong>${sessionScope.userInfo.nickname}</strong> 님
 							</h3>
 							<ul>
-								<li><a href="/team4/users/info">내 정보 관리</a></li>
-								<li><a href="/team4/messages">메시지</a></li>
+								<li><a href="${contextPath}/users/info">내 정보 관리</a></li>
+								<li><a href="${contextPath}/messages">메시지</a></li>
 							</ul>
 							<ul>
-								<li><a href="/team4/users/logout">로그아웃</a></li>
+								<li><a href="${contextPath}/users/logout">로그아웃</a></li>
 							</ul>
 						</c:when>
 						<c:otherwise>
 							<h3>로그인 후 이용해보세요!</h3>
 							<ul>
-								<li><a href="/team4/users/login">로그인 및 회원가입</a></li>
+								<li>
+									<a href="${contextPath}/users/login">로그인 및 회원가입</a>
+								</li>
 							</ul>
 						</c:otherwise>
 					</c:choose>

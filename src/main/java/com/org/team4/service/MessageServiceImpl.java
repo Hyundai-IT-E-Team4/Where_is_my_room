@@ -14,6 +14,7 @@ import com.org.team4.dto.MessageLogDTO;
 import com.org.team4.dto.MessageLogParamDTO;
 import com.org.team4.dto.MessageRoomParamDTO;
 import com.org.team4.dto.MessageUpdateParamDTO;
+import com.org.team4.util.Util;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,7 +33,8 @@ public class MessageServiceImpl implements MessageService{
 		try {			
 			List<MessageListDTO> messages = messageDAO.getMessageRoomListInit(id);
 			for(MessageListDTO dto : messages) {
-				dto.setProfileImg(s3Service.getFileURL("team4", s3Service.getFileURL("team4", dto.getProfileImg())));
+				if(dto.getProfileImg() == null) dto.setProfileImg("/team4/resources/img/user.png");
+				else dto.setProfileImg(s3Service.getFileURL("team4", Util.profileThumbFolder + dto.getProfileImg()));
 				log.info("채팅 내역의 프로필 사진 : {}", dto.getProfileImg());
 			}
 			return messages;
@@ -47,9 +49,8 @@ public class MessageServiceImpl implements MessageService{
 		try {			
 			List<MessageListDTO> messages = messageDAO.getMessageRoomList(mlpDTO);
 			for(MessageListDTO dto : messages) {
-				//dto.setProfileImg(s3Service.getFileURL("team4", s3Service.getFileURL("team4", "profileThumb/2021/06/02/검사.PNG")));
-				dto.setProfileImg(s3Service.getFileURL("team4", dto.getProfileImg()));
-				log.info("넘어오는 파일 url은 {}", dto.getProfileImg());
+				if(dto.getProfileImg() == null) dto.setProfileImg("/team4/resources/img/user.png");
+				else dto.setProfileImg(s3Service.getFileURL("team4", Util.profileThumbFolder + dto.getProfileImg()));
 			}
 			return messages;
 		} catch (Exception e) {

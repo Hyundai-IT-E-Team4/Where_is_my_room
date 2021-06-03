@@ -44,22 +44,21 @@
     });
     
     document.getElementById('modal-submit-btn').addEventListener('click', function(){
-		let message = $('#modal-text-area').val();
-		$.ajax({ 
-			url: "/team4/messages",
+      let message = $('#modal-text-area').val();
+      $.ajax({ 
+         url: "/team4/messages",
             method: "POST",
             data : { "message" : message, "userId1" : userId, "userId2" : writerId}
-		}).done(function (data, textStatus, xhr) {
-			alert("전송되었습니다!");
-			bg.remove();
-        	modal.style.display = 'none';
-        	/*${writerNickName}:<a href="/team4/boards/${getBoardNumber()}">새로운 댓글을 달았습니다.*/
-        	
-			send(`쪽지:${writerNickName}:${message}`);
-		}).fail(function (data, textStatus, xhr){
-			alert("전송 실패!");
-		});
-	});
+      }).done(function (data, textStatus, xhr) {
+         alert("전송되었습니다!");
+         bg.remove();
+           modal.style.display = 'none';
+           let sendData = {"command":"쪽지", "receiverName" : writerNickName, "content" : message};
+         send(JSON.stringify(sendData));
+      }).fail(function (data, textStatus, xhr){
+         alert("전송 실패!");
+      });
+   });
 }
 
 // Element 에 style 한번에 오브젝트로 설정하는 함수 추가

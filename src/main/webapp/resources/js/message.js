@@ -57,15 +57,17 @@ function onOpen(evt) {
 
 function onMessage(evt) {
    let date = dateFormat(new Date());
+   let receiveData = JSON.parse(evt.data);
 
    let data = evt.data;
    let parseData = data.split(":");
+   let len =  Object.keys(receiveData).length;
    
-   if(parseData.length > 3) {
-      let messageId  = parseData[0]
-      let senderId   = parseData[1]
-      let senderNick = parseData[2];
-      let msg        = parseData[3];
+   if(len > 3) {
+      let messageId  = receiveData.messageId;
+      let senderId   = receiveData.senderId;
+      let senderNick = receiveData.senderNick;
+      let msg        = receiveData.msg;
       
       let plusMsg = '';
          
@@ -105,9 +107,9 @@ function onMessage(evt) {
    } else{
       
       let message = evt.data.split(":");
-      let command = message[0];
-      let senderNick = message[1];
-      let content = message[2];
+      let command = receiveData.command;
+      let senderNick = receiveData.senderNick;
+      let content = receiveData.content;
       plusMsg = '';
       plusMsg += `   <div class="popup">`
               +  '        <button class="closeBtn" onClick="closePopup($(this))">X</button>'
@@ -132,7 +134,8 @@ function onClose(evt) {
 
 function send() {
    let msg = $(".message_input").val();
-   wsocket.send(window.partnerName + ":" + msg);
+   let data = {"receiverName" : window.partnerName, "msg" : msg};
+   wsocket.send(JSON.stringify(data));
    $(".message_input").val("");
    window.lastChatMessageId += 1;
 };
@@ -294,7 +297,7 @@ function getMessageList() {
       let readList = res;
       let plusMsg = "";
       for(let i =0 ; i < readList.length; i++){
-		console.log(readList[i].profileImg);
+      console.log(readList[i].profileImg);
          plusMsg += `<div class="message" onclick="getMessage(${readList[i].messageId}, '${dateFormat(new Date(readList[i].startDate))}', '${readList[i].partnerName}', '${readList[i].profileImg}')">`
                +  '   <div class="message-user">'
                +  `      <a href="#"> <img src=${readList[i].profileImg} alt="Profile Image" /> </a>`
