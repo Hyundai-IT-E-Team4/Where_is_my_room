@@ -1,93 +1,93 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
-		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+      "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.org.team4.dao.BoardDAO">
-	<select id="writerCheck" parameterType="BoardCheckDTO" resultType="int">
-		select count(*) from board where id = #{boardId} and writer_id = #{writerId}
-	</select>	
-	<insert id="insertBoard" useGeneratedKeys="true" keyProperty="id" keyColumn="id" parameterType="BoardDTO">
-		insert into
-		board(title,content, writer_id, latitude, longitude, room_type, contract_type, rental_fee,
-		address, detail_address, write_date, deleted)
-		values
-		(#{title},
-		#{content},
-		#{writerId},
-		#{latitude},
-		#{longitude},
-		#{roomType},
-		#{contractType},
-		#{rentalFee},
-		#{address},
-		#{detailAddress},
-		sysdate,
-		0)
-	</insert>
-	<update id="updateBoard" parameterType="BoardDTO">
-		update 
-		board
-		set 
-			title = #{title},
-			content = #{content},
-			latitude = #{latitude},
-			longitude = #{longitude},
-			room_type = #{roomType},
-			contract_type = #{contractType},
-			rental_fee = #{rentalFee},
-			address = #{address},
-			detail_address = #{detailAddress}
-		where writer_id = #{writerId}
-	</update>
-	
-	<select id="detail" resultType="BoardDetailDTO" parameterType="long">
-		select 
-			board.id id, 
-			title,
-			content, 
-			room_type roomType,
-			contract_type contractType,
-			rental_fee rentalFee,
-			address,
-			detail_address detailAddress,
-			write_date writeDate,
-			latitude,
-			longitude,
-			nvl(nickname,'탈퇴회원') writerNickName,
-			writer_id writerId
-		from 
-			board 
-		join 
-			users
-		on
-			board.id = #{id} and board.deleted = 0 and board.writer_id = users.id
-	</select>
-	
-	<select id="getUpdateInfo" resultType="BoardDetailDTO" parameterType="long">
-		select 
-			id, 
-			title,
-			content, 
-			room_type roomType,
-			contract_type contractType,
-			rental_fee rentalFee,
-			address,
-			detail_address detailAddress,
-			write_date writeDate,
-			latitude,
-			longitude
-		from 
-			board
-		where id = #{id} 
-	</select>
-	
-	
-	<update id="delete" parameterType="BoardCheckDTO">
-		update board set deleted = 1 where id = #{boardId} and writer_id = #{writerId} 
-	</update>
+   <select id="writerCheck" parameterType="BoardCheckDTO" resultType="int">
+      select count(*) from board where id = #{boardId} and writer_id = #{writerId}
+   </select>   
+   <insert id="insertBoard" useGeneratedKeys="true" keyProperty="id" keyColumn="id" parameterType="BoardDTO">
+      insert into
+      board(title,content, writer_id, latitude, longitude, room_type, contract_type, rental_fee,
+      address, detail_address, write_date, deleted)
+      values
+      (#{title},
+      #{content},
+      #{writerId},
+      #{latitude},
+      #{longitude},
+      #{roomType},
+      #{contractType},
+      #{rentalFee},
+      #{address},
+      #{detailAddress},
+      sysdate,
+      0)
+   </insert>
+   <update id="updateBoard" parameterType="BoardDTO">
+      update 
+      board
+      set 
+         title = #{title},
+         content = #{content},
+         latitude = #{latitude},
+         longitude = #{longitude},
+         room_type = #{roomType},
+         contract_type = #{contractType},
+         rental_fee = #{rentalFee},
+         address = #{address},
+         detail_address = #{detailAddress}
+      where writer_id = #{writerId}
+   </update>
+   
+   <select id="detail" resultType="BoardDetailDTO" parameterType="long">
+      select 
+         board.id id, 
+         title,
+         content, 
+         room_type roomType,
+         contract_type contractType,
+         rental_fee rentalFee,
+         address,
+         detail_address detailAddress,
+         write_date writeDate,
+         latitude,
+         longitude,
+         nvl(nickname,'탈퇴회원') writerNickName,
+         writer_id writerId
+      from 
+         board 
+      join 
+         users
+      on
+         board.id = #{id} and board.deleted = 0 and board.writer_id = users.id
+   </select>
+   
+   <select id="getUpdateInfo" resultType="BoardDetailDTO" parameterType="long">
+      select 
+         id, 
+         title,
+         content, 
+         room_type roomType,
+         contract_type contractType,
+         rental_fee rentalFee,
+         address,
+         detail_address detailAddress,
+         write_date writeDate,
+         latitude,
+         longitude
+      from 
+         board
+      where id = #{id} 
+   </select>
+   
+   
+   <update id="delete" parameterType="BoardCheckDTO">
+      update board set deleted = 1 where id = #{boardId} and writer_id = #{writerId} 
+   </update>
 
-	<select id="getMapListWithLoction" resultType="MapDTO"
-		parameterType="LocationDTO">
-	<![CDATA[
+   <select id="getMapListWithLoction" resultType="MapDTO"
+      parameterType="LocationDTO">
+   <![CDATA[
 select dummy2.* from 
 (select dummy1.* , rownum as seq from 
 (select 
@@ -99,7 +99,8 @@ board.room_type roomType,
 board.contract_type contractType,
 board.rental_fee rentalFee,
 board.address address,
-users.nickname nickName
+users.nickname nickName,
+get_represent_file(board.id) repreFile
 from
 board board, users users
 where 
@@ -110,5 +111,5 @@ board.longitude between #{swLng} and #{neLng}
 and board.writer_id = users.id
 order by board.id desc) dummy1) dummy2
 ]]>
-	</select>
+   </select>
 </mapper>

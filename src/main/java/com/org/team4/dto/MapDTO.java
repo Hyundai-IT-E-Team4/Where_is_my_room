@@ -18,6 +18,7 @@ public class MapDTO {
 	private String contractType;
 	private String roomType;
 	private String nickName;
+	private String repreFile;
 	
 	
 }

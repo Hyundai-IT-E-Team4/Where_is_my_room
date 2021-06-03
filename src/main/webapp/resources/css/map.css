@@ -1,0 +1,165 @@
+@charset "UTF-8";
+
+.map_wrap {
+	margin: 0;
+	padding: 0;
+	font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;
+	font-size: 12px;
+	position: relative;
+	width: 100%;
+	height: calc(100vh - 85px);
+}
+
+.map_wrap * {
+	margin: 0;
+	padding: 0;
+	font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;
+	font-size: 12px;
+}
+
+.map_wrap a, .map_wrap a:hover, .map_wrap a:active {
+	color: #000;
+	text-decoration: none;
+}
+
+#map {
+	width: 100%;
+	/* height: calc(100vh - 85px); */
+	height: 100%;
+	position: relative;
+	overflow: hidden;
+}
+
+#menu_wrap {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	width: 400px;
+	padding: 5px;
+	overflow-y: auto;
+	background: #ffffff;
+	z-index: 1;
+	font-size: 12px;
+	border-radius: 10px;
+	margin: 10px 0px 10px 10px;
+}
+
+#menu_wrap hr {
+	display: block;
+	height: 1px;
+	border: 0;
+	border-bottom: 1px solid gray;
+	margin: 3px 0;
+}
+
+#menu_wrap .option {
+	text-align: center;
+}
+
+#menu_wrap .option p {
+	margin: 10px 0;
+}
+
+#menu_wrap .option button {
+	margin-left: 5px;
+}
+
+#placesList {
+	list-style: none;
+}
+
+#placesList {
+	position: relative;
+	border-bottom: 1px solid #888;
+	overflow: hidden;
+	cursor: pointer;
+	min-height: 65px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+	padding: 10px 0 10px 10px;
+	display: block;
+	margin-top: 4px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+#placesList .gray {
+	color: #8a8a8a;
+}
+
+#placesList img {
+	width: 100px;
+	height: 100px;
+}
+
+.info-img {
+	margin-right: 20px;
+}
+
+#pagination {
+	margin: 10px auto;
+	text-align: center;
+	display: flex;
+	justify-content: center;
+}
+
+#pagination a {
+	display: inline-block;
+	margin-right: 10px;
+}
+
+#pagination .on {
+	font-weight: bold;
+	cursor: default;
+	color: #777;
+}
+
+.info-wrap {
+	display: flex;
+	color: #8a8a8a;
+	border-top: 1px solid gray;
+}
+
+#placesList info-wrap:first-child {
+	border: none;
+}
+
+.info-text h1 {
+	color: rgb(34, 34, 34);
+    font-size: 18px;
+    font-weight: 700;
+    height: 27px;
+    margin-bottom: 4px;
+	margin-top: 12px;
+    line-height: 27px;
+}
+
+.info-text p {
+	color: rgb(34, 34, 34);
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 20px;
+    width: 212px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.info-text strong {
+	color: rgb(34, 34, 34);
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 20px;
+    width: 212px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.paginationjs .paginationjs-pages li:last-child {
+    border-right: none;
+    border-radius: 0 3px 3px 0;
+}
