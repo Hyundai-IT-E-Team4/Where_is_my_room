@@ -168,10 +168,11 @@ function setPagingComment(data){
    let dt = '';
    let mt = '';
    for(let i = 0; i < data.length; i++){
+	  console.log(data[i]);
       if(data[i].parentId > 0) {
          tag = childTag;
          rt = '';               
-      } else if(data[i].deleted == 1){
+      } else if(data[i].deleted == 1 || data[i].nickname == '탈퇴회원'){
          tag = '';
          rt = '';
       } else {

@@ -119,65 +119,91 @@
 	</header>
 
 	<section>
-		<div class="container">
-			<div class="update">
-				<form class="register-form" method="post" action="update" enctype="multipart/form-data">
-					<h1>개인정보 변경</h1>
-					<div class="input">
-						<div class="label">
-							<label>프로필 사진</label>
-						</div>
-						<img alt="" src="${sessionScope.userInfo.profile_img}">
-						<input style="cursor: pointer;" class="input-info" id="uploadProfileImg" type="file" name="uploadProfileImg" placeholder="파일 등록" accept=".jpg, .png" value="${sessionScope.userInfo.name}">
-					</div>
-					<div class="input">
-						<div class="label">
-							<label>이름</label>
-						</div>
-						<input type="hidden" name="email" value="${sessionScope.userInfo.email}"> 
-						<input class="input-info" id="name" type="text" name="name" maxlength="20" placeholder="이름" required="required" value="${sessionScope.userInfo.name}">
-					</div>
-					<div class="input">
-						<div class="label">
-							<label>닉네임</label>
-						</div>
-						<div class="inputs">
-							<input class="input-info" id="nickname" type="text" name="nickname" maxlength="20" required="required" placeholder="닉네임" value="${sessionScope.userInfo.nickname}">
-                        	<button class="check-btn" onclick="registerCheckFunction();" type="button">Check</button>
+      <div class="container">
+         <div class="update">
+            <form class="register-form" method="post" action="update" enctype="multipart/form-data">
+               <h1>개인정보 변경</h1>
+               <div class="input">
+                  <div class="label">
+                     <label>프로필 사진</label>
+                  </div>
+                  <div class="profile-img">
+                     <img width="130" height="130" id="preview-image" alt="profile-img" src="${sessionScope.userInfo.profile_img}">
+                  </div>
+                  <input style="cursor: pointer; display: none;" class="input-info" id="uploadProfileImg" type="file" name="uploadProfileImg" placeholder="파일 등록" accept=".jpg, .png" value="${sessionScope.userInfo.name}">
+               </div>
+               <div class="input">
+                  <div class="label">
+                     <label>이름</label>
+                  </div>
+                  <input type="hidden" name="email" value="${sessionScope.userInfo.email}"> 
+                  <input class="input-info" id="name" type="text" name="name" maxlength="20" placeholder="이름" required="required" value="${sessionScope.userInfo.name}">
+               </div>
+               <div class="input">
+                  <div class="label">
+                     <label>닉네임</label>
+                  </div>
+                  <div class="inputs">
+                     <input class="input-info" id="nickname" type="text" name="nickname" maxlength="20" required="required" placeholder="닉네임" value="${sessionScope.userInfo.nickname}">
+                           <button class="check-btn" onclick="registerCheckFunction();" type="button">Check</button>
                         </div>
-					</div>
-					<div class="input">
-						<div class="label">
-							<label>성별</label>
-						</div>
-						<c:choose>
+               </div>
+               <div class="input">
+                  <div class="label">
+                     <label>성별</label>
+                  </div>
+                  <c:choose>
                               <c:when test="${sessionScope.userInfo.gender == '남성'}">
                                  <select class="input-info" name="gender">
-			                        <option value="남성" selected="selected">남성</option>
-			                        <option value="여성">여성</option>
-								</select>
+                                 <option value="남성" selected="selected">남성</option>
+                                 <option value="여성">여성</option>
+                        </select>
                               </c:when>
                               <c:otherwise>
                                  <select class="input-info" name="gender">
-			                        <option value="남성">남성</option>
-			                        <option value="여성" selected="selected">여성</option>
-								</select>                         
+                                 <option value="남성">남성</option>
+                                 <option value="여성" selected="selected">여성</option>
+                        </select>                         
                               </c:otherwise>
                          </c:choose>
-					</div>															
-					<div class="input">
-						<div class="label">
-							<label>계정 비밀번호</label>
-						</div>
-						<input class="input-info" type="password" name="password" maxlength="20" placeholder="계정 비밀번호" autocomplete="off">
-					</div>
-					<input type="submit" value="개인정보 변경">
-				</form>
-			</div>
-		</div>
-	</section>
+               </div>                                             
+               <div class="input">
+                  <div class="label">
+                     <label>계정 비밀번호</label>
+                  </div>
+                  <input class="input-info" type="password" name="password" maxlength="20" placeholder="계정 비밀번호" autocomplete="off">
+               </div>
+               <input type="submit" value="개인정보 변경">
+            </form>
+         </div>
+      </div>
+   </section>
 
-	<!-- app -->
-	<script src="${contextPath}/resources/js/dropdown-menu.js"></script>
+   <!-- app -->
+   <script src="../resources/js/dropdown-menu.js"></script>
+   <script type="text/javascript">
+   
+   $('.profile-img').click(function (e) {
+       e.preventDefault();
+       $('#uploadProfileImg').click();
+   });        
+   
+   
+   function readURL(input) {
+       if (input.files && input.files[0]) {
+        var reader = new FileReader();
+       
+        reader.onload = function (e) {
+         $('#preview-image').attr('src', e.target.result);  
+        }
+       
+        reader.readAsDataURL(input.files[0]);
+        }
+      }
+
+      $("#uploadProfileImg").change(function(){
+         readURL(this);
+      });
+   </script>
 </body>
 </html>

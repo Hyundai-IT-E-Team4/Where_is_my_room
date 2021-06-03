@@ -9,7 +9,6 @@ function searchPlaces() {
       var geocoder = new kakao.maps.services.Geocoder();
        var keyword = document.getElementById('keyword').value;
        if (!keyword.replace(/^\s+|\s+$/g, '')) {
-          alert('키워드를 입력해주세요!');
           return false;
        }
        geocoder.addressSearch(keyword, function(result, status) {
@@ -29,6 +28,8 @@ function searchPlaces() {
     
     
 $(document).ready(()=>{
+	var keywordbtn = document.getElementById('keyword-btn');
+    keywordbtn.click();
           var mapContainer = document.getElementById('map') // 지도를 표시할 div 
       var mapOption = {
          center : new kakao.maps.LatLng(37.565372333169925 , 126.9725291823543), // 지도의 중심좌표

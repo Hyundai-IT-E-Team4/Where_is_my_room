@@ -46,8 +46,6 @@
 
 </head>
 <body>
-   <div class="popup-container">
-   </div>
    <div class="popup-container"></div>
 	<header class="page-header">
 		<div class="header-logo">

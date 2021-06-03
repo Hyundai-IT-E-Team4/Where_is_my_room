@@ -31,9 +31,10 @@
 <link rel="stylesheet" href="${contextPath}/resources/css/popup.css" />
 
 <!-- favicon -->
-<link rel="shortcut icon" href="${contextPath}/resources/img/favicon.ico"
+<link rel="shortcut icon"
+	href="${contextPath}/resources/img/favicon.ico" type="image/x-icon" />
+<link rel="icon" href="${contextPath}/resources/img/favicon.ico"
 	type="image/x-icon" />
-<link rel="icon" href="${contextPath}/resources/img/favicon.ico" type="image/x-icon" />
 
 <!-- app -->
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -43,24 +44,25 @@
 	<div class="popup-container"></div>
 	<header class="page-header">
 		<div class="header-logo">
-			<a href="${contextPath}"> <img src="${contextPath}/resources/img/icon.png"
-				alt="Logo" />
+			<a href="${contextPath}"> <img
+				src="${contextPath}/resources/img/icon.png" alt="Logo" />
 			</a>
 		</div>
 		<div class="header-menu">
 			<nav class="header-navigation">
-				<a href="/team4/map"><b>지도</b></a> 
-				<a href="/team4/boards/enroll"><b>방 내놓기</b></a> 
-				<a href="/team4/messages"><b>메시지</b></a>
+				<a href="/team4/map"><b>지도</b></a> <a href="/team4/boards/enroll"><b>방
+						내놓기</b></a> <a href="/team4/messages"><b>메시지</b></a>
 			</nav>
 			<div class="header-profile dropdown">
 				<button type="button" class="dropdown-button">
 					<c:choose>
 						<c:when test="${sessionScope.userInfo.profile_img eq null}">
-							<img src="${contextPath}/resources/img/user.png" alt="Default Profile Image" draggable="false" />
+							<img src="${contextPath}/resources/img/user.png"
+								alt="Default Profile Image" draggable="false" />
 						</c:when>
 						<c:otherwise>
-							<img src="${sessionScope.userInfo.profile_img}" alt="Profile Image" draggable="false" />
+							<img src="${sessionScope.userInfo.profile_img}"
+								alt="Profile Image" draggable="false" />
 						</c:otherwise>
 					</c:choose>
 				</button>
@@ -81,9 +83,7 @@
 						<c:otherwise>
 							<h3>로그인 후 이용해보세요!</h3>
 							<ul>
-								<li>
-									<a href="/team4/users/login">로그인 및 회원가입</a>
-								</li>
+								<li><a href="/team4/users/login">로그인 및 회원가입</a></li>
 							</ul>
 						</c:otherwise>
 					</c:choose>
@@ -91,7 +91,7 @@
 			</div>
 		</div>
 	</header>
-	
+
 	<section class="landing">
 		<div class="container">
 			<div class="row">
@@ -99,13 +99,15 @@
 					<div class="landing-content">
 						<h1 class="landing-title">Where Is My Room!</h1>
 						<p class="landing-desc">원하는 방을 찾고 빠르게 연락하세요 :-)</p>
-						<form>
+						<form action="" method="post">
 							<div class="landing-search">
 								<img width="24" height="24"
 									src="https://image.flaticon.com/icons/png/128/14/14877.png"
-									alt="Search" /> <input placeholder="지역 &amp; 단지명을 입력해서 찾아보세요!" />
+									alt="Search" /> <input placeholder="지역 &amp; 단지명을 입력해서 찾아보세요!"
+									id="keyword" name="keyword" />
 							</div>
 						</form>
+
 					</div>
 				</div>
 			</div>

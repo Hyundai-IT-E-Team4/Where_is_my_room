@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" isELIgnored="false"%>
+   pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
@@ -17,8 +17,8 @@
 
 <!-- fonts -->
 <link
-	href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap"
-	rel="stylesheet" />
+   href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap"
+   rel="stylesheet" />
 
 <!-- styles -->
 <link rel="stylesheet" href="${contextPath}/resources/css/reset.css" />
@@ -26,19 +26,20 @@
 <link rel="stylesheet" href="${contextPath}/resources/css/header.css" />
 <link rel="stylesheet" href="${contextPath}/resources/css/footer.css" />
 <link rel="stylesheet" href="${contextPath}/resources/css/dropdown.css" />
-<!-- 해당 페이지의 css 적용! style 지우고 해당 css 입력! -->
-<link rel="stylesheet" href="${contextPath}/resources/css/login.css" />
+<link rel="stylesheet" href="${contextPath}/resources/css/withdraw.css" />
 
 <!-- favicon -->
 <link rel="shortcut icon" href="${contextPath}/resources/img/favicon.ico"
-	type="image/x-icon" />
+   type="image/x-icon" />
 <link rel="icon" href="${contextPath}/resources/img/favicon.ico" type="image/x-icon" />
 
 <!-- app -->
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="${contextPath}/resources/js/global.js"></script>
 </head>
 <body>
-	<header class="page-header">
+   <div class="popup-container"></div>
+   <header class="page-header">
 		<div class="header-logo">
 			<a href="${contextPath}"> <img src="${contextPath}/resources/img/icon.png"
 				alt="Logo" />
@@ -89,38 +90,36 @@
 		</div>
 	</header>
 
-	<section class="login">
-		<div class="container">
-			<form class="login-form" action="login" method="POST">
-				<a href="${contextPath}"> 
-					<img src="${contextPath}/resources/img/icon.png" alt="Logo" width=360 />
-				</a>
-				<p>
-					지금 바로 <b>구해줘 룸즈</b>를 시작하세요!
-				</p>
-				<input type="email" name="email" placeholder="example@naver.com" />
-				<input type="password" name="password" placeholder="****" />
+   <section>
+      <div class="container">
+         <div class="withdraw">
+            <form method="post" action="findPassword">
+               <h1>비밀번호 찾기</h1>
+               <div class="input">
+                  <div class="label">
+                     <label>이름</label>
+                  </div>
+                  <input type="text" name="name" placeholder="이름" autocomplete="off">
+               </div>
+               <div class="input">
+                  <div class="label">
+                     <label>가입한 이메일</label>
+                  </div>
+                  <input type="email" name="email" placeholder="이메일" autocomplete="off">
+               </div>
+               <div class="rules">
+                  <p>
+                     ※ 탈퇴할 계정으로 로그인한 후, 비밀번호를 입력하세요.<br> 
+                     ※ 탈퇴 시, 계정 개인 정보가 삭제됩니다.
+                  </p>
+               </div>
+               <input type="submit" value="비밀번호 찾기">
+            </form>
+         </div>
+      </div>
+   </section>
 
-				<button type="submit">로그인</button>
-
-				<div class="login-option">
-					<label> 
-						<input type="checkbox" name="autologin" value="1">로그인 유지
-					</label>
-					<p>
-						<a href="${contextPath}/users/findPassword">비밀번호 찾기</a>
-					</p>
-				</div>
-
-				<div class="login-register">
-					<p>구해줘 룸즈가 처음이신가요?</p>
-					<a href="${contextPath}/users/register"> 회원가입 </a>
-				</div>
-			</form>
-		</div>
-	</section>
-
-	<!-- app -->
-	<script src="${contextPath}/resources/js/dropdown-menu.js"></script>
+   <!-- app -->
+   <script src="${contextPath}/resources/js/dropdown-menu.js"></script>
 </body>
 </html>

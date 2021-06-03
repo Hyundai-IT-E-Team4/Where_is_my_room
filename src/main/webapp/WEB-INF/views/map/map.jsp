@@ -104,8 +104,8 @@
       <div id="menu_wrap" class="bg_white">
          <div>
             <form onsubmit="searchPlaces()" class="input-form">
-               <i class="fas fa-search"></i>&nbsp;<input type="text" value="" id="keyword" size="15">
-               <button type="submit" class="search-btn">검색</button>
+               <i class="fas fa-search"></i>&nbsp;<input type="text" value="${keyword}" id="keyword" size="15">
+               <button type="submit" class="search-btn" id="keyword-btn">검색</button>
             </form>
          </div>
          <div>

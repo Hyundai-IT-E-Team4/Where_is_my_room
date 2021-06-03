@@ -15,7 +15,7 @@
 		                        I.ID MESSAGEID             ,
 		                        I.PARTNERID                ,
 		                        I.STARTDATE                ,
-		                        U.NICKNAME AS PARTNERNAME  ,
+		                        nvl(U.NICKNAME, '탈퇴회원') as PARTNERNAME ,
 		                        M.MESSAGE                  ,
 		                        SEND_DATE  AS SENDDATE,
 		                        U.PROFILE_IMG PROFILEIMG
@@ -69,7 +69,7 @@
 		                        I.ID MESSAGEID             ,
 		                        I.PARTNERID                ,
 		                        I.STARTDATE                ,
-		                        U.NICKNAME AS PARTNERNAME  ,
+		                        nvl(U.NICKNAME, '탈퇴회원') as PARTNERNAME,
 		                        M.MESSAGE                  ,
 		                        SEND_DATE  AS SENDDATE     ,
 		                        U.PROFILE_IMG PROFILEIMG
@@ -118,7 +118,7 @@
 		    I.ID                        ,
 		    I.MESSAGE_ID AS MESSAGEID   ,
 		    I.SENDER_ID  AS SENDERID    ,
-		    I.NICKNAME                  ,
+		    NVL(I.NICKNAME, '탈퇴회원')   AS NICKNAME            ,
 		    I.MESSAGE                   ,
 		    I.SEND_DATE  AS SENDDATE    ,
 		    I.READ						
@@ -149,7 +149,7 @@
 		    I.ID                        ,
 		    I.MESSAGE_ID AS MESSAGEID   ,
 		    I.SENDER_ID  AS SENDERID    ,
-		    I.NICKNAME                  ,
+		    NVL(I.NICKNAME, '탈퇴회원')   AS NICKNAME            ,
 		    I.MESSAGE                   ,
 		    I.SEND_DATE  AS SENDDATE    ,
 		    I.READ						

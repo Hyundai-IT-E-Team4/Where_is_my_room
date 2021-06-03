@@ -98,7 +98,14 @@
 					<a href="${contextPath}/users/logout" class="logout">로그아웃</a>
 				</div>
 				<div class="profile">
-					<img src="https://avatars.githubusercontent.com/u/50897259?v=4">
+					<c:choose>
+						<c:when test="${sessionScope.userInfo.profile_img ne null}">
+							<img src="${sessionScope.userInfo.profile_img}">
+						</c:when>
+						<c:otherwise>
+							<img src="${contextPath}/resources/img/user.png" />
+						</c:otherwise>
+					</c:choose>
 					<div class="profile-detail">
 						<h3>${sessionScope.userInfo.name}</h3>
 						<p>

@@ -55,6 +55,7 @@
 	let userId = "${userInfo.id}";
 </script>
 
+
 </head>
 <body>
 	<div class="popup-container"></div>
@@ -114,9 +115,13 @@
 			<div class="title-container">
 				<h1>${boardDetailDTO.title }</h1>
 				<div class="profile-container">
+					<p>${boardDetailDTO.writeDate}
 					<p>${boardDetailDTO.writerNickName }</p>
-					<c:if test="${boardDetailDTO.writerId != userInfo.id}">
+					<c:if test="${userInfo != null && boardDetailDTO.writerId != userInfo.id}">
 						<button class="chat-btn" onclick="modal()">연락하기</button>
+					</c:if>
+					<c:if test="${userInfo == null}">
+						<button class="chat-btn" onclick="location.href='../users/login'">연락하기</button>
 					</c:if>
 				</div>
 			</div>

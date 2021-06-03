@@ -1,62 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
-		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+      "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.org.team4.dao.UserDAO">
 
-	<select id="getUser" parameterType="LoginDTO"
-		resultType="UserDTO">
-		select *
-		from users
-		where email=#{email} and
-			password=#{password}
-	</select>
+   <select id="getUser" parameterType="LoginDTO"
+      resultType="UserDTO">
+      select *
+      from users
+      where email=#{email} and
+         password=#{password}
+   </select>
 
-	<select id="registerUser" statementType="CALLABLE"
-		parameterType="RegisterDTO">
-		{
-		CALL user_pack.users_register(
-			#{password},
-			#{name},
-			#{nickname},
-			#{email} || '@' || #{textEmail},
-			#{gender}
-		)
-		}
-	</select>
+   <select id="registerUser" statementType="CALLABLE"
+      parameterType="RegisterDTO">
+      {
+      CALL user_pack.users_register(
+         #{password},
+         #{name},
+         #{nickname},
+         #{email} || '@' || #{textEmail},
+         #{gender}
+      )
+      }
+   </select>
 
-	<update id="withdrawUser" parameterType="LoginDTO">
-		update users set 
-			nickname = null, 
-			email = null
-    	where email = #{email} and 
-    		password = #{password}
-	</update>
+   <update id="withdrawUser" parameterType="LoginDTO">
+      update users set 
+         nickname = null, 
+         email = null
+       where email = #{email} and 
+          password = #{password}
+   </update>
         
     <update id="updateUser" parameterType="UserDTO" >
-		UPDATE USERS SET 
-			NAME = #{name},
-			NICKNAME = #{nickname},
-			GENDER = #{gender},
-			PROFILE_IMG = #{profile_img}
+      UPDATE USERS SET 
+         NAME = #{name},
+         NICKNAME = #{nickname},
+         GENDER = #{gender},
+         PROFILE_IMG = #{profile_img}
         WHERE EMAIL = #{email} AND PASSWORD = #{password}
-	</update>
-	
-	<update id="updateEmail" parameterType="UpdateEmailDTO" >
-		UPDATE USERS SET 
-			EMAIL = #{emailAfter}
+   </update>
+   
+   <update id="updateEmail" parameterType="UpdateEmailDTO" >
+      UPDATE USERS SET 
+         EMAIL = #{emailAfter}
         WHERE EMAIL = #{emailBefore} AND PASSWORD = #{password}
-	</update>
-	
-	<update id="updatePassword" parameterType="UpdatePasswordDTO" >
-		UPDATE USERS SET 
-			password = #{passwordAfter}
+   </update>
+   
+   <update id="updatePassword" parameterType="UpdatePasswordDTO" >
+      UPDATE USERS SET 
+         password = #{passwordAfter}
         WHERE EMAIL = #{email} AND PASSWORD = #{passwordBefore}
-	</update>
-	
-	<select id="checkNickname" parameterType="String" resultType="int">
-		select count(*)
-		from users
-		where nickname=#{nickname} 
-	</select>
+   </update>
+   
+   <select id="checkNickname" parameterType="String" resultType="int">
+      select count(*)
+      from users
+      where nickname=#{nickname} 
+   </select>
+   
+   <update id="findPassword" parameterType="FindPasswordDTO">
+      update users set
+         password = #{newPassword}
+      where email=#{email} and name=#{name}
+   </update>
 
 </mapper>
