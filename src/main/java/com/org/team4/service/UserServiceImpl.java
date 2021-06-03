@@ -2,6 +2,7 @@ package com.org.team4.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.org.team4.dao.UserDAO;
 import com.org.team4.dto.LoginDTO;
@@ -9,6 +10,7 @@ import com.org.team4.dto.RegisterDTO;
 import com.org.team4.dto.UpdateEmailDTO;
 import com.org.team4.dto.UpdatePasswordDTO;
 import com.org.team4.dto.UserDTO;
+import com.org.team4.util.Util;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -18,6 +20,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserDAO userDAO;
+	
+	@Autowired
+	private S3Service s3Service;
 
 	public UserDTO getUser(LoginDTO loginDTO) throws Exception {
 
@@ -25,7 +30,11 @@ public class UserServiceImpl implements UserService {
 
 		if (userInfo == null)
 			throw new RuntimeException("이메일 주소 혹은 비밀번호가 틀립니다.");
-
+		
+		log.info("db의 프로필 경로는 {} " , userInfo.getProfile_img());
+		log.info("로그인 정보는 {}", userInfo.toString());
+		
+		userInfo.setProfile_img(s3Service.getFileURL("team4", "thumb/" + userInfo.getProfile_img()));
 		return userInfo;
 	}
 
@@ -40,9 +49,17 @@ public class UserServiceImpl implements UserService {
 	public int checkNickname(String nickname) throws Exception {
 		return userDAO.checkNickname(nickname);
 	}
-
-	public int updateUser(UserDTO userDTO) throws Exception {
-		return userDAO.updateUser(userDTO);
+	
+	public int updateUser(UserDTO userDTO, MultipartFile uploadProfileImg) throws Exception {	
+		String newFileName = Util.makeFileName(uploadProfileImg);
+		String filePath = Util.getCurrentUploadPath() + newFileName;
+		s3Service.fileUpload("team4", Util.originImgFolder + filePath, uploadProfileImg.getBytes());
+		s3Service.fileUpload("team4", Util.thumbImgFolder + filePath, Util.mamkeThumbnail(Util.getType(uploadProfileImg.getOriginalFilename()) , s3Service.getFileURL("team4", Util.originImgFolder + filePath)));
+		userDTO.setProfile_img(filePath);
+		int result = userDAO.updateUser(userDTO);
+		userDTO.setProfile_img(s3Service.getFileURL("team4", "thumb/" + filePath));
+		log.info(userDTO.getProfile_img());
+		return result;
 	}
 
 	public int updateEmail(UpdateEmailDTO updateEmailDTO) throws Exception {

@@ -1,5 +1,7 @@
 package com.org.team4.service;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.org.team4.dto.LoginDTO;
 import com.org.team4.dto.RegisterDTO;
 import com.org.team4.dto.UpdateEmailDTO;
@@ -16,8 +18,8 @@ public interface UserService {
 
 	int checkNickname(String nickname) throws Exception;
 
-	int updateUser(UserDTO userDTO) throws Exception;
-
+	int updateUser(UserDTO userDTO, MultipartFile profileImg) throws Exception;
+	
 	int updateEmail(UpdateEmailDTO updateEmailDTO) throws Exception;
 
 	int updatePassword(UpdatePasswordDTO updatePasswordDTO) throws Exception;

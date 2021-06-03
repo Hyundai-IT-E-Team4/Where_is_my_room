@@ -17,6 +17,7 @@ public class UserDTO implements Serializable {
 	private String nickname;
 	private String email;
 	private String gender;
+	private String profile_img;
 
 	public void setPassword(String password) {
 		this.password = DigestUtils.sha512Hex(password);

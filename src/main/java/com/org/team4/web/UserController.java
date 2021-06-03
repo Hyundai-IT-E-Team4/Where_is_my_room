@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.org.team4.dto.LoginDTO;
 import com.org.team4.dto.RegisterDTO;
@@ -35,11 +36,8 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	private JavaMailSender mailSender;
-
 	@Autowired
-
-	// private BCryptPasswordEncoder pwEncoder;
+	private JavaMailSender mailSender;
 
 	@GetMapping("/login")
 	public String login() {
@@ -53,6 +51,7 @@ public class UserController {
 
 		try {
 			UserDTO userInfo = userService.getUser(loginDTO);
+			log.info(userInfo.toString());
 			session.setAttribute("userInfo", userInfo);
 
 			return "redirect:../";
@@ -127,7 +126,7 @@ public class UserController {
 			model.addAttribute("url", "../");
 		} else {
 			model.addAttribute("msg", "비밀번호가 틀렸습니다. 다시 입력해주세요.");
-			model.addAttribute("url", "../");
+			model.addAttribute("url", "javascript:history.back()");
 		}
 
 		return "result";
@@ -158,23 +157,24 @@ public class UserController {
 	}
 
 	@PostMapping("/update")
-	public String update(@ModelAttribute UserDTO userDTO, Model model, HttpSession session) throws Exception {
+	public String update(@ModelAttribute UserDTO userDTO, Model model, HttpSession session, MultipartFile uploadProfileImg) throws Exception {
 
 		log.info(userDTO.toString());
 
-		long res = userService.updateUser(userDTO);
-
+		long res = userService.updateUser(userDTO, uploadProfileImg);
+		
 		if (res != 0) {
 
 			UserDTO userInfo = userDTO;
 			session.setAttribute("userInfo", userInfo);
+			log.info("세션의 프로필 경로 {}", userInfo.getProfile_img());
 
 			model.addAttribute("msg", "정보가 수정되었습니다.");
-			model.addAttribute("url", "../");
+			model.addAttribute("url", "../users/info");
 
 		} else {
 			model.addAttribute("msg", "비밀번호가 틀렸습니다. 다시 입력해주세요.");
-			model.addAttribute("url", "../");
+			model.addAttribute("url", "javascript:history.back()");
 		}
 
 		return "result";
@@ -203,11 +203,11 @@ public class UserController {
 			session.invalidate();
 
 			model.addAttribute("msg", "이메일이 변경되었습니다. 다시 로그인하세요");
-			model.addAttribute("url", "../");
+			model.addAttribute("url", "../users/login");
 
 		} else {
 			model.addAttribute("msg", "비밀번호가 틀렸습니다. 다시 입력해주세요.");
-			model.addAttribute("url", "../");
+			model.addAttribute("url", "javascript:history.back()");
 		}
 
 		return "result";
@@ -235,11 +235,11 @@ public class UserController {
 			session.invalidate();
 
 			model.addAttribute("msg", "비밀번호가 변경되었습니다. 다시 로그인하세요");
-			model.addAttribute("url", "../");
+			model.addAttribute("url", "../users/login");
 
 		} else {
 			model.addAttribute("msg", "현재 비밀번호가 틀렸습니다. 다시 입력해주세요.");
-			model.addAttribute("url", "../");
+			model.addAttribute("url", "javascript:history.back()");
 		}
 
 		return "result";
@@ -262,10 +262,9 @@ public class UserController {
 	}
 
 	/* 이메일 인증 */
-	@Auth
 	@GetMapping("/mailCheck")
 	@ResponseBody
-	public String mailCheckGET(@RequestParam String email) throws Exception {
+	public String mailCheck(@RequestParam String email) throws Exception {
 
 		/* 뷰(View)로부터 넘어온 데이터 확인 */
 		log.info("이메일 데이터 전송 확인");
@@ -277,7 +276,7 @@ public class UserController {
 		log.info("인증번호 " + checkNum);
 
 		/* 이메일 보내기 */
-		String setFrom = "이메일";
+		String setFrom = "whereismyroom4@gmail.com";
 		String toMail = email;
 		String title = "회원가입 인증 이메일 입니다.";
 		String content = "홈페이지를 방문해주셔서 감사합니다." + "<br><br>" + "인증 번호는 " + checkNum + "입니다." + "<br>"

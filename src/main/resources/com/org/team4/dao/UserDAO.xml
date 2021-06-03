@@ -36,7 +36,8 @@
 		UPDATE USERS SET 
 			NAME = #{name},
 			NICKNAME = #{nickname},
-			GENDER = #{gender}
+			GENDER = #{gender},
+			PROFILE_IMG = #{profileImg}
         WHERE EMAIL = #{email} AND PASSWORD = #{password}
 	</update>
 	
