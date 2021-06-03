@@ -4,22 +4,25 @@
  
    window.addEventListener ("touchmove", function (event) { event.preventDefault (); }, {passive: false});
    // 장소를 검색하면 그 장소를 지도 중앙으로 이동
+
 function searchPlaces() {
    event.preventDefault();
-      var geocoder = new kakao.maps.services.Geocoder();
+      var places = new kakao.maps.services.Places();
        var keyword = document.getElementById('keyword').value;
        if (!keyword.replace(/^\s+|\s+$/g, '')) {
           return false;
        }
-       geocoder.addressSearch(keyword, function(result, status) {
-          if (status === kakao.maps.services.Status.OK) {
+       var callback = function(result, status) {
+      if (status === kakao.maps.services.Status.OK) {
              var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
              map.setCenter(coords);
              map.setLevel(3, {
                 animate : true
              });
           }
-       });
+};
+       
+       places.keywordSearch(keyword, callback);
     }
     
     
