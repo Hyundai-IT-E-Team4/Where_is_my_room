@@ -128,12 +128,6 @@
 						<a href="/team4/map" class="item">지도에서 찾기</a>
 					</li>
 					<li>
-						<a href="/team4/" class="item">내가 등록한 방</a>
-					</li>
-					<li>
-						<a href="/team4/" class="item">최근 둘러본 방</a>
-					</li>
-					<li>
 						<a href="/team4/messages" class="item">채팅</a>
 					</li>
 				</ul>

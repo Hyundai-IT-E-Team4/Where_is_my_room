@@ -113,8 +113,15 @@
 	<section>
 		<div class="container">
 			<div class="update">
-				<form class="register-form" method="post" action="update">
+				<form class="register-form" method="post" action="update" enctype="multipart/form-data">
 					<h1>개인정보 변경</h1>
+					<div class="input">
+						<div class="label">
+							<label>프로필 사진</label>
+						</div>
+						<img alt="" src="${sessionScope.userInfo.profile_img}">
+						<input style="cursor: pointer;" class="input-info" id="uploadProfileImg" type="file" name="uploadProfileImg" placeholder="파일 등록" accept=".jpg, .png" value="${sessionScope.userInfo.name}">
+					</div>
 					<div class="input">
 						<div class="label">
 							<label>이름</label>
@@ -161,7 +168,6 @@
 			</div>
 		</div>
 	</section>
-
 
 	<!-- app -->
 	<script src="../resources/js/dropdown-menu.js"></script>

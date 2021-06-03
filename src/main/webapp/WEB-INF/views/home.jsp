@@ -51,7 +51,7 @@
 			</nav>
 			<div class="header-profile dropdown">
 				<button type="button" class="dropdown-button">
-					<img src="https://avatars.githubusercontent.com/u/50897259?v=4" alt="Profile Image" draggable="false" />
+					<img src="${sessionScope.userInfo.profile_img}" alt="Profile Image" draggable="false" />
 				</button>
 				<div class="dropdown-menu">
 					<c:choose>
