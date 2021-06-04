@@ -183,7 +183,7 @@
 			<div class="banner-container">
 				<div class="comment-banner">&#x1F4AC; 댓글&nbsp;&nbsp;&or;</div>
 				<div>
-					<button id="list" onClick="location.href=history.back()"><strong>목록으로</strong></button>
+					<button id="list" onClick="location.href='javascript:history.back()'"><strong>목록으로</strong></button>
 					<script>
 						console.log("${userInfo.id}");
 						console.log("${boardDetailDTO.writerId}");

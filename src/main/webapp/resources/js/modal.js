@@ -58,6 +58,7 @@
       }).fail(function (data, textStatus, xhr){
          alert("전송 실패!");
       });
+	  $('#modal-text-area').val('');
    });
 }
 

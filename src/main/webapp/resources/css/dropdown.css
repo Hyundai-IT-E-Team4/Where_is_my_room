@@ -5,6 +5,7 @@
 
 .dropdown {
   position: relative;
+  z-index: 2;
 }
 .dropdown-button {
   width: 40px;
