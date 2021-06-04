@@ -32,6 +32,7 @@ function searchPlaces() {
     
     
 $(document).ready(()=>{
+
 	var keyword = document.getElementById('keyword').value;
    var keywordbtn = document.getElementById('keyword-btn');
    if(keyword.length>0){
