@@ -267,6 +267,14 @@
 			<version>1.1.1</version>
 		</dependency>
 
+		<!-- esapi -->
+		<dependency>
+			<groupId>org.owasp.esapi</groupId>
+			<artifactId>esapi</artifactId>
+			<version>2.1.0.1</version>
+		</dependency>
+
+
 	</dependencies>
 	<build>
 		<plugins>

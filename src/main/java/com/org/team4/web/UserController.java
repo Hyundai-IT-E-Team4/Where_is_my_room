@@ -5,6 +5,7 @@ import java.util.Random;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
 
+import org.owasp.esapi.ESAPI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -54,7 +55,6 @@ public class UserController {
          UserDTO userInfo = userService.getUser(loginDTO);
          log.info(userInfo.toString());
          session.setAttribute("userInfo", userInfo);
-
          return "redirect:../";
 
       } catch (Exception e) {
@@ -89,6 +89,7 @@ public class UserController {
    public String register(@ModelAttribute RegisterDTO registerDTO, Model model, HttpSession session) {
 
       try {
+    	  log.warn("이걸봐!! " + registerDTO.getEmail());
          userService.registerUser(registerDTO);
          return "redirect:../";
 

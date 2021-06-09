@@ -41,7 +41,9 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
 <script src="//unpkg.com/bootstrap@4/dist/js/bootstrap.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script type="text/javascript">
+
 	var code = "";
 
 	var button_joinus = $('.submit-btn');
@@ -63,10 +65,17 @@
 			success : function(result) {
 				if (result == 1) {
 					checkNickname = false;
-					alert("이미 있는 닉네임입니다.");
+					Swal.fire({
+					    icon: 'error',
+					    title: '이미 있는 닉네임입니다.'
+					})
+
 				} else {
 					checkNickname = true;
-					alert("사용할 수 있는 닉네임입니다.");
+					Swal.fire({
+					    icon: 'success',
+					    title: '사용 가능한 닉네임입니다.'
+					})
 					check.css("visibility", "visible");
 					
 					if(authEmail)
@@ -104,7 +113,6 @@
 	/* 인증번호 이메일 전송 및 확인 */
 	$(function() {
 		$('.mail_check_btn').click(function() {
-			
 			var email = $("#email").val() + '@' + $("#textEmail").val();
 
 			var boxWrap = $(".mail_check_input_box"); // 인증번호 입력란 박스
@@ -117,7 +125,11 @@
 					url : "./mailCheck?email=" + email,
 					success : function(data) {
 						console.log("data : " + data);
-						alert('인증번호를 전송하였습니다! 메일에서 확인해주세요!');
+						Swal.fire(
+								  '인증번호 전송',
+								  '메일을 확인해주세요.',
+								  'info'
+								)
 						boxWrap.attr("disabled", false);
 						boxWrap.attr("id", "mail_check_input_box_true");
 
@@ -131,13 +143,19 @@
 				if (input == code) {
 					authEmail = true;
 					check.css("visibility", "visible");	
-					alert('인증번호가 일치합니다.');
+					Swal.fire({
+							  title:'인증번호가 일치합니다.',
+							  icon:'success'
+					})
 					
 					if(checkNickname)
 						check.disabled = false;
 				} else {
 					authEmail = false;
-					alert('인증번호가 일치하지 않습니다.');
+					Swal.fire({
+							  title:'인증번호가 일치하지 않습니다.',
+							  icon:'error'
+					})
 				}
 			}
 		})

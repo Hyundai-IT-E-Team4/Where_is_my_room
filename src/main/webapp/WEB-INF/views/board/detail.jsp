@@ -46,6 +46,7 @@
 <script src="${contextPath}/resources/js/global.js"></script>
 <script src="${contextPath}/resources/js/detail.js"></script>
 <script src="${contextPath}/resources/js/modal.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 	let latitude = "${boardDetailDTO.latitude}";
 	let longitude = "${boardDetailDTO.longitude}";

@@ -68,6 +68,27 @@ public class BoardServiceImpl implements BoardService{
 	@Transactional
 	public long insertBoard(BoardDTO boardDTO, Map<String, MultipartFile> files) throws Exception {
 		try {
+			
+			String title = boardDTO.getTitle();
+			String content = boardDTO.getContent();
+			String address = boardDTO.getAddress();
+			String daddress = boardDTO.getDetailAddress();
+
+			String safetitle = title.replaceAll("<", "&lt;").replaceAll(">", "&gt;")
+					                .replaceAll("&", "&amp;").replaceAll("\"", "&quot;");
+			String safecontent = content.replaceAll("<", "&lt;").replaceAll(">", "&gt;")
+                                        .replaceAll("&", "&amp;").replaceAll("\"", "&quot;"); 
+			String safeaddress = address.replaceAll("<", "&lt;").replaceAll(">", "&gt;")
+					                    .replaceAll("&", "&amp;").replaceAll("\"", "&quot;"); 
+			String dsafeaddress = daddress.replaceAll("<", "&lt;").replaceAll(">", "&gt;")
+                                          .replaceAll("&", "&amp;").replaceAll("\"", "&quot;");  
+
+			
+			boardDTO.setTitle(safetitle);
+			boardDTO.setContent(safecontent);
+			boardDTO.setAddress(safeaddress);
+			boardDTO.setDetailAddress(dsafeaddress);
+			
 			boardDAO.insertBoard(boardDTO);
 			long boardId = boardDTO.getId();
 			Set<String> fileSet = files.keySet();
@@ -94,7 +115,26 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	@Transactional
 	public void update(BoardDTO boardDTO, List<Long> imgs, Map<String, MultipartFile> files) throws Exception {
-		// TODO Auto-generated method stub
+
+		String title = boardDTO.getTitle();
+		String content = boardDTO.getContent();
+		String address = boardDTO.getAddress();
+		String daddress = boardDTO.getDetailAddress();
+
+		String safetitle = title.replaceAll("<", "&lt;").replaceAll(">", "&gt;")
+				                .replaceAll("&", "&amp;").replaceAll("\"", "&quot;");
+		String safecontent = content.replaceAll("<", "&lt;").replaceAll(">", "&gt;")
+                                    .replaceAll("&", "&amp;").replaceAll("\"", "&quot;"); 
+		String safeaddress = address.replaceAll("<", "&lt;").replaceAll(">", "&gt;")
+				                    .replaceAll("&", "&amp;").replaceAll("\"", "&quot;"); 
+		String dsafeaddress = daddress.replaceAll("<", "&lt;").replaceAll(">", "&gt;")
+                                      .replaceAll("&", "&amp;").replaceAll("\"", "&quot;");  
+
+		
+		boardDTO.setTitle(safetitle);
+		boardDTO.setContent(safecontent);
+		boardDTO.setAddress(safeaddress);
+		boardDTO.setDetailAddress(dsafeaddress);
 		int x = boardDAO.updateBoard(boardDTO);
 		if(x == 0) throw new Exception();
 		filesDAO.updateAndDelete(imgs);

@@ -39,7 +39,10 @@ $(document).ready(()=>{
                   break;
           }
       }).fail(function (data, textStatus, xhr){
-         alert("권한이 없습니다");
+			Swal.fire({
+			  title:'권한이 없습니다.',
+			  icon:'error'
+			})
       });
    });
    
@@ -67,7 +70,10 @@ function getCommentList(pageNum){
          setPagingComment(data);
          setPagingButton(data, pageNum);      
       }).fail(function (data, textStatus, xhr){
-         alert("댓글 읽기 중 에러가 발생했습니다");
+			Swal.fire({
+			  title:'댓글 읽기중 에러가 발생했습니다.',
+			  icon:'error'
+			})
       });
 }
 
@@ -107,7 +113,10 @@ function deleteBtn(obj){
       }).done(function (data, textStatus, xhr) {
 
       }).fail(function (data, textStatus, xhr){
-         alert("권한이 없습니다");
+			Swal.fire({
+			  title:'권한이 없습니다.',
+			  icon:'error'
+			})
       });
 }
 
@@ -129,7 +138,10 @@ function commentSubmit(obj){
          }
           location.reload();
       }).fail(function (data, textStatus, xhr){
-         alert("권한이 없습니다");
+			Swal.fire({
+			  title:'권한이 없습니다.',
+			  icon:'error'
+			})
       });   
    }
 }
@@ -153,7 +165,10 @@ function replySubmit(obj){
          }
           location.reload();
       }).fail(function (data, textStatus, xhr){
-         alert("권한이 없습니다");
+			Swal.fire({
+			  title:'권한이 없습니다.',
+			  icon:'error'
+			})
       });
    }
 }
@@ -259,13 +274,19 @@ function modifySubmit(obj){
       }).done(function (data, textStatus, xhr) {
           location.reload();
       }).fail(function (data, textStatus, xhr){
-         alert("권한이 없습니다");
+			Swal.fire({
+			  title:'권한이 없습니다.',
+			  icon:'error'
+			})
       });
 }
 
 function valueCheck(str){
    if(str == '') {
-      alert("내용을 입력하세요!");
+		Swal.fire({
+		  title:'내용을 입력하세요',
+		  icon:'info'
+		})
       return false;   
    }
    return true;
@@ -281,6 +302,9 @@ function contact(){
       }).done(function (data, textStatus, xhr) {
           location.reload();
       }).fail(function (data, textStatus, xhr){
-         alert("권한이 없습니다");
+			Swal.fire({
+			  title:'권한이 없습니다.',
+			  icon:'error'
+			})
       });
 }

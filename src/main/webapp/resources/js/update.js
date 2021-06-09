@@ -32,7 +32,6 @@ $(document).ready(()=>{
     });
     $("#add").on("click",function(e){
         e.preventDefault();
-        alert("hu");
         fileAdd();
     });
     $('.imgDelete').click(function(e){

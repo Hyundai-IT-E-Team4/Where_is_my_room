@@ -10,7 +10,10 @@ function searchPlaces() {
       var places = new kakao.maps.services.Places();
        var keyword = document.getElementById('keyword').value;
        if (!keyword.replace(/^\s+|\s+$/g, '')) {
-		  alert('장소를 입력해주세요.');
+			Swal.fire({
+			  title:'장소를 입력해주세요',
+			  icon:'info'
+			})
           return false;
        }
        var callback = function(result, status) {

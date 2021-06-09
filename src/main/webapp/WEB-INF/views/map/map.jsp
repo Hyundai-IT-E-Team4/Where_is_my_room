@@ -42,6 +42,7 @@
 <script src="${contextPath}/resources/js/map.js" ></script>
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 <script src="${contextPath}/resources/js/global.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
    <div class="popup-container"></div>

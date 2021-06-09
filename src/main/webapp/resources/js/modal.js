@@ -50,13 +50,19 @@
             method: "POST",
             data : { "message" : message, "userId1" : userId, "userId2" : writerId}
       }).done(function (data, textStatus, xhr) {
-         alert("전송되었습니다!");
+			Swal.fire({
+			  title:'전송되었습니다.',
+			  icon:'success'
+			})
          bg.remove();
            modal.style.display = 'none';
            let sendData = {"command":"쪽지", "receiverName" : writerNickName, "content" : message};
          send(JSON.stringify(sendData));
       }).fail(function (data, textStatus, xhr){
-         alert("전송 실패!");
+			Swal.fire({
+			  title:'전송 실패',
+			  icon:'error'
+			})
       });
 	  $('#modal-text-area').val('');
    });
