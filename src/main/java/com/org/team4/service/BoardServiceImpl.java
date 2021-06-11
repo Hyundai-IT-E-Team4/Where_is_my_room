@@ -17,6 +17,7 @@ import com.org.team4.dto.BoardDTO;
 import com.org.team4.dto.BoardCheckDTO;
 import com.org.team4.dto.BoardDetailDTO;
 import com.org.team4.dto.FileDTO;
+import com.org.team4.dto.FileUpdateDTO;
 import com.org.team4.util.Util;
 
 import lombok.extern.slf4j.Slf4j;
@@ -137,7 +138,8 @@ public class BoardServiceImpl implements BoardService{
 		boardDTO.setDetailAddress(dsafeaddress);
 		int x = boardDAO.updateBoard(boardDTO);
 		if(x == 0) throw new Exception();
-		filesDAO.updateAndDelete(imgs);
+		FileUpdateDTO fileUpdateDTO = new FileUpdateDTO(imgs, boardDTO.getId());
+		filesDAO.updateAndDelete(fileUpdateDTO);
 		Set<String> fileSet = files.keySet();
 		long boardId = boardDTO.getId();
 		for(String fileNum : fileSet) {

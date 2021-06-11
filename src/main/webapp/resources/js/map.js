@@ -42,7 +42,7 @@ $(document).ready(()=>{
    }
           var mapContainer = document.getElementById('map') // 지도를 표시할 div 
       var mapOption = {
-         center : new kakao.maps.LatLng(37.565372333169925 , 126.9725291823543), // 지도의 중심좌표
+         center : new kakao.maps.LatLng(37.5085973755778 , 127.0597747161012), // 지도의 중심좌표
          level : 4
       };
       // 지도 생성
@@ -171,7 +171,7 @@ $(document).ready(()=>{
       
       function getListItem(place) {
           var el = document.createElement('li');
-          let imgTag = (place.repreFile == null) ? '' : `<div class="info-img"><img src="${place.repreFile}"></div>`;
+          let imgTag = (place.repreFile == null) ? `<div class="info-img"><img src="../team4/resources/img/room.jpg"></div>` : `<div class="info-img"><img src="${place.repreFile}"></div>`;
           var itemStr = `<div class="info-wrap" onclick='location.href="boards/${place.boardId}"'>`
 			          +  	imgTag
                       + '	<div class="info-text">'

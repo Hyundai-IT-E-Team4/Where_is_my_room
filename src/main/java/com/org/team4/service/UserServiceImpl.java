@@ -51,8 +51,12 @@ public class UserServiceImpl implements UserService {
       return userDAO.checkNickname(nickname);
    }
    
-   public int updateUser(UserDTO userDTO, MultipartFile uploadProfileImg) throws Exception {   
+   public int updateUser(UserDTO userDTO, MultipartFile uploadProfileImg) throws Exception {  
+	  if(uploadProfileImg.getOriginalFilename().length() == 0) {
+		  return userDAO.updateUser(userDTO);
+	  }
       String newFileName = Util.makeFileName(uploadProfileImg);
+      log.info(userDTO.toString());
       String filePath = Util.getCurrentUploadPath() + newFileName;
       s3Service.fileUpload("team4", Util.profileFolder + filePath, uploadProfileImg.getBytes()); //원본 업로드
       s3Service.fileUpload("team4", Util.profileThumbFolder + filePath, Util.mamkeThumbnail(Util.getType(uploadProfileImg.getOriginalFilename()) , s3Service.getFileURL("team4", Util.profileFolder + filePath))); // 썸네일 

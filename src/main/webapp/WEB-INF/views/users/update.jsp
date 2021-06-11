@@ -27,6 +27,7 @@
 <link rel="stylesheet" href="${contextPath}/resources/css/footer.css" />
 <link rel="stylesheet" href="${contextPath}/resources/css/dropdown.css" />
 <link rel="stylesheet" href="${contextPath}/resources/css/update.css" />
+<link rel="stylesheet" href="${contextPath}/resources/css/popup.css" />
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 

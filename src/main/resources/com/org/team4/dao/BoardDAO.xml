@@ -36,7 +36,7 @@
          rental_fee = #{rentalFee},
          address = #{address},
          detail_address = #{detailAddress}
-      where writer_id = #{writerId}
+      where writer_id = #{writerId} and id = #{id}
    </update>
    
    <select id="detail" resultType="BoardDetailDTO" parameterType="long">

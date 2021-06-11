@@ -27,6 +27,7 @@
 <link rel="stylesheet" href="${contextPath}/resources/css/footer.css" />
 <link rel="stylesheet" href="${contextPath}/resources/css/dropdown.css" />
 <link rel="stylesheet" href="${contextPath}/resources/css/withdraw.css" />
+<link rel="stylesheet" href="${contextPath}/resources/css/popup.css" />
 
 <!-- favicon -->
 <link rel="shortcut icon" href="${contextPath}/resources/img/favicon.ico"

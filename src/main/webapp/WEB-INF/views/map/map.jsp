@@ -25,6 +25,7 @@
 <link rel="stylesheet" href="${contextPath}/resources/css/dropdown.css" />
 <!-- 해당 페이지의 css 적용! style 지우고 해당 css 입력! -->
 <link rel="stylesheet" href="${contextPath}/resources/css/map.css" />
+<link rel="stylesheet" href="${contextPath}/resources/css/popup.css" />
 
 <!-- favicon -->
 <link rel="shortcut icon" href="${contextPath}/resources/img/favicon.ico"

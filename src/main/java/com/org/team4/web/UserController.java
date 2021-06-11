@@ -162,9 +162,9 @@ public class UserController {
    public String update(@ModelAttribute UserDTO userDTO, Model model, HttpSession session, MultipartFile uploadProfileImg) throws Exception {
 
       log.info(userDTO.toString());
-
+      UserDTO userInfo1 = (UserDTO)session.getAttribute("userInfo");
+      userDTO.setId(userInfo1.getId());
       long res = userService.updateUser(userDTO, uploadProfileImg);
-      
       if (res != 0) {
 
          UserDTO userInfo = userDTO;

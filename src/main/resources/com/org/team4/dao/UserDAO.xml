@@ -36,8 +36,10 @@
       UPDATE USERS SET 
          NAME = #{name},
          NICKNAME = #{nickname},
-         GENDER = #{gender},
-         PROFILE_IMG = #{profile_img}
+         GENDER = #{gender}
+         <if test ="profile_img != null">     
+	         , PROFILE_IMG = #{profile_img}
+         </if>
         WHERE EMAIL = #{email} AND PASSWORD = #{password}
    </update>
    
